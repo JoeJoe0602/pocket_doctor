@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.11</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.jolin</groupId>
+    <artifactId>pocket_doctor</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+    <description>jolin.com</description>
+
+
+    <modules>
+        <module>jolin-common</module>
+        <module>jolin-log</module>
+        <module>jolin-web</module>
+        <module>jolin-security</module>
+        <module>jolin-security-jwt</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <knife4j-spring-ui.version>3.0.2</knife4j-spring-ui.version>
+        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <hutool-all.version>5.5.4</hutool-all.version>
+        <mybatis-plus.version>3.4.3.1</mybatis-plus.version>
+        <jwt.version>1.1.0.RELEASE</jwt.version>
+        <oracle.version>19.3.0.0</oracle.version>
+
+        <!-- 解决eclipse项目中pom文件报错unknown error问题 -->
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+
+        <kotlin.version>1.4.10</kotlin.version>
+
+        <skipTests>true</skipTests>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-jwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+            <!--工具类-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-all.version}</version>
+            </dependency>
+            <!--swagger-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j-spring-ui.version}</version>
+            </dependency>
+            <!--mybatis-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <!-- install和deploy阶段上传源码-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,73 @@
+---
+#全局datasource配置
+spring:
+  datasource:                            #初始化sql配置
+    initialization-mode: ALWAYS
+    continue-on-error: true                        #在初始化数据库时，遇到错误是否继续，默认false
+    test-on-borrow: false                           #当从连接池借用连接时，是否测试该连接.
+    test-while-idle: true                           #当连接空闲时，是否执行连接测试.
+    time-between-eviction-runs-millis: 3600000    #数据库连接时间
+# swagger2是否开启
+swagger2:
+  enable: true
+---
+#mysql配置
+spring:
+  datasource:
+    driver-class-name: "com.mysql.cj.jdbc.Driver"     # mysql 8时候配置
+    url: "jdbc:mysql://192.168.70.44:3307/tdfsample?serverTimezone=GMT%2B8&amp&characterEncoding=utf-8&useSSL=false"  #  mysql 8时候配置
+    # url=jdbc:mysql://127.0.0.1:3306/tdf?useUnicode=true&characterEncoding=utf-8     # mysql 8以下配置
+    # type=com.zaxxer.hikari.HikariDataSource    # mysql 8以下配置
+    data: "classpath:/init/mysqldata.sql"      #初始化sql配置
+    username: root
+    password:
+    data-username: root
+    data-password:
+  redis:
+    database: 13
+    host: 192.168.70.44
+    password: TdfCloudTaiji@123
+    port: 6390
+---
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://oauth2.taiji.com.cn/.well-known/jwks.json  #向OAuth2 请求密钥的接口地址
+#oracle配置
+---
+#spring:
+#  datasource:
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    password: 123456
+#    url: jdbc:oracle:thin:@192.168.19.1:1522:ORCL1
+#    username: TDFNEW
+#    data: "classpath:/init/oracledata.sql"          #注意 需要将sql脚本里的用户名替换为你自己的
+#    schema: "classpath:/init/oracleschema.sql"      #注意 需要将sql脚本里的用户名替换为你自己的
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml                           #扫描多个模块下的mapper.xml
+  type-aliases-package: cn.com.tdf.log.domain,cn.com.tdf.sys.domain     #MyBaits 别名包扫描路径，通过该属性可以给包中的类注册别名，注册后在 Mapper 对应的 XML 文件中可以直接使用类名，而不用使用全限定的类名
+  #type-aliases-super-type: java.lang.Object                             #该配置请和 typeAliasesPackage 一起使用，如果配置了该属性，则仅仅会扫描路径下以该类作为父类的域对象 。
+  global-config:
+    db-config:
+      logic-delete-field: flag                       #全局逻辑删除字段值 3.3.0开始支持，详情看下面。
+      logic-delete-value: "null"                          # 逻辑已删除值
+      logic-not-delete-value: 1                      # 逻辑未删除值
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl     #sql打印
+    map-underscore-to-camel-case: true               #是否开启自动驼峰命名规则（camel case）映射,如果明明规范不需要使用@TableField
+    cache-enabled: false
+    call-setters-on-nulls: true
+#    jdbc-type-for-null: 'null'                        #orcal需要加该配置
+---
+base:
+  sys:
+    file-storage:
+      root-path: "./storage/"  #必须设置的属性 TDF提供简
+  security:
+    login:
+      retry-time: 5    # 默认值；5。登录错误在locked-recover-second时间范围内允许的最大次数
+      locked-recover-second: 10 # 默认值；43200。登录错误超过最大次数后不可登录的恢复时间
+

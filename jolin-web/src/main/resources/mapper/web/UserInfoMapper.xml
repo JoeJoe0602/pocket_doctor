@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jolin.mapper.UserInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jolin.domain.UserInfo">
+        <result column="id" property="id"/>
+        <result column="role_id" property="roleId"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="password" property="password"/>
+        <result column="state" property="state"/>
+        <result column="photo_url" property="photoUrl"/>
+        <result column="is_admin" property="isAdmin"/>
+        <result column="sort" property="sort"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,
+        role_id,
+username,
+nickname,
+password,
+state,
+photo_url,
+is_admin,
+sort,
+is_delete,
+created_at,
+updated_at
+    </sql>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        user_info
+        where
+        is_delete=0
+        <if test="_databaseId == 'mysql'||_databaseId == 'kingbasees'||_databaseId == 'postgresql'">
+
+            <if test="userInfo.createdAt != null">
+                AND created_at = #{userInfo.createdAt}
+            </if>
+
+            <if test="userInfo.updatedAt != null">
+                AND updated_at = #{userInfo.updatedAt}
+            </if>
+
+            <if test="userInfo.username != null">
+                AND username like concat("%",#{userInfo.username},"%")
+            </if>
+
+            <if test="userInfo.nickname != null">
+                AND username like concat("%",#{userInfo.nickname,"%")
+            </if>
+        </if>
+    </select>
+    <select id="findIdByLoginName" resultType="string">
+        select id
+        from user_info
+        where flag = 1
+          and login_name = #{loginName}
+    </select>
+    <select id="findByLoginName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from
+        user_info
+        where
+        is_delete=0 and username=#{loginName}
+    </select>
+
+</mapper>
