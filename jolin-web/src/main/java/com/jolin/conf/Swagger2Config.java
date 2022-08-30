@@ -1,7 +1,7 @@
 package com.jolin.conf;
 
+
 import cn.hutool.core.collection.ListUtil;
-import io.swagger.annotations.AuthorizationScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -9,10 +9,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -77,13 +74,13 @@ public class Swagger2Config implements WebMvcConfigurer {
 
     private SecurityContext securityContextNormal() {
         return SecurityContext.builder()
-//                .securityReferences(defaultAuth())
+                .securityReferences(defaultAuth())
                 .forPaths(PathSelectors.any())
                 .build();
     }
 
-//    private List<SecurityReference> defaultAuth() {
-//        AuthorizationScope[] authorizationScopes=  {new AuthorizationScope("global", "accessEverything")};
-//        return ListUtil.of(new SecurityReference(apiKeyName, authorizationScopes));
-//    }
+    private List<SecurityReference> defaultAuth() {
+        AuthorizationScope[] authorizationScopes = {new AuthorizationScope("global", "accessEverything")};
+        return ListUtil.of(new SecurityReference(apiKeyName, authorizationScopes));
+    }
 }

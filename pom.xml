@@ -35,21 +35,7 @@
     </properties>
 
     <modules>
-        <module>imurui-common</module>
-        <module>imurui-common-jpa</module>
-        <module>imurui-common-mybatis</module>
-        <module>imurui-log</module>
-        <module>imurui-log-jpa</module>
-        <module>imurui-log-mybatis</module>
-        <module>imurui-security</module>
-        <module>imurui-security-jwt</module>
-        <module>imurui-sys</module>
-        <module>imurui-sys-jpa</module>
-        <module>imurui-sys-mybatis</module>
-        <module>imurui-sys-web</module>
-        <module>imurui</module>
         <module>jolin-common</module>
-        <module>jolin-common-mybaits</module>
         <module>jolin-common-mybatis</module>
         <module>jolin-log</module>
         <module>jolin-security</module>
@@ -61,63 +47,29 @@
         <dependencies>
             <!--imurui-->
             <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-common</artifactId>
+                <groupId>com.jolin</groupId>
+                <artifactId>jolin-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-common-jpa</artifactId>
+                <groupId>com.jolin</groupId>
+                <artifactId>jolin-common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jolin</groupId>
+                <artifactId>jolin-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-common-mybatis</artifactId>
+                <groupId>com.jolin</groupId>
+                <artifactId>jolin-security-jwt</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-sys-web</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-sys</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-sys-mybatis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-sys-jpa</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-security-jwt</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-log</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-log-mybatis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.imurui</groupId>
-                <artifactId>imurui-log-jpa</artifactId>
+                <groupId>com.jolin</groupId>
+                <artifactId>jolin-log</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -148,17 +100,6 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
-            <!-- orcal连接-->
-            <dependency>
-                <groupId>com.oracle.database.jdbc</groupId>
-                <artifactId>ojdbc8</artifactId>
-                <version>${oracle.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.oracle.database.nls</groupId>
-                <artifactId>orai18n</artifactId>
-                <version>${oracle.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -171,30 +112,4 @@
     </repositories>
 
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <!-- install和deploy阶段上传源码-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

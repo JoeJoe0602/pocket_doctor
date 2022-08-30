@@ -36,7 +36,7 @@ public abstract class CommonSecurityService {
 //    boolean isAuthenticated();
 
 //    /**
-//     * 检查token是否是tdfbase的
+//     * 检查token是否是base的
 //     * @param token
 //     * @return
 //     */

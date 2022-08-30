@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author chenzhe
+ * @author jolin
  * @version 1.0
  * @date 2021/3/25
  * @describe
@@ -59,7 +59,7 @@ public class BaseJwtTokenConverter {
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(username)
                 .issueTime(createdDate)
-                .issuer("TDF BASE")
+                .issuer(" BASE")
                 .expirationTime(new Date(createdDate.getTime() + expiration * 1000))
                 .claim("refreshDate", createdDate.getTime() + refresh * 1000)
                 .claim("authorities", authoritiesStr)

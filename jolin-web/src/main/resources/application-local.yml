@@ -16,8 +16,6 @@ spring:
     url: "jdbc:mysql://localhost:33060/idf?serverTimezone=GMT%2B8&amp&characterEncoding=utf-8&useSSL=false"  #  mysql 8时候配置
     # url=jdbc:mysql://127.0.0.1:3306/sample?useUnicode=true&characterEncoding=utf-8     # mysql 8以下配置
     # type=com.zaxxer.hikari.HikariDataSource    # mysql 8以下配置
-    data: "classpath:/init/mysqldata.sql"      #初始化sql配置
-    schema: "classpath:/init/mysqlschema.sql"  #初始化sql配置
     username: root
     password: root
     data-username: root
@@ -37,7 +35,7 @@ spring:
 #  datasource:
 #    driver-class-name: org.postgresql.Driver
 #    password: sample
-#    url: jdbc:postgresql://192.168.70.44:3308/TDF
+#    url: jdbc:postgresql://192.168.70.44:3308/
 #    data: "classpath:/init/pgsqldata.sql"
 #    username: sample
 #    hikari:
@@ -71,11 +69,11 @@ spring:
 #spring:
 #  datasource:
 #    data-password: sample
-#    data-username: TDF
+#    data-username:
 #    driver-class-name: com.kingbase8.Driver
 #    password: sample
-#    url: jdbc:kingbase8://172.18.0.7:54321/TDF
-#    username: TDF
+#    url: jdbc:kingbase8://172.18.0.7:54321/
+#    username:
 #    hikari:
 #      maximum-pool-size: 200
 #      minimum-idle: 20

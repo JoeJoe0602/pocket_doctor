@@ -1,9 +1,7 @@
 package com.jolin.conf;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.jolin.common.dto.CommonUserDTO;
 import com.jolin.common.service.CommonSecurityService;
-import com.jolin.common.sms.SmsThirdSendService;
 import com.jolin.security.*;
 import com.jolin.security.authorization.BaseDynamicAuthorization;
 import com.jolin.security.captcha.BaseCaptchaConfigurer;
@@ -13,12 +11,7 @@ import com.jolin.security.jwt.BaseJwtAuthenticationEntryPoint;
 import com.jolin.security.jwt.BaseJwtSuccessHandler;
 import com.jolin.security.jwt.configurer.BaseJwtTokenAuthenticationConfigurer;
 import com.jolin.security.limit.BaseRetryLimitConfigurer;
-import com.jolin.security.qrcode.BaseQrCodeConfigurer;
 import com.jolin.security.service.BaseSecurityServiceImpl;
-import com.jolin.security.sms.SmsSecurityConfigurer;
-import com.jolin.security.sms.SmsUserDetailsService;
-import com.jolin.dto.RoleDTO;
-import com.jolin.dto.UserInfoDTO;
 import com.jolin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +44,7 @@ import java.util.*;
 @EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //TODO 这些配置要封装到tdf security内部
+    //TODO 这些配置要封装到 security内部
     @Value("${base.security.jwt.secret:mySecret}")
     private String secret;
 
@@ -138,13 +131,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .retryTime(retryTime)
                 .lockedRecoverSecond(lockedRecoverSecond);
 
-        //支持移动端扫描二维码登录
-        http.apply(new BaseQrCodeConfigurer<>(getApplicationContext()))
-                .expiration(qrCodeExpiration);
-        //支持手机短信验证码登录
-        http.apply(new SmsSecurityConfigurer<>(getApplicationContext())).enable("off")
-                //前后端分离
-                .authenticationSuccessHandler(baseJwtSuccessHandler());
 
         //JWT没有csrf问题，需要禁用
         http.csrf().disable();
@@ -242,33 +228,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private IUserInfoService iUserService;
 
-    @Autowired
-    private IRoleUserService iRoleUserService;
-
-    @Autowired
-    private IRoleMenuService iRoleMenuService;
-
-    @Autowired
-    private IMenuService iMenuService;
-
     @Bean
     public BaseDynamicAuthorization baseDynamicAccess() {
         return new BaseDynamicAuthorization() {
             @Override
             protected Set<String> getRequiredAuthoritySet(HttpServletRequest request) {
-                // TODO 每次请求都要调用此方法，因此一定要加缓存，TDF使用的是Spring Cache
+                // TODO 每次请求都要调用此方法，因此一定要加缓存，使用的是Spring Cache
                 // TODO 现在是绝对匹配，不支持模糊匹配，用户可以在此自定义扩展其他资源与角色的匹配逻辑，如支持 /** 这种模糊匹配
                 // TODO menuUrl与requestUrl没有任何关系,所以TaijiAccessDecisionManager的逻辑一直没有生效
                 String requestUrl = request.getRequestURI();
                 if (requestUrl.startsWith("/")) {
                     requestUrl = requestUrl.substring(1);
                 }
-                List<String> menuIds = iMenuService.findIdsByMenuUrl(requestUrl);
-                if (CollectionUtils.isEmpty(menuIds)) {
-                    return new HashSet<>();
-                } else {
-                    return new HashSet<>(iRoleMenuService.findRoleIdsByMenuIds(menuIds));
-                }
+                List<String> menuIds= new ArrayList<>();
+                return new HashSet<>();
+//                List<String> menuIds = iMenuService.findIdsByMenuUrl(requestUrl);
+//                if (CollectionUtils.isEmpty(menuIds)) {
+//                    return new HashSet<>();
+//                } else {
+//                    return new HashSet<>(iRoleMenuService.findRoleIdsByMenuIds(menuIds));
+//                }
             }
         };
     }
@@ -286,88 +265,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public List<String> findRoleIdsByLoginName(String loginName) {
                 String userId = iUserService.findIdByLoginName(loginName);
-                return iRoleUserService.findFirstIdsBySecondId(userId);
+                List<String> str = new ArrayList<>();
+                return str;
             }
         };
     }
 
-    /**
-     * 短信验证码登录
-     * 自定义第三方发送短信服务
-     *
-     * @return SmsThirdSendService
-     */
-    @Bean
-    public SmsThirdSendService smsThirdSendService() {
-        return data -> {
-            System.out.println("测试");
-            return true;
-        };
-    }
 
-    /**
-     * 短信验证码登录
-     * 根据手机号获取用户详情的service
-     *
-     * @return SmsUserDetailsService
-     */
-    @Bean
-    public SmsUserDetailsService smsUserDetailsService() {
-        return new SmsUserDetailsService() {
-            @Autowired
-            private IUserInfoService iUserInfoService;
-            @Autowired
-            private IRoleUserService iRoleUserService;
-            @Autowired
-            private IRoleService roleService;
-
-            @Override
-            @Transactional
-            public UserDetails loadByPhoneNum(String phoneNum) {
-
-                CommonUserDTO user = iUserInfoService.findByPhoneNum(phoneNum);
-
-                Collection<GrantedAuthority> grantedAuths;
-
-                //如果根据手机号查询不到用户直接新增该用户
-                if (user == null) {
-                    user = new UserInfoDTO();
-                    user.setPhoneNum(phoneNum);
-                    user.setState("1");
-                    //如果没有角色，设置默认的ROLE_USER角色
-                    RoleDTO role = roleService.findByRoleName("ROLE_USER");
-
-                    String id = iUserInfoService.saveUserWithRoles((UserInfoDTO) user, Arrays.asList(role.getId()));
-                    user.setId(id);
-                    //设置默认权限
-                    grantedAuths = Arrays.asList(new SimpleGrantedAuthority(role.getId()));
-                } else {
-                    grantedAuths = obtionGrantedAuthorities(user.getId());
-                }
-
-
-                /**
-                 *      封装成spring security的user
-                 *      在这里把用户的手机号封装到User中的loginName字段中,如果为空会报错,同时在获取当前用户时可以直接获取当前用户
-                 *
-                 */
-
-                BaseSecurityUser userdetail = new BaseSecurityUser(user, user.getPhoneNum(), "", grantedAuths);
-                return userdetail;
-            }
-
-            // 取得用户的权限
-            private Set<GrantedAuthority> obtionGrantedAuthorities(String userId) {
-                Set<GrantedAuthority> authSet = new HashSet<GrantedAuthority>();
-                // 获取用户角色
-                List<String> roleIds = iRoleUserService.findRoleIdsByUserIds(Arrays.asList(userId));
-                if (CollectionUtil.isNotEmpty(roleIds)) {
-                    roleIds.forEach(roleId -> {
-                        authSet.add(new SimpleGrantedAuthority(roleId));
-                    });
-                }
-                return authSet;
-            }
-        };
-    }
 }

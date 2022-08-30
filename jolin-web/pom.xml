@@ -11,35 +11,16 @@
     <packaging>jar</packaging>
     <artifactId>jolin-web</artifactId>
 
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
 
 
     <dependencies>
         <dependency>
-            <groupId>com.imurui</groupId>
-            <artifactId>imurui-security-jwt</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.jolin</groupId>
             <artifactId>jolin-security-jwt</artifactId>
-            <version>1.0</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.imurui</groupId>-->
-        <!--            <artifactId>imurui-sys-jpa</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.imurui</groupId>-->
-        <!--            <artifactId>imurui-log-jpa</artifactId>-->
-        <!--        </dependency>-->
-
         <dependency>
             <groupId>com.jolin</groupId>
             <artifactId>jolin-log</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>

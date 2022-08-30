@@ -11,16 +11,10 @@
 
     <artifactId>jolin-security</artifactId>
 
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.jolin</groupId>
             <artifactId>jolin-common</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
