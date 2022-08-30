@@ -1,7 +1,10 @@
 package com.jolin.domain;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.jolin.common.base.BaseDomain;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,55 +22,27 @@ public class UserInfo extends BaseDomain {
 
     private static final long serialVersionUID=1L;
 
-    private String address;
 
-    private String avatar;
-
-    private byte[] avatarContent;
-
-    private String birthday;
-
-    private String blog;
-
-    private String email;
-
-    private String gender;
-
-    private String idNumber;
-    /**
-     * 积分
-     */
-    private Integer integral;
-
+    @ApiModelProperty(value = "登录名")
     private String loginName;
-
-    private String nickname;
 
     private String password;
 
-    private String phoneNum;
+    @ApiModelProperty(value = "真实姓名")
+    @TableField(value = "nickname", fill = FieldFill.INSERT)
+    private String nickName;
 
+
+
+    @ApiModelProperty(value = "是否启用（锁定），1是启用（不锁定），0是不启用（被锁定）", example = "1")
     private String state;
 
-    private String tag;
+    private Integer roleId;
 
-    private Integer userIndex;
+    private String photoUrl;
 
-    private String userName;
-    /**
-     * 经验值
-     */
-    private Integer experience;
+    private Integer isAdmin;
 
-    /**
-     * 余额
-     */
-    private BigDecimal balance;
-
-    /**
-     * 用户元数据
-     */
-    private String userMetadata;
 
 }
 

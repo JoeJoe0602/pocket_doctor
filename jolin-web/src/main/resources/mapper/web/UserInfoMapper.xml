@@ -5,219 +5,55 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.jolin.domain.UserInfo">
         <result column="id" property="id"/>
-        <result column="flag" property="flag"/>
-        <result column="created_by" property="createdBy"/>
-        <result column="created_date" property="createdDate"/>
-        <result column="modified_by" property="modifiedBy"/>
-        <result column="modified_date" property="modifiedDate"/>
-        <result column="address" property="address"/>
-        <result column="avatar" property="avatar"/>
-        <result column="avatar_content" property="avatarContent"/>
-        <result column="birthday" property="birthday"/>
-        <result column="blog" property="blog"/>
-        <result column="email" property="email"/>
-        <result column="gender" property="gender"/>
-        <result column="id_number" property="idNumber"/>
-        <result column="integral" property="integral"/>
+        <result column="role_id" property="roleId"/>
         <result column="login_name" property="loginName"/>
-        <result column="nickname" property="nickname"/>
+        <result column="nickname" property="nickName"/>
         <result column="password" property="password"/>
-        <result column="phone_num" property="phoneNum"/>
-        <result column="remark" property="remark"/>
+        <result column="photo_url" property="photoUrl"/>
         <result column="state" property="state"/>
-        <result column="tag" property="tag"/>
-        <result column="user_index" property="userIndex"/>
-        <result column="user_name" property="userName"/>
-        <result column="experience" property="experience"/>
-        <result column="balance" property="balance"/>
+        <result column="sort" property="sort"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id
-        ,
-        flag,
-        created_by, created_date, modified_by, modified_date, address, avatar, avatar_content, birthday, blog, email, gender, id_number, integral, login_name, nickname, phone_num, remark, state, tag, user_index, user_name,
-        experience,balance
+        id,
+        role_id,
+        login_name,
+        nickname,
+        password,
+        photo_url,
+        state,
+        sort,
+        is_delete,
+        created_at,
+        updated_at
     </sql>
-    <!-- 通用查询结果列 -->
-    <sql id="Page_Column_List">
-        u
-        .
-        id
-        ,u.flag,u.created_by, u.created_date, u.modified_by, u.modified_date, u.remark, u.state,
-        u.address, u.avatar, u.avatar_content, u.birthday,u.blog, u.email, u.gender, u.id_number, u.integral,
-        u.login_name, u.nickname, u.phone_num, u.tag, u.user_index, u.user_name,u.experience,u.balance
-    </sql>
+  
 
-    <sql id="Oracle_Column_List">
-        u
-        .
-        id
-        ,u.flag,u.created_by, u.created_date, u.modified_by, u.modified_date, u.remark, u.state,
-        u.address, u.avatar, u.birthday,u.blog, u.email, u.gender, u.id_number, u.integral,
-        u.login_name, u.nickname, u.phone_num, u.tag, u.user_index, u.user_name,u.experience,u.balance
-    </sql>
+  
     <select id="selectPage" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from
         user_info
         where
-        flag=1
-        <if test="_databaseId == 'mysql'||_databaseId == 'kingbasees'||_databaseId == 'postgresql'">
-            <if test="userInfo.createdBy != null and userInfo.createdBy != ''">
-                AND created_by LIKE concat ('%',#{userInfo.createdBy},'%')
-            </if>
-            <if test="userInfo.createdDate != null">
-                AND created_date = #{userInfo.createdDate}
-            </if>
-            <if test="userInfo.modifiedBy != null and userInfo.modifiedBy != ''">
-                AND modified_by LIKE concat ('%',#{userInfo.modifiedBy},'%')
-            </if>
-            <if test="userInfo.modifiedDate != null">
-                AND modified_date = #{userInfo.modifiedDate}
-            </if>
-            <if test="userInfo.address != null and userInfo.address != ''">
-                AND address LIKE concat ('%',#{userInfo.address},'%')
-            </if>
-            <if test="userInfo.avatar != null and userInfo.avatar != ''">
-                AND avatar LIKE concat ('%',#{userInfo.avatar},'%')
-            </if>
-            <if test="userInfo.avatarContent != null and userInfo.avatarContent != ''">
-                AND avatar_content LIKE concat ('%',#{userInfo.avatarContent},'%')
-            </if>
-            <if test="userInfo.birthday != null and userInfo.birthday != ''">
-                AND birthday LIKE concat ('%',#{userInfo.birthday},'%')
-            </if>
-            <if test="userInfo.blog != null and userInfo.blog != ''">
-                AND blog LIKE concat ('%',#{userInfo.blog},'%')
-            </if>
-            <if test="userInfo.email != null and userInfo.email != ''">
-                AND email LIKE concat ('%',#{userInfo.email},'%')
-            </if>
-            <if test="userInfo.gender != null and userInfo.gender != ''">
-                AND gender LIKE  concat ('%',#{userInfo.gender},'%')
-            </if>
-            <if test="userInfo.idNumber != null and userInfo.idNumber != ''">
-                AND id_number LIKE concat ('%',#{userInfo.idNumber},'%')
-            </if>
-            <if test="userInfo.integral != null and userInfo.integral != ''">
-                AND integral LIKE concat ('%',#{userInfo.integral},'%')
-            </if>
-            <if test="userInfo.loginName != null and userInfo.loginName != ''">
-                AND login_name LIKE concat ('%',#{userInfo.loginName},'%')
-            </if>
-            <if test="userInfo.nickname != null and userInfo.nickname != ''">
-                AND nickname LIKE '%${userInfo.nickname}%'
-            </if>
-            <if test="userInfo.password != null and userInfo.password != ''">
-                AND password = #{userInfo.password}
-            </if>
-            <if test="userInfo.phoneNum != null and userInfo.phoneNum != ''">
-                AND phone_num LIKE concat ('%',#{userInfo.phoneNum},'%')
-            </if>
-            <if test="userInfo.remark != null and userInfo.remark != ''">
-                AND remark LIKE concat ('%',#{userInfo.remark},'%')
-            </if>
-            <if test="userInfo.state != null and userInfo.state != ''">
-                AND state LIKE concat ('%',#{userInfo.remark},'%')
-            </if>
-            <if test="userInfo.tag != null and userInfo.tag != ''">
-                AND tag LIKE concat ('%',#{userInfo.tag},'%')
-            </if>
-            <if test="userInfo.userIndex != null and userInfo.userIndex != ''">
-                AND user_index = #{userInfo.userIndex}
-            </if>
-            <if test="userInfo.userName != null and userInfo.userName != ''">
-                AND user_name LIKE concat ('%',#{userInfo.userName},'%')
-            </if>
-            <if test="userInfo.experience != null and userInfo.experience != ''">
-                AND experience LIKE concat ('%',#{userInfo.experience},'%')
-            </if>
-            <if test="userInfo.balance != null and userInfo.balance != ''">
-                AND balance = #{userInfo.balance}
-            </if>
+        is_delete = 0
+
+        <if test="userInfo.createdAt != null and userInfo.createdAt != ''">
+            AND created_at LIKE concat ('%',#{userInfo.createdAt},'%')
         </if>
-        <if test="_databaseId == 'oracle'">
-            <if test="userInfo.createdBy != null and userInfo.createdBy != ''">
-                AND created_by LIKE '%' || #{userInfo.createdBy} || '%'
-            </if>
-            <if test="userInfo.createdDate != null">
-                AND created_date = #{userInfo.createdDate}
-            </if>
-            <if test="userInfo.modifiedBy != null and userInfo.modifiedBy != ''">
-                AND modified_by LIKE '%' || #{userInfo.modifiedBy} || '%'
-            </if>
-            <if test="userInfo.modifiedDate != null">
-                AND modified_date = #{userInfo.modifiedDate}
-            </if>
-            <if test="userInfo.address != null and userInfo.address != ''">
-                AND address LIKE '%' || #{userInfo.address} || '%'
-            </if>
-            <if test="userInfo.avatar != null and userInfo.avatar != ''">
-                AND avatar LIKE '%' || #{userInfo.avatar} || '%'
-            </if>
-            <if test="userInfo.avatarContent != null and userInfo.avatarContent != ''">
-                AND avatar_content LIKE '%' || #{userInfo.avatarContent} || '%'
-            </if>
-            <if test="userInfo.birthday != null and userInfo.birthday != ''">
-                AND birthday LIKE '%' || #{userInfo.birthday} || '%'
-            </if>
-            <if test="userInfo.blog != null and userInfo.blog != ''">
-                AND blog LIKE '%' || #{userInfo.blog} || '%'
-            </if>
-            <if test="userInfo.email != null and userInfo.email != ''">
-                AND email LIKE '%' || #{userInfo.email} || '%'
-            </if>
-            <if test="userInfo.gender != null and userInfo.gender != ''">
-                AND gender LIKE  '%' || #{userInfo.gender} || '%'
-            </if>
-            <if test="userInfo.idNumber != null and userInfo.idNumber != ''">
-                AND id_number LIKE '%' || #{userInfo.idNumber} || '%'
-            </if>
-            <if test="userInfo.integral != null and userInfo.integral != ''">
-                AND integral LIKE '%' || #{userInfo.integral} || '%'
-            </if>
-            <if test="userInfo.loginName != null and userInfo.loginName != ''">
-                AND login_name LIKE '%' || #{userInfo.loginName} || '%'
-            </if>
-            <if test="userInfo.nickname != null and userInfo.nickname != ''">
-                AND nickname LIKE '%' || #{userInfo.nickname} || '%'
-            </if>
-            <if test="userInfo.password != null and userInfo.password != ''">
-                AND password = #{userInfo.password}
-            </if>
-            <if test="userInfo.phoneNum != null and userInfo.phoneNum != ''">
-                AND phone_num LIKE '%' || #{userInfo.phoneNum} || '%'
-            </if>
-            <if test="userInfo.remark != null and userInfo.remark != ''">
-                AND remark LIKE '%' || #{userInfo.remark} || '%'
-            </if>
-            <if test="userInfo.state != null and userInfo.state != ''">
-                AND state LIKE '%' || #{userInfo.remark} || '%'
-            </if>
-            <if test="userInfo.tag != null and userInfo.tag != ''">
-                AND tag LIKE '%' || #{userInfo.tag} || '%'
-            </if>
-            <if test="userInfo.userIndex != null and userInfo.userIndex != ''">
-                AND user_index = #{userInfo.userIndex}
-            </if>
-            <if test="userInfo.userName != null and userInfo.userName != ''">
-                AND user_name LIKE '%' || #{userInfo.userName} || '%'
-            </if>
-            <if test="userInfo.experience != null and userInfo.experience != ''">
-                AND experience LIKE '%' || #{userInfo.experience} || '%'
-            </if>
-            <if test="userInfo.balance != null and userInfo.balance != ''">
-                AND balance = #{userInfo.balance}
-            </if>
+
+        <if test="userInfo.loginName != null and userInfo.loginName != ''">
+            AND login_name LIKE concat ('%',#{userInfo.loginName},'%')
         </if>
     </select>
     <select id="findIdByLoginName" resultType="string">
         select id
         from user_info
-        where flag = 1
+        where is_delete = 0
           and login_name = #{loginName}
     </select>
     <select id="findByLoginName" resultMap="BaseResultMap">
@@ -226,7 +62,7 @@
         from
         user_info
         where
-        flag=1 and login_name=#{loginName}
+        is_delete = 0 and login_name=#{loginName}
     </select>
     <select id="findByPhoneNum" resultMap="BaseResultMap">
         select
@@ -234,217 +70,13 @@
         from
         user_info
         where
-        flag=1 and phone_num=#{phoneNum}
+        is_delete = 0 and phone_num=#{phoneNum}
     </select>
-    <select id="findUsersByDeptId" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from
-        user_info ui
-        left join
-        dept_user du
-        on du.user_id = ui.id
-        where
-        du.dept_id = #{deptId}
-        and flag =1
-    </select>
-    <select id="findUserByRoleId" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from
-        dept_user du
-        left join
-        user_info ui
-        on du.user_id = ui.id
-        where
-        du.dept_id = #{deptId}
-        and flag =1
-    </select>
-    <select id="getUserOnlyByRoleIdOrDeptIdPage" resultType="java.util.Map">
-        select
-        distinct
-        <include refid="Oracle_Column_List"/>
-        from
-        user_info u
-        left join role_user ru on ru.user_id=u.id
-        left join dept_user du on du.user_id=u.id
-        where
-        u.flag=1
-        <if test="_databaseId == 'mysql'||_databaseId == 'kingbasees'||_databaseId == 'postgresql'">
-            <if test="userInfo.createdBy != null and userInfo.createdBy != ''">
-                AND u.created_by LIKE concat ('%',#{userInfo.createdBy},'%')
-            </if>
-            <if test="userInfo.createdDate != null ">
-                AND u.created_date = #{userInfo.createdDate}
-            </if>
-            <if test="userInfo.modifiedBy != null and userInfo.modifiedBy != ''">
-                AND u.modified_by LIKE concat ('%',#{userInfo.modifiedBy},'%')
-            </if>
-            <if test="userInfo.modifiedDate != null">
-                AND u.modified_date = #{userInfo.modifiedDate}
-            </if>
-            <if test="userInfo.address != null and userInfo.address != ''">
-                AND u.address LIKE concat ('%',#{userInfo.address},'%')
-            </if>
-            <if test="userInfo.avatar != null and userInfo.avatar != ''">
-                AND u.avatar LIKE concat ('%',#{userInfo.avatar},'%')
-            </if>
-            <if test="userInfo.avatarContent != null and userInfo.avatarContent != ''">
-                AND u.avatar_content LIKE concat ('%',#{userInfo.avatarContent},'%')
-            </if>
-            <if test="userInfo.birthday != null and userInfo.birthday != ''">
-                AND u.birthday LIKE concat ('%',#{userInfo.birthday},'%')
-            </if>
-            <if test="userInfo.blog != null and userInfo.blog != ''">
-                AND u.blog LIKE concat ('%',#{userInfo.blog},'%')
-            </if>
-            <if test="userInfo.email != null and userInfo.email != ''">
-                AND u.email LIKE concat ('%',#{userInfo.email},'%')
-            </if>
-            <if test="userInfo.gender != null and userInfo.gender != ''">
-                AND u.gender LIKE concat ('%',#{userInfo.gender},'%')
-            </if>
-            <if test="userInfo.idNumber != null and userInfo.idNumber != ''">
-                AND u.id_number LIKE concat ('%',#{userInfo.idNumber},'%')
-            </if>
-            <if test="userInfo.loginName != null and userInfo.loginName != ''">
-                AND u.login_name LIKE concat ('%',#{userInfo.loginName},'%')
-            </if>
-            <if test="userInfo.nickname != null and userInfo.nickname != ''">
-                AND u.nickname LIKE concat ('%',#{userInfo.nickname},'%')
-            </if>
-            <if test="userInfo.phoneNum != null and userInfo.phoneNum != ''">
-                AND u.phone_num LIKE concat ('%',#{userInfo.phoneNum},'%')
-            </if>
-            <if test="userInfo.remark != null and userInfo.remark != ''">
-                AND u.remark LIKE concat ('%',#{userInfo.remark},'%')
-            </if>
-            <if test="userInfo.state != null and userInfo.state != ''">
-                AND u.state = #{userInfo.state}
-            </if>
-            <if test="userInfo.tag != null and userInfo.tag != ''">
-                AND u.tag = #{userInfo.tag}
-            </if>
-            <if test="userInfo.userIndex != null and userInfo.userIndex != ''">
-                AND u.user_index = #{userInfo.userIndex}
-            </if>
-            <if test="userInfo.userName != null and userInfo.userName != ''">
-                AND u.user_name LIKE concat ('%',#{userInfo.userName},'%')
-            </if>
-            <if test="userInfo.roleId != null and userInfo.roleId != ''">
-                AND ru.role_id = #{userInfo.roleId}
-            </if>
-            <if test="userInfo.deptId != null and userInfo.deptId != ''">
-                AND du.dept_id = #{userInfo.deptId}
-            </if>
-            <if test="userInfo.experience != null and userInfo.experience != ''">
-                AND experience LIKE concat ('%',#{userInfo.experience},'%')
-            </if>
-            <if test="userInfo.balance != null and userInfo.balance != ''">
-                AND balance = #{userInfo.balance}
-            </if>
-        </if>
-        <if test="_databaseId == 'oracle'">
-            <if test="userInfo.createdBy != null and userInfo.createdBy != ''">
-                AND created_by LIKE '%' || #{userInfo.createdBy} || '%'
-            </if>
-            <if test="userInfo.createdDate != null">
-                AND created_date = #{userInfo.createdDate}
-            </if>
-            <if test="userInfo.modifiedBy != null and userInfo.modifiedBy != ''">
-                AND modified_by LIKE '%' || #{userInfo.modifiedBy} || '%'
-            </if>
-            <if test="userInfo.modifiedDate != null">
-                AND modified_date = #{userInfo.modifiedDate}
-            </if>
-            <if test="userInfo.address != null and userInfo.address != ''">
-                AND address LIKE '%' || #{userInfo.address} || '%'
-            </if>
-            <if test="userInfo.avatar != null and userInfo.avatar != ''">
-                AND avatar LIKE '%' || #{userInfo.avatar} || '%'
-            </if>
-            <if test="userInfo.avatarContent != null and userInfo.avatarContent != ''">
-                AND avatar_content LIKE '%' || #{userInfo.avatarContent} || '%'
-            </if>
-            <if test="userInfo.birthday != null and userInfo.birthday != ''">
-                AND birthday LIKE '%' || #{userInfo.birthday} || '%'
-            </if>
-            <if test="userInfo.blog != null and userInfo.blog != ''">
-                AND blog LIKE '%' || #{userInfo.blog} || '%'
-            </if>
-            <if test="userInfo.email != null and userInfo.email != ''">
-                AND email LIKE '%' || #{userInfo.email} || '%'
-            </if>
-            <if test="userInfo.gender != null and userInfo.gender != ''">
-                AND gender LIKE  '%' || #{userInfo.gender} || '%'
-            </if>
-            <if test="userInfo.idNumber != null and userInfo.idNumber != ''">
-                AND id_number LIKE '%' || #{userInfo.idNumber} || '%'
-            </if>
-            <if test="userInfo.integral != null and userInfo.integral != ''">
-                AND integral LIKE '%' || #{userInfo.integral} || '%'
-            </if>
-            <if test="userInfo.loginName != null and userInfo.loginName != ''">
-                AND login_name LIKE '%' || #{userInfo.loginName} || '%'
-            </if>
-            <if test="userInfo.nickname != null and userInfo.nickname != ''">
-                AND nickname LIKE '%' || #{userInfo.nickname} || '%'
-            </if>
-            <if test="userInfo.password != null and userInfo.password != ''">
-                AND password = #{userInfo.password}
-            </if>
-            <if test="userInfo.phoneNum != null and userInfo.phoneNum != ''">
-                AND phone_num LIKE '%' || #{userInfo.phoneNum} || '%'
-            </if>
-            <if test="userInfo.remark != null and userInfo.remark != ''">
-                AND remark LIKE '%' || #{userInfo.remark} || '%'
-            </if>
-            <if test="userInfo.state != null and userInfo.state != ''">
-                AND state LIKE '%' || #{userInfo.remark} || '%'
-            </if>
-            <if test="userInfo.tag != null and userInfo.tag != ''">
-                AND tag LIKE '%' || #{userInfo.tag} || '%'
-            </if>
-            <if test="userInfo.userIndex != null and userInfo.userIndex != ''">
-                AND user_index = #{userInfo.userIndex}
-            </if>
-            <if test="userInfo.userName != null and userInfo.userName != ''">
-                AND user_name LIKE '%' || #{userInfo.userName} || '%'
-            </if>
-            <if test="userInfo.experience != null and userInfo.experience != ''">
-                AND experience LIKE '%' || #{userInfo.experience} || '%'
-            </if>
-            <if test="userInfo.balance != null and userInfo.balance != ''">
-                AND balance = #{userInfo.balance}
-            </if>
-        </if>
-
-    </select>
-    <select id="findIdByPhoneNum" resultType="java.lang.String">
-        select id
-        from user_info
-        where flag = 1
-          and phone_num = #{phoneNum}
-    </select>
-    <select id="findIdByEmail" resultType="java.lang.String">
-        select id
-        from user_info
-        where flag = 1
-          and email = #{email}
-    </select>
-
     <select id="checkUserExist" resultType="java.lang.String">
         select id
         from user_info
         where login_name = #{loginName}
     </select>
-    <select id="findByEmail" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"></include>
-        from
-        user_info
-        where
-        flag=1 and email=#{email}
-    </select>
+
 
 </mapper>

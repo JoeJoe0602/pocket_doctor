@@ -18,19 +18,14 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         LOGGER.info("start insert fill ....");
-        this.setFieldValByName("createdDate", LocalDateTime.now(), metaObject);
-        this.setFieldValByName("flag", 1, metaObject);
-        this.setFieldValByName("modifiedDate", LocalDateTime.now(), metaObject);
-        String currentLogin = CommonSecurityService.instance.getCurrentLoginName();
-        this.setFieldValByName("createdBy", currentLogin, metaObject);
-        this.setFieldValByName("modifiedBy", currentLogin, metaObject);
+        this.setFieldValByName("createdAt", LocalDateTime.now(), metaObject);
+        this.setFieldValByName("isDelete", 0, metaObject);
+        this.setFieldValByName("updatedAt", LocalDateTime.now(), metaObject);
     }
 
     // 更新时自动填充
     @Override
     public void updateFill(MetaObject metaObject) {
-        String currentLogin = CommonSecurityService.instance.getCurrentLoginName();
-        this.setFieldValByName("modifiedBy", currentLogin, metaObject);
-        this.setFieldValByName("modifiedDate", LocalDateTime.now(), metaObject);
+        this.setFieldValByName("updatedAt", LocalDateTime.now(), metaObject);
     }
 }

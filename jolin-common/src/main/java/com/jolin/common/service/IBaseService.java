@@ -13,7 +13,7 @@ public interface IBaseService<DTO extends BaseDTO, D extends CommonDomain> exten
         dto = IBaseCommonService.super.beforeCreate(dto);
         dto.setId(IdUtil.simpleUUID());
         // 初始化
-        dto.setFlag(1);
+        dto.setIsDelete(0);
         return dto;
     }
 }

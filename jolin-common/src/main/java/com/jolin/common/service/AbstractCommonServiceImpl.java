@@ -68,7 +68,7 @@ public abstract class AbstractCommonServiceImpl<I extends ICommonRepository<D>, 
 
         DTO filters = (DTO) pageDTO.getFilters();
         if (filters instanceof BaseDTO) {
-            ((BaseDTO) filters).setFlag(1);
+            ((BaseDTO) filters).setIsDelete(0);
         }
         D main = dtoToDomain(filters);
         return main;

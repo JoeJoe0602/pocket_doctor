@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public abstract class BaseCommonDTO extends CommonDTO {
-    @ApiModelProperty(value = "String UUID", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "ID", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private String id;
 }

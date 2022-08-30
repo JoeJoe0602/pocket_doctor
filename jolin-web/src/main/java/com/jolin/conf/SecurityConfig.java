@@ -181,7 +181,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/configuration/security");
         // swagger end
 
-        web.ignoring().antMatchers("/game_user/**");
+        web.ignoring().antMatchers("/sys/**");
 
     }
 
