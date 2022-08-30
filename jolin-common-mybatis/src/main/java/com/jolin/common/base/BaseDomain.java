@@ -2,6 +2,7 @@ package com.jolin.common.base;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class BaseDomain extends BaseCommonDomain {
      * 删除标记
      */
     @TableField(value = "is_delete", fill = FieldFill.INSERT)
+    @TableLogic
     private Integer isDelete;
 
     /**

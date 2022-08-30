@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,11 +20,13 @@ public class CommonPageDTO<DTO> implements Serializable {
 
     @Min(value = 1, message = "最少是第一页")
     @ApiModelProperty(example = "1")
+    @NotNull(message = "页码为必要参数")
     private Integer page;
 
     @Min(value = 1, message = "每页最少展示1项")
     @Max(value = 1000, message = "每页最多展示1000项")
     @ApiModelProperty(example = "10")
+    @NotNull(message = "页大小为必要参数")
     private Integer pageSize;
 
     private List<SortDTO> sorts;

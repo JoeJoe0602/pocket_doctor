@@ -12,9 +12,10 @@ import java.util.Map;
 
 public interface UserInfoMapper extends IBaseMapper<UserInfo> {
 
-    IPage<Map> getUserOnlyByRoleIdOrDeptIdPage(@Param("page")Page page, @Param("userInfo") UserInfoDTO userInfo);
+    IPage<Map> getUserOnlyByRoleIdOrDeptIdPage(@Param("page") Page page, @Param("userInfo") UserInfoDTO userInfo);
+
     /**
-     *  分页
+     * 分页
      */
     IPage<UserInfo> selectPage(@Param("page") Page page, @Param("userInfo") UserInfo userInfo);
 
@@ -22,16 +23,7 @@ public interface UserInfoMapper extends IBaseMapper<UserInfo> {
 
     UserInfo findByLoginName(String loginName);
 
-    List<UserInfo> findUsersByDeptId(String deptId);
-
-    List<UserInfo> findUserByRoleId(String roleId);
-
     UserInfo findByPhoneNum(String phoneNum);
-    UserInfo findByEmail(String email);
-
-    String findIdByPhoneNum(String PhoneNum);
-
-    String findIdByEmail(String email);
 
     String checkUserExist(String loginName);
 }

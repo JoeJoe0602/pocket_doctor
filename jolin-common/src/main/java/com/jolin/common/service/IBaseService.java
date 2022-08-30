@@ -11,7 +11,7 @@ public interface IBaseService<DTO extends BaseDTO, D extends CommonDomain> exten
     @Override
     default DTO beforeCreate(DTO dto) {
         dto = IBaseCommonService.super.beforeCreate(dto);
-        dto.setId(IdUtil.simpleUUID());
+        dto.setId(null);
         // 初始化
         dto.setIsDelete(0);
         return dto;

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("web_logs")
+@TableName("log")
 public class WebLogs extends BaseDomain {
 
     private static final long serialVersionUID=1L;

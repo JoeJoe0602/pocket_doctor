@@ -18,6 +18,7 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         LOGGER.info("start insert fill ....");
+        this.setFieldValByName("sort", 1, metaObject);
         this.setFieldValByName("createdAt", LocalDateTime.now(), metaObject);
         this.setFieldValByName("isDelete", 0, metaObject);
         this.setFieldValByName("updatedAt", LocalDateTime.now(), metaObject);

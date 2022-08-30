@@ -81,7 +81,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
             if (StrUtil.isBlank(password) || !password.equals(confirm)) {
                 throw new SysException("新密码和确认密码不相等");
             }
-            UserInfo userInfo = iBaseRepository.findByEmail(email);
+            UserInfo userInfo = iBaseRepository.findByLoginName(email);
             iBaseRepository.updateById(userInfo);
             commonCacheUtil.remove(email + ":emailcode");
             return true;

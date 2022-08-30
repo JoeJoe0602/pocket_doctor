@@ -6,16 +6,12 @@ server:
         name: baseSessionId
 
 
-spring:  #多环境切换
+spring: #多环境切换
   profiles:
     active: local
-  messages:       #配置引用国际化文件
-    basename: i18n/messages
-    cache-duration: -1
-    encoding: UTF-8
-  jackson:  # 解决时区相差8问题，解决日期对象映射字符串的问题，后期改为时间戳类型
+  jackson: # 解决时区相差8问题，解决日期对象映射字符串的问题，后期改为时间戳类型
     date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+    time-zone: GMT+10
   mvc:
     format: # 解决日期对象映射字符串的问题，后期改为时间戳类型
       date: yyyy-MM-dd
@@ -30,11 +26,11 @@ spring:  #多环境切换
 logging:
   level:
     org.springframework.web: info
-    cn.com.taiji: info
+    com.jolin: info
 ---
 spring:
   servlet:
-    multipart:  #上传文件配置
+    multipart: #上传文件配置
       enabled: true
       max-file-size: 20MB
       max-request-size: 20MB
@@ -42,7 +38,7 @@ spring:
 base:
   sys:
     file-storage:
-      root-path: "D:\\storage\\"  #必须设置的属性 提供简单的文件上传功能，文件上传的根路径
+      root-path: "/file-upload/"  #必须设置的属性 提供简单的文件上传功能，文件上传的根路径
   security:
     access:
       isWhiteLogic: true

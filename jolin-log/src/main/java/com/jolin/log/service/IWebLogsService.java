@@ -60,14 +60,18 @@ public interface IWebLogsService<D extends CommonDomain> extends IBaseService<We
                         webLogsDTO.setLogClassName(targetName);
                         if (methodName.toLowerCase().contains("list")
                                 || methodName.toLowerCase().contains("page")
+                                || methodName.toLowerCase().contains("search")
                                 || methodName.toLowerCase().contains("tree")) {
                             webLogsDTO.setLogOperationType("query");
                         } else if (methodName.toLowerCase().contains("save")
                                 || methodName.toLowerCase().contains("edit")
+                                || methodName.toLowerCase().contains("create")
+                                || methodName.toLowerCase().contains("update")
+                                || methodName.toLowerCase().contains("batchCreate")
                                 || methodName.toLowerCase().contains("add")) {
                             webLogsDTO.setLogOperationType("save");
                         } else if (methodName.toLowerCase().contains("delete")) {
-                            webLogsDTO.setLogOperationType("update");
+                            webLogsDTO.setLogOperationType("logic delete");
                         }
                     }
                 }
