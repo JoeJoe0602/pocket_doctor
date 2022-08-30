@@ -1,6 +1,7 @@
 package com.jolin.common.cache;
 
 import com.jolin.common.dto.BaseDTO;
+import com.jolin.common.dto.BaseJoinDTO;
 import com.jolin.common.service.ICommonService;
 import com.jolin.common.util.CommonCacheUtil;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -21,10 +22,15 @@ public class BaseCacheKeyGenerator implements KeyGenerator {
     public Object generate(Object target, Method method, Object... params) {
         //获取DTO类名
         String dtoClassName = ((ICommonService) target).getDTOClass().getSimpleName();
-        Integer id = 0;
+        String id = "";
         //如果参数是DTO,则获取DTO的id值作为key
         if (params[0] instanceof BaseDTO) {
             id = ((BaseDTO) params[0]).getId();
+        }
+        if (params[0] instanceof BaseJoinDTO) {
+            id = ((BaseJoinDTO) params[0]).getId();
+        } else if (params[0] instanceof String) {
+            id = (String) params[0];
         }
         return CommonCacheUtil.getCacheKey(dtoClassName, id);
     }

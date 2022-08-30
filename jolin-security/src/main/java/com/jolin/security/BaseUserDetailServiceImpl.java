@@ -43,7 +43,7 @@ public abstract class BaseUserDetailServiceImpl implements UserDetailsService {
         boolean accountNonLocked = true;
 
         // 封装成spring security的user
-        com.jolin.security.BaseSecurityUser userdetail = new com.jolin.security.BaseSecurityUser(user, user.getUsername(), user.getPassword(),
+        com.jolin.security.BaseSecurityUser userdetail = new com.jolin.security.BaseSecurityUser(user, user.getLoginName(), user.getPassword(),
                 enables, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, grantedAuths);
         return userdetail;

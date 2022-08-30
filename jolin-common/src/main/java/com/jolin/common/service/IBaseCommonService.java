@@ -1,10 +1,10 @@
 package com.jolin.common.service;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.jolin.common.domain.CommonDomain;
 import com.jolin.common.dto.BaseCommonDTO;
 import com.jolin.common.exception.CommonException;
-import cn.hutool.core.util.StrUtil;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -28,7 +28,7 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
         if (dto == null) {
             throw new CommonException("参数不能为null");
         }
-        if (StrUtil.isNotBlank(dto.getId().toString())) {
+        if (StrUtil.isNotBlank(dto.getId())) {
             throw new CommonException("新增时候Id属性不能有值,此方法只能用于新增操作，更新请调用update方法");
         }
 
@@ -68,8 +68,8 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
     }
 
     @Transactional(rollbackFor = Exception.class)
-    default Boolean beforeRemove(Integer id) {
-        if (StrUtil.isBlank(id.toString())) {
+    default Boolean beforeRemove(String id) {
+        if (StrUtil.isBlank(id)) {
             throw new CommonException("ID不能为空");
         }
 
@@ -77,11 +77,11 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
     }
 
     @Transactional(rollbackFor = Exception.class)
-    default Boolean beforeBatchRemove(List<Integer> ids) {
+    default Boolean beforeBatchRemove(List<String> ids) {
         if (CollectionUtils.isEmpty(ids)) {
             throw new CommonException("要删除的ID集合不能为空");
         }
-        for (Integer id : ids) {
+        for (String id : ids) {
             beforeRemove(id);
         }
         return true;
@@ -89,12 +89,12 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
 
     @CacheEvict(value = CacheKey_dto, keyGenerator = "baseCacheKeyGenerator")
     @Transactional(rollbackFor = Exception.class)
-    default Boolean removeById(Integer id) {
+    default Boolean removeById(String id) {
         return beforeRemove(id);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    default Boolean removeByIds(List<Integer> ids) {
+    default Boolean removeByIds(List<String> ids) {
         return beforeBatchRemove(ids);
     }
 
@@ -110,7 +110,7 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
             throw new CommonException("要删除的对象集合不能为空");
         }
 
-        List<Integer> idList = new ArrayList<>();
+        List<String> idList = new ArrayList<>();
         dtoList.forEach(t -> {
             idList.add(t.getId());
         });
@@ -119,18 +119,18 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
     }
 
     @Transactional(rollbackFor = Exception.class)
-    default Boolean afterRemove(Integer id) {
+    default Boolean afterRemove(String id) {
         return true;
     }
 
     @Transactional(rollbackFor = Exception.class)
-    default Boolean afterBatchRemove(List<Integer> ids) {
+    default Boolean afterBatchRemove(List<String> ids) {
         return true;
     }
 
     @Transactional(rollbackFor = Exception.class)
     default DTO beforeUpdate(DTO dto) {
-        if (dto != null && StrUtil.isBlank(dto.getId().toString())) {
+        if (dto != null && StrUtil.isBlank(dto.getId())) {
             throw new CommonException("ID不能为空");
         }
 

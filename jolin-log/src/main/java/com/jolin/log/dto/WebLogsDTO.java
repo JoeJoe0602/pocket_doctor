@@ -62,4 +62,11 @@ public class WebLogsDTO extends BaseDTO {
     private String info;
     private String type;
 
+
+    //预留字段,方便项目扩展
+    private String r1;
+    private String r2;
+    private String r3;
+    private String r4;
+    private String r5;
 }

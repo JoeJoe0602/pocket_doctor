@@ -25,7 +25,7 @@ public abstract class CommonController<S extends ICommonService, DTO extends Com
     @Autowired
     protected MessageSource messageSource;
 
-    @ApiOperation(value = "7.GET_PAGE_LIMIT")
+    @ApiOperation(value = "7.普通单表分页查询")
     @ApiOperationSupport(order = 7)
     @PostMapping(value = "/search")
     public ResultDTO<PageDTO<DTO>> selectByPage(@RequestBody @Valid PageDTO<DTO> pageDTO) {

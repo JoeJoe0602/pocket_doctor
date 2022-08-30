@@ -17,7 +17,7 @@ public class ResultDTO<T> implements Serializable {
 
     private static final long serialVersionUID = 2783377098145240357L;
     private Integer code = HttpStatus.OK.value();
-    private String message = "success";
+    private String message = "操作成功";
     private T data;
 
     public ResultDTO(T data) {

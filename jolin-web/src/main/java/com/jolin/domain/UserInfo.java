@@ -1,7 +1,7 @@
 package com.jolin.domain;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.jolin.common.base.BaseDomain;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,21 +17,57 @@ import java.math.BigDecimal;
 @TableName("user_info")
 public class UserInfo extends BaseDomain {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID=1L;
 
-    private Integer roleId;
+    private String address;
 
-    private String username;
+    private String avatar;
 
-    private String password;
+    private byte[] avatarContent;
+
+    private String birthday;
+
+    private String blog;
+
+    private String email;
+
+    private String gender;
+
+    private String idNumber;
+    /**
+     * 积分
+     */
+    private Integer integral;
+
+    private String loginName;
 
     private String nickname;
 
-    private String photoUrl;
+    private String password;
 
-    private String isAdmin;
+    private String phoneNum;
 
     private String state;
+
+    private String tag;
+
+    private Integer userIndex;
+
+    private String userName;
+    /**
+     * 经验值
+     */
+    private Integer experience;
+
+    /**
+     * 余额
+     */
+    private BigDecimal balance;
+
+    /**
+     * 用户元数据
+     */
+    private String userMetadata;
 
 }
 

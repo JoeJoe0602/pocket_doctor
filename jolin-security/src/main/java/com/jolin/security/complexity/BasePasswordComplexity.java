@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author jolin
+ * @author chenzhe
  * @version 1.0
+ * @date 2021/5/11
  * @describe
  */
 public class BasePasswordComplexity {

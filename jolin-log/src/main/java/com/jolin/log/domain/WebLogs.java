@@ -61,4 +61,17 @@ public class WebLogs extends BaseDomain {
 
     @TableField("type")
     private String type;
+
+    //预留字段,方便项目扩展
+    @TableField("r1")
+    private String r1;
+    @TableField("r2")
+    private String r2;
+    @TableField("r3")
+    private String r3;
+    @TableField("r4")
+    private String r4;
+    @TableField("r5")
+    private String r5;
+
 }

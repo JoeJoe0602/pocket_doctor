@@ -54,6 +54,7 @@ public interface IWebLogsService<D extends CommonDomain> extends IBaseService<We
                         webLogsDTO.setLogInfo(method.getAnnotation(OperationLogAnno.class).logInfo());
                         webLogsDTO.setLogClassName(method.getAnnotation(OperationLogAnno.class).logClassName());
                         webLogsDTO.setLogOperationType(method.getAnnotation(OperationLogAnno.class).logOperationType());
+                        webLogsDTO.setRemark(method.getAnnotation(OperationLogAnno.class).desc());
                     } else {
                         webLogsDTO.setModule(targetName);
                         webLogsDTO.setLogInfo("执行了" + targetName + "的'" + methodName + "'操作");
@@ -69,6 +70,7 @@ public interface IWebLogsService<D extends CommonDomain> extends IBaseService<We
                         } else if (methodName.toLowerCase().contains("delete")) {
                             webLogsDTO.setLogOperationType("update");
                         }
+                        webLogsDTO.setRemark("qwewqe");
                     }
                 }
             }

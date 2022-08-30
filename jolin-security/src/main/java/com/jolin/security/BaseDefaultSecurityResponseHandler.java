@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author jolin
+ * @author chenzhe
  * @version 1.0
+ * @date 2021/3/29
  * @describe 用于security过滤器链中 response 封装
  */
 public class BaseDefaultSecurityResponseHandler implements ResponseHandler {

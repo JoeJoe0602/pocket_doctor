@@ -13,7 +13,7 @@ public class CommonCacheUtil implements ICommonCache {
 
     private static final Logger logger = LoggerFactory.getLogger(CommonCacheUtil.class);
 
-    public static String getCacheKey(String dtoName, Integer dtoId) {
+    public static String getCacheKey(String dtoName, String dtoId) {
         return dtoName + ":" + dtoId;
     }
 
