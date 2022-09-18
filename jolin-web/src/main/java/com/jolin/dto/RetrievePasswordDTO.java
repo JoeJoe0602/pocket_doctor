@@ -19,26 +19,24 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RetrievePasswordDTO {
+
+    @NotBlank(message = "用户名不能为空")
+    @ApiModelProperty(value = "用户名")
+    private String loginName;
+
     @NotBlank(message = "密码不能为空")
     @ApiModelProperty(value = "密码")
     private String password;
 
-    @ApiModelProperty(value = "邮箱")
-    private String email;
 
-    @ApiModelProperty(value = "手机号")
-    private String phoneNum;
 
     @NotBlank(message = "确认密码不能为空")
     @ApiModelProperty(value = "确认密码")
     private String confirm;
 
-    @NotBlank(message = "验证码不能为空")
-    @ApiModelProperty(value = "验证码")
-    private String code;
+    @NotBlank(message = "旧密码不能为空")
+    @ApiModelProperty(value = "旧密码")
+    private String oldPassword;
 
-    @ApiModelProperty(value = "0 手机验证码 1 邮箱")
-    @Max(value=1,message = "type只能为0和1")
-    @Min(value=0,message = "type只能为0和1")
-    private Integer type;
+
 }

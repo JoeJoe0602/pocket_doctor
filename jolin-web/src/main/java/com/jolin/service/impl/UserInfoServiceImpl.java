@@ -17,7 +17,10 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import sun.security.util.Password;
+
 import java.util.*;
 
 @Service
@@ -69,44 +72,22 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
 
     @Override
     public Boolean retrievePassword(RetrievePasswordDTO retrievePassword) {
-        Integer type = retrievePassword.getType();
-        if (type == 1) {
-            String email = retrievePassword.getEmail();
-            String code = commonCacheUtil.get(email + ":emailcode");
-            if (StrUtil.isBlank(retrievePassword.getCode()) || !retrievePassword.getCode().equals(code)) {
-                throw new SysException("非法修改");
-            }
-            String password = retrievePassword.getPassword();
-            String confirm = retrievePassword.getConfirm();
-            if (StrUtil.isBlank(password) || !password.equals(confirm)) {
-                throw new SysException("新密码和确认密码不相等");
-            }
-            UserInfo userInfo = iBaseRepository.findByLoginName(email);
-            iBaseRepository.updateById(userInfo);
-            commonCacheUtil.remove(email + ":emailcode");
-            return true;
-        }
 
-        if (type == 0) {
-            String phoneNum = retrievePassword.getPhoneNum();
-            String code = commonCacheUtil.get(phoneNum + ":phonecode");
-            if (!retrievePassword.getCode().equals(code)) {
-                throw new SysException("非法修改");
-            }
             String password = retrievePassword.getPassword();
             String confirm = retrievePassword.getConfirm();
             if (StrUtil.isBlank(password) || !password.equals(confirm)) {
                 throw new SysException("新密码和确认密码不相等");
             }
-            UserInfo userInfo = iBaseRepository.findByPhoneNum(phoneNum);
+            UserInfo userInfo = iBaseRepository.findByLoginName(retrievePassword.getLoginName());
+            if(!CommonSecurityService.instance.match(retrievePassword.getOldPassword(), userInfo.getPassword())){
+                throw new SysException("密码不正确");
+            }
             userInfo.setPassword(CommonSecurityService.instance.encodePassword(password));
             iBaseRepository.updateById(userInfo);
-            commonCacheUtil.remove(phoneNum + ":phonecode");
+            commonCacheUtil.remove(retrievePassword.getLoginName() + ":emailcode");
+
             return true;
-        }
 
-
-        return false;
     }
 
     @Override
@@ -188,6 +169,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
         String password = StrUtil.isBlank(dto.getPassword()) ? CommonStatic.DEFAULT_PASSWORD : dto.getPassword();
         dto.setPassword(CommonSecurityService.instance.encodePassword(password));
         dto.setState("1");
+        dto.setIsAdmin(0);
         return dto;
     }
 
@@ -219,5 +201,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl<UserInfoMapper, UserInf
     private void deleteCacheOfFindIdByLoginName() {
         //有删除操作，则直接删除所有findIdByLoginName缓存
         commonCacheUtil.removeByPattern(CacheKey_findIdByLoginName + "*");
+    }
+
+    @Override
+    public UserInfo findByLoginName(String loginName) {
+        return iBaseRepository.findByLoginName(loginName);
     }
 }

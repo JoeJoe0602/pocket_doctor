@@ -29,6 +29,7 @@ public abstract class CommonSecurityService {
      * @return 加密后字符串
      */
     public abstract String encodePassword(String rawPassword);
+    public abstract Boolean match(String rawPassword,String password);
 
 //    /**
 //     *是否是登录用户

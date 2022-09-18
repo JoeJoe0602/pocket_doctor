@@ -3,6 +3,7 @@ package com.jolin.service;
 import com.jolin.common.domain.CommonDomain;
 import com.jolin.common.dto.PageDTO;
 import com.jolin.common.service.IBaseService;
+import com.jolin.domain.UserInfo;
 import com.jolin.dto.*;
 import org.springframework.cache.annotation.Cacheable;
 
@@ -37,6 +38,12 @@ public interface IUserInfoService<D extends CommonDomain> extends IBaseService<U
     Boolean retrievePassword(RetrievePasswordDTO retrievePassword);
 
     Boolean confirmCode(ConfirmCodeDTO confirmCodeDTO);
+
+    UserInfo findByLoginName(String loginName);
+
+
+
+
 
 
 

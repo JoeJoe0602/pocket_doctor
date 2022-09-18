@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jolin.mapper.HealthRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jolin.domain.HealthRecord">
+        <result column="id" property="id"/>
+        <result column="sort" property="sort"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+
+        <result column="user_id" property="userId"/>
+        <result column="real_name" property="realName"/>
+        <result column="sex" property="sex"/>
+        <result column="birth" property="birth"/>
+        <result column="height" property="height"/>
+        <result column="weight" property="weight"/>
+        <result column="smoking_history" property="smokingHistory"/>
+        <result column="drinking_history" property="drinkingHistory"/>
+        <result column="liver_function" property="liverFunction"/>
+        <result column="kidney_function" property="kidneyFunction"/>
+        <result column="is_married" property="isMarried"/>
+        <result column="is_fertility" property="isFertility"/>
+        <result column="disease_history" property="diseaseHistory"/>
+        <result column="family_medical_history" property="familyMedicalHistory"/>
+        <result column="food_allergy_history" property="foodAllergyHistory"/>
+        <result column="personal_habits" property="personalHabits"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        sort,
+        is_delete,
+        created_at,
+        updated_at,
+
+        user_id,
+        real_name,
+        sex,
+        birth,
+        height,
+        weight,
+        smoking_history,
+        drinking_history,
+        liver_function,
+        kidney_function,
+        is_married,
+        is_fertility,
+        disease_history,
+        family_medical_history,
+        food_allergy_history,
+        personal_habits
+
+    </sql>
+
+    <select id="getPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        health_record
+        where
+        is_delete = 0
+        <if test="healthRecord.userId != null and healthRecord.userId != ''">
+            AND userId = #{healthRecord.userId})
+        </if>
+
+    </select>
+</mapper>

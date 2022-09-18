@@ -43,6 +43,8 @@ public class UserInfoDTO extends CommonUserDTO {
 
     private Integer isAdmin;
 
+    private String confirmPassword;
+
 
 
 

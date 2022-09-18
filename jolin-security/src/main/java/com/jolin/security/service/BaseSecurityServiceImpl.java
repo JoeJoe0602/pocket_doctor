@@ -88,4 +88,9 @@ public class BaseSecurityServiceImpl extends CommonSecurityService {
         }
         return passwordEncoder.encode(rawPassword);
     }
+
+    @Override
+    public Boolean match(String rawPassword, String password) {
+        return passwordEncoder.matches(rawPassword,password);
+    }
 }
