@@ -1,9 +1,9 @@
-package com.jolin.api;
+package com.jolin.backend;
 
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import com.jolin.common.api.BaseController;
-import com.jolin.dto.ArticleDTO;
-import com.jolin.service.IArticleService;
+import com.jolin.dto.CollectDTO;
+import com.jolin.service.ICollectService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = {"2.角色接口"})
 @ApiSort(2)
 @RestController
-@RequestMapping("sys/article")
-public class ArticleController extends BaseController<IArticleService, ArticleDTO> {
+@RequestMapping("sys/collect")
+public class CollectController extends BaseController<ICollectService, CollectDTO> {
 
 
 

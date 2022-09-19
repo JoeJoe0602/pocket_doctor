@@ -78,4 +78,5 @@ public interface ICommonService<DTO extends CommonDTO, D extends CommonDomain> {
     }
 
     PageDTO<DTO> getPage(final PageDTO<DTO> pageDTO);
+
 }

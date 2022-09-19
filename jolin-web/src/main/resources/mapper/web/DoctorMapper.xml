@@ -37,7 +37,7 @@
         longitude
     </sql>
 
-    <select id="getPage" resultMap="BaseResultMap">
+    <select  id="getPage" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from
@@ -49,6 +49,39 @@
         </if>
 
 
+    </select>
+
+    <select  id="getPageDistance" resultMap="BaseResultMap">
+        select
+        id,
+        sort,
+        is_delete,
+        created_at,
+        updated_at,
+
+        user_id,
+        clinic_id,
+        `name`,
+        photo,
+        description,
+        latitude,
+        longitude,
+
+        6378.138 * 2 * ASIN(
+        SQRT(
+        POW( SIN( ( #{doctor.latitude} * PI( ) / 180 - latitude * PI( ) / 180 ) / 2 ), 2 ) + COS( #{doctor.latitude} * PI( ) / 180 ) * COS( latitude * PI( ) / 180 ) * POW( SIN( ( #{doctor.longitude} * PI( ) / 180 - longitude * PI( ) / 180 ) / 2 ), 2 )
+        )
+        ) AS distance
+
+        from
+        doctor
+        where
+        is_delete = 0
+        <if test="doctor.userId != null and doctor.userId != ''">
+            AND userId = #{doctor.userId})
+        </if>
+
+        order by distance asc
 
     </select>
 </mapper>

@@ -48,4 +48,37 @@
 
 
     </select>
+
+    <select  id="getPageDistance" resultMap="BaseResultMap">
+        select
+        id,
+        sort,
+        is_delete,
+        created_at,
+        updated_at,
+
+        `name`,
+        photo,
+        description,
+        location,
+        latitude,
+        longitude
+
+        6378.138 * 2 * ASIN(
+        SQRT(
+        POW( SIN( ( #{clinic.latitude} * PI( ) / 180 - latitude * PI( ) / 180 ) / 2 ), 2 ) + COS( #{clinic.latitude} * PI( ) / 180 ) * COS( latitude * PI( ) / 180 ) * POW( SIN( ( #{clinic.longitude} * PI( ) / 180 - longitude * PI( ) / 180 ) / 2 ), 2 )
+        )
+        ) AS distance
+
+        from
+        clinic
+        where
+        is_delete = 0
+        <if test="clinic.name != null and clinic.name != ''">
+            AND name like ('%',{clinic.name}),'%')
+        </if>
+
+        order by distance asc
+
+    </select>
 </mapper>

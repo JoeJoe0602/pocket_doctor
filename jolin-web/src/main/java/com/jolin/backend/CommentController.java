@@ -1,10 +1,9 @@
-package com.jolin.api;
+package com.jolin.backend;
 
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import com.jolin.common.api.BaseController;
-
-import com.jolin.dto.CarouselDTO;
-import com.jolin.service.ICarouselService;
+import com.jolin.dto.CommentDTO;
+import com.jolin.service.ICommentService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = {"2.角色接口"})
 @ApiSort(2)
 @RestController
-@RequestMapping("sys/carousel")
-public class CarouselController extends BaseController<ICarouselService, CarouselDTO> {
+@RequestMapping("sys/comment")
+public class CommentController extends BaseController<ICommentService, CommentDTO> {
 
 
 

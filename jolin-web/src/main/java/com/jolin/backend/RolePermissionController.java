@@ -1,9 +1,9 @@
-package com.jolin.api;
+package com.jolin.backend;
 
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import com.jolin.common.api.BaseController;
-import com.jolin.dto.PrescriptionDTO;
-import com.jolin.service.IPrescriptionService;
+import com.jolin.dto.RolePermissionDTO;
+import com.jolin.service.IRolePermissionService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = {"2.角色接口"})
 @ApiSort(2)
 @RestController
-@RequestMapping("sys/prescription")
-public class PrescriptionController extends BaseController<IPrescriptionService, PrescriptionDTO> {
+@RequestMapping("sys/role_permission")
+public class RolePermissionController extends BaseController<IRolePermissionService, RolePermissionDTO> {
 
 
 

@@ -1,11 +1,9 @@
-package com.jolin.api;
+package com.jolin.backend;
 
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import com.jolin.common.api.BaseController;
-import com.jolin.dto.HealthRecordDTO;
-import com.jolin.dto.RoleDTO;
-import com.jolin.service.IHealthRecordService;
-import com.jolin.service.IRoleService;
+import com.jolin.dto.CategoryDTO;
+import com.jolin.service.ICategoryService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = {"2.角色接口"})
 @ApiSort(2)
 @RestController
-@RequestMapping("sys/health_record")
-public class HealthRecordController extends BaseController<IHealthRecordService, HealthRecordDTO> {
+@RequestMapping("sys/category")
+public class CategoryController extends BaseController<ICategoryService, CategoryDTO> {
+
+
+
+
 }

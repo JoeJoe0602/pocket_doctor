@@ -1,13 +1,10 @@
-package com.jolin.api;
+package com.jolin.backend;
 
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
-import com.jolin.common.dto.BaseCommonDTO;
-import com.jolin.common.dto.CommonUserDTO;
 import com.jolin.common.dto.ResultDTO;
 import com.jolin.common.service.CommonSecurityService;
 import com.jolin.dto.HealthRecordDTO;
-import com.jolin.dto.RegisterDTO;
 import com.jolin.dto.RetrievePasswordDTO;
 import com.jolin.dto.UserInfoDTO;
 import com.jolin.exception.SysException;
@@ -16,7 +13,6 @@ import com.jolin.service.IUserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

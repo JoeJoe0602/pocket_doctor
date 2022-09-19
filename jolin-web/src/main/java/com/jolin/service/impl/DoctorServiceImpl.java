@@ -10,6 +10,7 @@ import com.jolin.domain.Doctor;
 import com.jolin.dto.DoctorDTO;
 import com.jolin.mapper.DoctorMapper;
 import com.jolin.service.IDoctorService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 
@@ -25,4 +26,15 @@ public class DoctorServiceImpl extends BaseServiceImpl<DoctorMapper, Doctor, Doc
         PageDTO resultPage = CommonMybatisPageUtil.getInstance().iPageToPageDTO(doctorIPage, DoctorDTO.class, pageDTO);
         return resultPage;
     }
+
+    @Override
+    public PageDTO getPageDistance(PageDTO<DoctorDTO> pageDTO) throws BaseException {
+        Page page = CommonMybatisPageUtil.getInstance().pageDTOtoPage(pageDTO);
+        Doctor doctor = getDomainFilterFromPageDTO(pageDTO);
+        IPage<Doctor> doctorIPage = iBaseRepository.getPageDistance(page, doctor);
+        PageDTO resultPage = CommonMybatisPageUtil.getInstance().iPageToPageDTO(doctorIPage, DoctorDTO.class, pageDTO);
+        return resultPage;
+    }
+
+
 }

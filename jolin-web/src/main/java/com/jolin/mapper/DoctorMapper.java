@@ -10,5 +10,6 @@ public interface DoctorMapper extends IBaseMapper<Doctor> {
 
 
     IPage<Doctor> getPage(@Param("page") Page page, @Param("doctor") Doctor  doctor);
+    IPage<Doctor> getPageDistance(@Param("page") Page page, @Param("doctor") Doctor  doctor);
 
 }

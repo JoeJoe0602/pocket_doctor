@@ -48,6 +48,10 @@
             AND  categoryId = #{article.categoryId})
         </if>
 
+        <if test="article.title != null and article.title != ''">
+            AND  title like concat ('%',#{article.title},'%')
+        </if>
+
 
     </select>
 </mapper>
