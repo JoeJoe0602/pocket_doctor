@@ -19,7 +19,8 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,
+        id
+        ,
         sort,
         is_delete,
         created_at,
@@ -36,16 +37,64 @@
         select
         <include refid="Base_Column_List"/>
         from
-        chatrecord
+        chat_record
         where
         is_delete = 0
-        <if test="chatrecord.userId != null and chatrecord.userId != ''">
+        <if test="chat_record.userId != null and chat_record.userId != ''">
             AND userId = #{chatrecord.userId})
         </if>
 
-        <if test="chatrecord.doctorId != null and chatrecord.doctorId != ''">
+        <if test="chat_record.doctorId != null and chat_record.doctorId != ''">
             AND doctorId = #{chatrecord.doctorId})
         </if>
 
     </select>
+
+    <select id="getChatRecord" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        chat_record
+        where
+        is_delete = 0
+        and user_id=#{chat_record.userId} and doctor_id=#{chat_record.doctorId} union
+        ( select
+        <include refid="Base_Column_List"/>
+        from
+        chat_record
+        where
+        is_delete = 0
+        and user_id=#{chat_record.doctorId} and doctor_id=#{chat_record.userId} )
+        order by create_at desc
+
+
+    </select>
+
+    <select id="getChatRecordList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+            (
+                SELECT
+        <include refid="Base_Column_List"/>
+                FROM
+                    chat_record m
+                WHERE
+                    (
+                            m.user_id IN (  SELECT doctor_id AS chat_id FROM chat_record e WHERE e.user_id = #{chat_record.userId})
+                        )
+                   OR (
+                            m.user_id = #{chat_record.userId}
+                        AND m.doctor_id IN (  SELECT doctor_id AS chat_id FROM chat_record e WHERE e.user_id = #{chat_record.userId} ))
+                ORDER BY
+                    created_at DESC
+                    LIMIT 999999
+            ) msg
+        GROUP BY
+            msg.user_id + msg.doctor_id,
+            ABS( msg.user_id - msg.doctor_id );
+
+
+    </select>
+
 </mapper>

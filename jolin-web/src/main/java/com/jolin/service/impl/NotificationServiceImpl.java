@@ -1,5 +1,7 @@
 package com.jolin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jolin.common.base.BaseServiceImpl;
@@ -11,6 +13,8 @@ import com.jolin.dto.NotificationDTO;
 import com.jolin.mapper.NotificationMapper;
 import com.jolin.service.INotificationService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -24,5 +28,12 @@ public class NotificationServiceImpl extends BaseServiceImpl<NotificationMapper,
         IPage<Notification> notificationIPage = iBaseRepository.getPage(page, notification);
         PageDTO resultPage = CommonMybatisPageUtil.getInstance().iPageToPageDTO(notificationIPage, NotificationDTO.class, pageDTO);
         return resultPage;
+    }
+
+    @Override
+    public List<Notification> getNotification(Notification notification) {
+        QueryWrapper<Notification> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", notification.getUserId());
+        return iBaseRepository.selectList(wrapper);
     }
 }

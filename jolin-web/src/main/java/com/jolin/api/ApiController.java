@@ -3,15 +3,15 @@ package com.jolin.api;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import com.jolin.common.dto.PageDTO;
 import com.jolin.common.dto.ResultDTO;
+import com.jolin.domain.ChatRecord;
+import com.jolin.domain.HealthRecord;
+import com.jolin.domain.Notification;
 import com.jolin.dto.*;
 import com.jolin.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,6 +38,24 @@ public class ApiController {
 
     @Autowired
     private IClinicService iClinicService;
+
+    @Autowired
+    private INotificationService iNotificationService;
+
+    @Autowired
+    private IChatRecordService iChatRecordService;
+
+    @Autowired
+    private ICollectService iCollectService;
+
+    @Autowired
+    private  IHealthRecordService iHealthRecordService;
+
+    @Autowired
+    private  ICaseService iCaseService;
+
+    @Autowired
+    private IPrescriptionService iPrescriptionService;
 
 
     @ApiOperation(value = "在首页搜索文章")
@@ -99,6 +117,11 @@ public class ApiController {
         return new ResultDTO(appointmentDTOPageDTO);
     }
 
+    @ApiOperation(value = "预约")
+    @PostMapping("appointment")
+    public ResultDTO appointment(@RequestBody AppointmentDTO appointmentDTO) {
+        return new ResultDTO(iAppointmentService.create(appointmentDTO));
+    }
 
     @ApiOperation(value = "获取文章分类")
     @PostMapping("getCategory")
@@ -134,5 +157,66 @@ public class ApiController {
         return new ResultDTO(carouselDTOPageDTO);
     }
 
+    @ApiOperation(value = "获取通知")
+    @GetMapping("getNotification")
+    public ResultDTO getNotification(String userId) {
+        Notification notification = new Notification();
+        notification.setUserId(userId);
+        return new ResultDTO(iNotificationService.getNotification(notification));
+    }
 
+    @ApiOperation(value = "新增聊天记录")
+    @PostMapping("addSingleChatRecord")
+    public ResultDTO addSingleChatRecord(@RequestBody ChatRecordDTO chatRecordDTO) {
+        return new ResultDTO(iChatRecordService.create(chatRecordDTO));
+    }
+
+    @ApiOperation(value = "获取聊天记录")
+    @PostMapping("getChatRecord")
+    public ResultDTO getChatRecord(String userId, String doctorId) {
+        ChatRecord chatRecord = new ChatRecord();
+        chatRecord.setUserId(userId);
+        chatRecord.setDoctorId(doctorId);
+        return new ResultDTO(iChatRecordService.getChatRecord(chatRecord));
+    }
+
+    @ApiOperation(value = "获取聊天记录列表")
+    @PostMapping("getChatRecordList")
+    public ResultDTO getChatRecordList(String userId) {
+        ChatRecord chatRecord = new ChatRecord();
+        chatRecord.setUserId(userId);
+        return new ResultDTO(iChatRecordService.getChatRecordList(chatRecord));
+    }
+
+    @ApiOperation(value = "添加收藏")
+    @PostMapping("addCollect")
+    public ResultDTO addCollect(@RequestBody CollectDTO collectDTO) {
+        return new ResultDTO(iCollectService.create(collectDTO));
+    }
+
+    @ApiOperation(value = "获取收藏列表")
+    @PostMapping("getCollectList")
+    public ResultDTO getCollectList(PageDTO pageDTO) {
+        PageDTO<CollectDTO> collectDTOPageDTO = iCollectService.getPage(pageDTO);
+        return new ResultDTO(collectDTOPageDTO);
+    }
+
+    @ApiOperation(value = "获取病例列表")
+    @PostMapping("getCaseList")
+    public ResultDTO getCaseList(PageDTO pageDTO) {
+
+        PageDTO<CaseDTO> caseDTOPageDTO = iCaseService.getPage(pageDTO);
+
+        return new ResultDTO(caseDTOPageDTO);
+    }
+
+    @ApiOperation(value = "获取处方列表")
+    @PostMapping("getPrescriptionList")
+    public ResultDTO getPrescriptionList(PageDTO pageDTO) {
+
+        PageDTO<PrescriptionDTO> prescriptionDTOPageDTO = iPrescriptionService.getPage(pageDTO);
+
+        return new ResultDTO(prescriptionDTOPageDTO);
+
+    }
 }
