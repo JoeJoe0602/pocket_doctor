@@ -8,10 +8,10 @@ import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = {"2.角色接口"})
-@ApiSort(2)
+@Api(tags = {"Dictionary"})
+@ApiSort(19)
 @RestController
-@RequestMapping("sys/appointment")
+@RequestMapping("sys/dictionary")
 public class DictionaryController extends BaseController<IDictionaryService, DictionaryDTO> {
 
 

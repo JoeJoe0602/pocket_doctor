@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = {"2.角色接口"})
-@ApiSort(2)
+@Api(tags = {"Api"})
+@ApiSort(1)
 @RestController
 @RequestMapping("api")
 public class ApiController {
@@ -219,4 +219,13 @@ public class ApiController {
         return new ResultDTO(prescriptionDTOPageDTO);
 
     }
+
+    @ApiOperation(value = "获取用户健康记录列表")
+    @PostMapping("getHealthRecord")
+    public ResultDTO getHealthRecordList(String userId) {
+        HealthRecord healthRecord=new HealthRecord();
+        healthRecord.setUserId(userId);
+        return new ResultDTO(iHealthRecordService.getHealthRecord(healthRecord));
+    }
+
 }

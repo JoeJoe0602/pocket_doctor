@@ -45,6 +45,7 @@ public class Swagger2Config implements WebMvcConfigurer {
                 .apis(RequestHandlerSelectors.basePackage("com.jolin.api")
                         .or(RequestHandlerSelectors.basePackage("com.jolin.log.api"))
                         .or(RequestHandlerSelectors.basePackage("com.jolin.api"))
+                        .or(RequestHandlerSelectors.basePackage("com.jolin.backend"))
                         .or(RequestHandlerSelectors.basePackage("com.jolin.security.api"))
                         .or(RequestHandlerSelectors.basePackage("com.jolin.security.jwt.api")))
                 .paths(PathSelectors.any())

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jolin.mapper.ArticleMapper">
+<mapper namespace="com.jolin.mapper.CarouselMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.jolin.domain.Article">
+    <resultMap id="BaseResultMap" type="com.jolin.domain.Carousel">
         <result column="id" property="id"/>
         <result column="sort" property="sort"/>
         <result column="is_delete" property="isDelete"/>
@@ -23,7 +23,7 @@
         created_at,
         updated_at,
 
-        name,
+        `name`,
         photo_url,
         link
     </sql>

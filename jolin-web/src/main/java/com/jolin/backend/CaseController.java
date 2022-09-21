@@ -8,8 +8,8 @@ import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = {"2.角色接口"})
-@ApiSort(2)
+@Api(tags = {"Case"})
+@ApiSort(13)
 @RestController
 @RequestMapping("sys/case")
 public class CaseController extends BaseController<ICaseService, CaseDTO> {
