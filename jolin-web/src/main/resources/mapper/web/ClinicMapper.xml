@@ -62,7 +62,7 @@
         description,
         location,
         latitude,
-        longitude
+        longitude,
 
         6378.138 * 2 * ASIN(
         SQRT(

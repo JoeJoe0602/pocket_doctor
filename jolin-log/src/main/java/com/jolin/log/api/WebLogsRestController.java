@@ -26,8 +26,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-@Api(tags = {"15.日志查询接口"})
-@ApiSort(15)
+@Api(tags = {"Log"})
+@ApiSort(2)
 @RestController
 @RequestMapping("sys/log")
 public class WebLogsRestController extends BaseController<IWebLogsService, WebLogsDTO> {

@@ -86,7 +86,8 @@ public class ApiController {
 
     @ApiOperation(value = "查询诊所")
     @PostMapping("findClinic")
-    public ResultDTO findClinic(PageDTO pageDTO) {
+    public ResultDTO<PageDTO<ClinicDTO>> findClinic(@RequestBody  PageDTO<ClinicDTO> pageDTO) {
+        System.out.println(pageDTO.getPage());
         PageDTO<ClinicDTO> clinicDTOPageDTO = iClinicService.getPageDistance(pageDTO);
 
         return new ResultDTO(clinicDTOPageDTO);

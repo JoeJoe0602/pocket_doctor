@@ -9,7 +9,8 @@ import org.apache.ibatis.annotations.Param;
 public interface ClinicMapper extends IBaseMapper<Clinic> {
 
 
-    IPage<Clinic> getPage(@Param("page") Page page, @Param("clinic") Clinic  clinic);
-    IPage<Clinic> getPageDistance(@Param("page") Page page, @Param("clinic") Clinic  clinic);
+    IPage<Clinic> getPage(@Param("page") Page page, @Param("clinic") Clinic clinic);
+
+    IPage<Clinic> getPageDistance(@Param("page") Page page, @Param("clinic") Clinic clinic);
 
 }

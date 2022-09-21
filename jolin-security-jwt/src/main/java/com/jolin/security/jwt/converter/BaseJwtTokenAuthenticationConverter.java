@@ -41,10 +41,10 @@ public class BaseJwtTokenAuthenticationConverter implements Converter<String, Au
     private Set<GrantedAuthority> obtionGrantedAuthorities(JWTClaimsSet jwtClaimsSet ) {
         Set<GrantedAuthority> authSet = new HashSet<GrantedAuthority>();
         String authorities = (String) jwtClaimsSet.getClaim("authorities");
-        String[] split = authorities.split(",");
-        for (String roleId : split) {
-            authSet.add(new SimpleGrantedAuthority(roleId));
-        }
+//        String[] split = authorities.split(",");
+//        for (String roleId : split) {
+//            authSet.add(new SimpleGrantedAuthority(roleId));
+//        }
         return authSet;
     }
 

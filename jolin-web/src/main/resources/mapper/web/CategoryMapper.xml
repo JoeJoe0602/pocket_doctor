@@ -3,7 +3,7 @@
 <mapper namespace="com.jolin.mapper.CategoryMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.jolin.domain.Appointment">
+    <resultMap id="BaseResultMap" type="com.jolin.domain.Category">
         <result column="id" property="id"/>
         <result column="sort" property="sort"/>
         <result column="is_delete" property="isDelete"/>
@@ -25,9 +25,23 @@
         updated_at,
 
         parent_id,
-        name,
+        `name`,
         icon,
         category_type
     </sql>
+
+
+    <select id="getPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        category
+        where
+        is_delete = 0
+        <if test="category.name != null and category.name != ''">
+            AND `name` like concat("%",#{case.userId},"%")
+        </if>
+
+    </select>
 
 </mapper>

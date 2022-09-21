@@ -34,7 +34,7 @@
         photo_url,
         read_num,
         liked_num,
-        collect_num,
+        collect_num
     </sql>
 
     <select id="getPage" resultMap="BaseResultMap">
@@ -45,7 +45,7 @@
         where
         is_delete = 0
         <if test="article.categoryId != null and article.categoryId != ''">
-            AND  categoryId = #{article.categoryId})
+            AND  category_id = #{article.categoryId}
         </if>
 
         <if test="article.title != null and article.title != ''">

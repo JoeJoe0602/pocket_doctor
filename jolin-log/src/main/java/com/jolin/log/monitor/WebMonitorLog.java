@@ -41,7 +41,6 @@ public class WebMonitorLog {
     /**
      * 后置通知，在目标方法完成之后调用通知，此时不会关 心方法的输出是什么
      */
-//    @After("bean(*Controller)")
     @After("within(com.jolin.common.api.BaseController+)")
 //    @After("within(com.jolin.*.web..*) || within(com.jolin.*.api..*)")
     public void afterAdvice(JoinPoint joinPoint) throws Exception {

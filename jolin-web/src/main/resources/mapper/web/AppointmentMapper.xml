@@ -40,11 +40,11 @@
         where
         is_delete = 0
         <if test="appointment.userId != null and appointment.userId != ''">
-            AND userId = #{appointment.userId})
+            AND user_id = #{appointment.userId}
         </if>
 
         <if test="appointment.doctorId != null and appointment.doctorId != ''">
-            AND doctorId = #{appointment.doctorId})
+            AND doctor_id = #{appointment.doctorId}
         </if>
 
     </select>

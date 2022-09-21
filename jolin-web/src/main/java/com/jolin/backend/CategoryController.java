@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = {"Category"})
+@Api(tags = {"✅Category"})
 @ApiSort(14)
 @RestController
 @RequestMapping("sys/category")
