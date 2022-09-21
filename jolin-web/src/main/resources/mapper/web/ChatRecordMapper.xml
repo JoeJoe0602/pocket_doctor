@@ -13,8 +13,8 @@
         <result column="user_id" property="userId"/>
         <result column="doctor_id" property="doctorId"/>
         <result column="content" property="content"/>
-        <result column="content_type" property="content_type"/>
-        <result column="is_read" property="is_read"/>
+        <result column="content_type" property="contentType"/>
+        <result column="is_read" property="isRead"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -41,11 +41,11 @@
         where
         is_delete = 0
         <if test="chat_record.userId != null and chat_record.userId != ''">
-            AND userId = #{chatrecord.userId})
+            AND user_id = #{chatrecord.userId}
         </if>
 
         <if test="chat_record.doctorId != null and chat_record.doctorId != ''">
-            AND doctorId = #{chatrecord.doctorId})
+            AND doctor_id = #{chatrecord.doctorId}
         </if>
 
     </select>

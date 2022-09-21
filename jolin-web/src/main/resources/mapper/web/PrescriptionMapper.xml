@@ -36,11 +36,11 @@
         where
         is_delete = 0
         <if test="prescription.userId != null and prescription.userId != ''">
-            AND userId = #{prescription.userId})
+            AND userId = #{prescription.userId}
         </if>
 
         <if test="prescription.doctorId != null and prescription.doctorId != ''">
-            AND doctorId = #{prescription.doctorId})
+            AND doctorId = #{prescription.doctorId}
         </if>
 
     </select>

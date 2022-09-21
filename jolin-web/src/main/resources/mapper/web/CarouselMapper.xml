@@ -27,6 +27,16 @@
         photo_url,
         link
     </sql>
+    <select id="getPage" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        carousel
+        where
+        is_delete = 0
+       
 
+
+    </select>
 
 </mapper>

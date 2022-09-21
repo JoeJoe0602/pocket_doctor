@@ -1,17 +1,14 @@
-package com.jolin.domain;
+package com.jolin.dto;
 
-import com.jolin.common.base.BaseDomain;
+import com.jolin.common.dto.BaseDTO;
 import lombok.Data;
 
 @Data
-public class Case extends BaseDomain {
-
+public class CasesDTO extends BaseDTO {
 
     private  String userId;
 
     private  String doctorId;
 
     private  String content;
-
-
 }

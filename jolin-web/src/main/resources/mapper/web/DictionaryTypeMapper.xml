@@ -34,7 +34,7 @@
         where
         is_delete = 0
         <if test="dictionary_type.key != null and dictionary_type.key  != ''">
-            AND `key` = #{dictionary_type.key})
+            AND `key` = #{dictionary_type.key}
         </if>
 
     </select>

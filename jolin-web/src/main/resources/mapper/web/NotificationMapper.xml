@@ -35,7 +35,7 @@
         where
         is_delete = 0
         <if test="notification.userId != null and notification.userId != ''">
-            AND userId = #{notification.userId})
+            AND userId = #{notification.userId}
         </if>
 
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jolin.mapper.CaseMapper">
+<mapper namespace="com.jolin.mapper.CasesMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.jolin.domain.Case">
+    <resultMap id="BaseResultMap" type="com.jolin.domain.Cases">
         <result column="id" property="id"/>
         <result column="sort" property="sort"/>
         <result column="is_delete" property="isDelete"/>
@@ -32,15 +32,15 @@
         select
         <include refid="Base_Column_List"/>
         from
-        case
+        cases
         where
         is_delete = 0
-        <if test="case.userId != null and case.userId != ''">
-            AND userId = #{case.userId})
+        <if test="cases.userId != null and cases.userId != ''">
+            AND user_id = #{cases.userId}
         </if>
 
-        <if test="case.doctorId != null and case.doctorId != ''">
-            AND doctorId = #{case.doctorId})
+        <if test="cases.doctorId != null and cases.doctorId != ''">
+            AND doctor_id = #{cases.doctorId})
         </if>
 
     </select>

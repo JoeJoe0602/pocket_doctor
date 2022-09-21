@@ -36,11 +36,11 @@
         where
         is_delete = 0
         <if test="collect.userId != null and collect.userId != ''">
-            AND userId = #{collect.userId})
+            AND userId = #{collect.userId}
         </if>
 
         <if test="collect.type != null and collect.type != ''">
-            AND type = #{collect.type})
+            AND type = #{collect.type}
         </if>
 
     </select>

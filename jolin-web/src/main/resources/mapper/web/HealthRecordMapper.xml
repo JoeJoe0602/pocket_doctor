@@ -63,7 +63,7 @@
         where
         is_delete = 0
         <if test="healthRecord.userId != null and healthRecord.userId != ''">
-            AND userId = #{healthRecord.userId})
+            AND userId = #{healthRecord.userId}
         </if>
 
     </select>

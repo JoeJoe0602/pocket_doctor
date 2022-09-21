@@ -52,7 +52,7 @@ public class ApiController {
     private  IHealthRecordService iHealthRecordService;
 
     @Autowired
-    private  ICaseService iCaseService;
+    private ICasesService iCaseService;
 
     @Autowired
     private IPrescriptionService iPrescriptionService;
@@ -203,12 +203,12 @@ public class ApiController {
     }
 
     @ApiOperation(value = "获取病例列表")
-    @PostMapping("getCaseList")
-    public ResultDTO getCaseList(PageDTO pageDTO) {
+    @PostMapping("getCasesList")
+    public ResultDTO getCasesList(PageDTO pageDTO) {
 
-        PageDTO<CaseDTO> caseDTOPageDTO = iCaseService.getPage(pageDTO);
+        PageDTO<CasesDTO> casesDTOPageDTO = iCaseService.getPage(pageDTO);
 
-        return new ResultDTO(caseDTOPageDTO);
+        return new ResultDTO(casesDTOPageDTO);
     }
 
     @ApiOperation(value = "获取处方列表")

@@ -42,7 +42,7 @@
         where
         is_delete = 0
         <if test="clinic.name != null and clinic.name != ''">
-            AND userId = #{clinic.name})
+            AND userId = #{clinic.name}
         </if>
 
 

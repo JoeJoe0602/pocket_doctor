@@ -40,11 +40,11 @@
         where
         is_delete = 0
         <if test="permission.parentId != null and permission.parentId != ''">
-            AND parentId = #{permission.parentId})
+            AND parentId = #{permission.parentId}
         </if>
 
         <if test="permission.parentKey != null and permission.parentKey != ''">
-            AND parentkey = #{permission.parentKey})
+            AND parentkey = #{permission.parentKey}
         </if>
 
     </select>

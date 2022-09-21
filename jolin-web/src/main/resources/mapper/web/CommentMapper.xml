@@ -36,7 +36,7 @@
         where
         is_delete = 0
         <if test="comment.appointmentId != null and comment.appointmentId != ''">
-            AND  appointmentId= #{comment.appointmentId})
+            AND  appointmentId= #{comment.appointmentId}
         </if>
 
 

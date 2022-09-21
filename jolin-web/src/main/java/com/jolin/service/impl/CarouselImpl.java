@@ -7,13 +7,10 @@ import com.jolin.common.dto.PageDTO;
 import com.jolin.common.exception.BaseException;
 import com.jolin.common.util.CommonMybatisPageUtil;
 import com.jolin.domain.Carousel;
-import com.jolin.domain.Case;
+import com.jolin.domain.Cases;
 import com.jolin.dto.CarouselDTO;
-import com.jolin.dto.CaseDTO;
 import com.jolin.mapper.CarouselMapper;
-import com.jolin.mapper.CaseMapper;
 import com.jolin.service.ICarouselService;
-import com.jolin.service.ICaseService;
 import org.springframework.stereotype.Service;
 
 

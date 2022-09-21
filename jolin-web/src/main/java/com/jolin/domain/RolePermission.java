@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("role")
+@TableName("role_permission")
 public class RolePermission extends BaseDomain {
     private static final long serialVersionUID = 1L;
     
