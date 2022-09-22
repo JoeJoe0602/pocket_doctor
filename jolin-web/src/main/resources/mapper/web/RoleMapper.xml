@@ -34,7 +34,7 @@
         where
         is_delete = 0
         <if test="role.name != null and role.name != ''">
-            AND name LIKE concat ('%',#{role.name},'%')
+            AND `name` LIKE concat ('%',#{role.name},'%')
         </if>
 
     </select>

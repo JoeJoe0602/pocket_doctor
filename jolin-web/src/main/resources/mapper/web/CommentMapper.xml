@@ -25,7 +25,7 @@
 
         appointment_id ,
         score,
-        comment,
+        comment
     </sql>
 
     <select id="getPage" resultMap="BaseResultMap">
@@ -36,7 +36,7 @@
         where
         is_delete = 0
         <if test="comment.appointmentId != null and comment.appointmentId != ''">
-            AND  appointmentId= #{comment.appointmentId}
+            AND  appointment_id= #{comment.appointmentId}
         </if>
 
 

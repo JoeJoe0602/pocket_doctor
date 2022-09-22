@@ -36,7 +36,7 @@
         where
         is_delete = 0
         <if test="collect.userId != null and collect.userId != ''">
-            AND userId = #{collect.userId}
+            AND user_id = #{collect.userId}
         </if>
 
         <if test="collect.type != null and collect.type != ''">

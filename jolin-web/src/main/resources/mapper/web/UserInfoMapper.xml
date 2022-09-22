@@ -25,7 +25,7 @@
         nickname,
         password,
         photo_url,
-        state,
+        `state` ,
         sort,
         is_delete,
         created_at,

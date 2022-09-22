@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = {"RolePermission"})
+@Api(tags = {"✅RolePermission"})
 @ApiSort(26)
 @RestController
 @RequestMapping("sys/role_permission")

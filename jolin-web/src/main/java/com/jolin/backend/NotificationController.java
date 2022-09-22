@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = {"Notification"})
+@Api(tags = {"✅Notification"})
 @ApiSort(24)
 @RestController
 @RequestMapping("sys/notification")

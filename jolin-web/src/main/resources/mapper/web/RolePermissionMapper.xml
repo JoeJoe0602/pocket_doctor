@@ -3,7 +3,7 @@
 <mapper namespace="com.jolin.mapper.RolePermissionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.jolin.domain.Appointment">
+    <resultMap id="BaseResultMap" type="com.jolin.domain.RolePermission">
         <result column="id" property="id"/>
         <result column="sort" property="sort"/>
         <result column="is_delete" property="isDelete"/>
@@ -11,7 +11,7 @@
         <result column="updated_at" property="updatedAt"/>
 
         <result column="role_id" property="roleId"/>
-        <result column="permission_id" property="doctorId"/>
+        <result column="permission_id" property="permissionId"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -34,11 +34,11 @@
         where
         is_delete = 0
         <if test="role_permission.roleId != null and role_permission.roleId != ''">
-            AND roleId = #{role_permission.roleId}
+            AND role_id = #{role_permission.roleId}
         </if>
 
         <if test="role_permission.permissionId != null and role_permission.permissionId != ''">
-            AND permissionId = #{role_permission.permissionId}
+            AND permission_id = #{role_permission.permissionId}
         </if>
 
     </select>

@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jolin.mapper.PermissionMapper">
+<mapper namespace="com.jolin.mapper.InsurancePaymentMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.jolin.domain.Permission">
+    <resultMap id="BaseResultMap" type="com.jolin.domain.InsurancePayment">
         <result column="id" property="id"/>
         <result column="sort" property="sort"/>
         <result column="is_delete" property="isDelete"/>
         <result column="created_at" property="createdAt"/>
         <result column="updated_at" property="updatedAt"/>
 
-
-        <result column="parent_id" property="parentId"/>
-        <result column="name" property="name"/>
-        <result column="permission_key" property="permissionKey"/>
-        <result column="description" property="description"/>
+        <result column="appointment_id" property="appointmentId"/>
+        <result column="status" property="status"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -25,25 +22,21 @@
         created_at,
         updated_at,
 
-        parent_id,
-        `name`,
-        permission_key,
-        description
+        appointment_id,
+        status
+
+
     </sql>
 
     <select id="getPage" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from
-        permission
+        insurance_payment
         where
         is_delete = 0
-        <if test="permission.parentId != null and permission.parentId != ''">
-            AND parent_id = #{permission.parentId}
-        </if>
-
-        <if test="permission.permissionKey != null and permission.permissionKey != ''">
-            AND permission_key = #{permission.permissionKey}
+        <if test="insurance_payment.appointmentId != null and insurance_payment .appointmentId != ''">
+            AND  appointment_id = #{insurance_payment.appointmentId}
         </if>
 
     </select>

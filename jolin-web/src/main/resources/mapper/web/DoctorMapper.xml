@@ -45,7 +45,7 @@
         where
         is_delete = 0
         <if test="doctor.userId != null and doctor.userId != ''">
-            AND userId = #{doctor.userId}
+            AND user_id = #{doctor.userId}
         </if>
 
 
@@ -78,7 +78,7 @@
         where
         is_delete = 0
         <if test="doctor.userId != null and doctor.userId != ''">
-            AND userId = #{doctor.userId})
+            AND user_id = #{doctor.userId})
         </if>
 
         order by distance asc

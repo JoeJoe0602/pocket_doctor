@@ -42,7 +42,7 @@
         where
         is_delete = 0
         <if test="clinic.name != null and clinic.name != ''">
-            AND userId = #{clinic.name}
+            AND `name` = #{clinic.name}
         </if>
 
 
@@ -75,7 +75,7 @@
         where
         is_delete = 0
         <if test="clinic.name != null and clinic.name != ''">
-            AND name like ('%',{clinic.name}),'%')
+            AND `name` like ('%',{clinic.name}),'%')
         </if>
 
         order by distance asc

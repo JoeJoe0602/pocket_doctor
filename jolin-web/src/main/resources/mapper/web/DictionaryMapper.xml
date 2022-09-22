@@ -36,7 +36,7 @@
         where
         is_delete = 0
         <if test="dictionary.dictionaryTypeId != null and dictionary.dictionaryTypeId != ''">
-            AND dictionaryTypeId = #{dictionary.dictionaryTypeId}
+            AND dictionary_type_id = #{dictionary.dictionaryTypeId}
         </if>
 
 

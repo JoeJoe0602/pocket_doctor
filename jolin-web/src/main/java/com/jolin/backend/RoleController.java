@@ -9,7 +9,7 @@ import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = {"Role"})
+@Api(tags = {"✅Role"})
 @ApiSort(25)
 @RestController
 @RequestMapping("sys/role")
