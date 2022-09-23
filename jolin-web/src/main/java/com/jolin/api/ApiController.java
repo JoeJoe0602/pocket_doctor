@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = {"Api"})
+@Api(tags = {"✅Api"})
 @ApiSort(1)
 @RestController
 @RequestMapping("api")
@@ -60,16 +60,18 @@ public class ApiController {
 
     @ApiOperation(value = "在首页搜索文章")
     @PostMapping("searchArticle")
-    public ResultDTO searchArticle(PageDTO pageDTO) {
+    public ResultDTO searchArticle(@RequestBody PageDTO<ArticleDTO> pageDTO) {
         PageDTO<ArticleDTO> articleDTOPageDTO = iArticleService.getPage(pageDTO);
 
         return new ResultDTO(articleDTOPageDTO);
     }
 
 
+
+
     @ApiOperation(value = " 根据经纬度，查询医生列表")
     @PostMapping("findDoctor")
-    public ResultDTO findDoctor(PageDTO pageDTO) {
+    public ResultDTO findDoctor(@RequestBody PageDTO<DoctorDTO> pageDTO) {
         PageDTO<DoctorDTO> doctorDTOPageDTO = iDoctorService.getPageDistance(pageDTO);
 
         return new ResultDTO(doctorDTOPageDTO);
@@ -103,7 +105,7 @@ public class ApiController {
 
     @ApiOperation(value = "获取用户的预约记录")
     @PostMapping("getAppointmentList")
-    public ResultDTO getAppointmentList(PageDTO pageDTO) {
+    public ResultDTO getAppointmentList(@RequestBody PageDTO<AppointmentDTO> pageDTO) {
         PageDTO<AppointmentDTO> appointmentDTOPageDTO = iAppointmentService.getPage(pageDTO);
         List appointmentList = appointmentDTOPageDTO.getList();
         for (int i = 0; i < appointmentList.size(); i++) {
@@ -126,7 +128,7 @@ public class ApiController {
 
     @ApiOperation(value = "获取文章分类")
     @PostMapping("getCategory")
-    public ResultDTO getCategory(PageDTO pageDTO) {
+    public ResultDTO getCategory(@RequestBody PageDTO<CategoryDTO> pageDTO) {
         PageDTO<CategoryDTO> categoryDTOPageDTO = iCategoryService.getPage(pageDTO);
 
         return new ResultDTO(categoryDTOPageDTO);
@@ -135,7 +137,7 @@ public class ApiController {
 
     @ApiOperation(value = "获取文章列表")
     @PostMapping("getArticleList")
-    public ResultDTO getArticleList(PageDTO pageDTO) {
+    public ResultDTO getArticleList(@RequestBody PageDTO<ArticleDTO> pageDTO) {
         PageDTO<ArticleDTO> articleDTOPageDTO = iArticleService.getPage(pageDTO);
 
         return new ResultDTO(articleDTOPageDTO);
@@ -152,7 +154,7 @@ public class ApiController {
 
     @ApiOperation(value = "获取轮播图列表")
     @PostMapping("getCarouselList")
-    public ResultDTO getCarouselList(PageDTO pageDTO) {
+    public ResultDTO getCarouselList(@RequestBody PageDTO<CarouselDTO>  pageDTO) {
         PageDTO<CarouselDTO> carouselDTOPageDTO = iCarouselService.getPage(pageDTO);
 
         return new ResultDTO(carouselDTOPageDTO);
@@ -197,14 +199,14 @@ public class ApiController {
 
     @ApiOperation(value = "获取收藏列表")
     @PostMapping("getCollectList")
-    public ResultDTO getCollectList(PageDTO pageDTO) {
+    public ResultDTO getCollectList(@RequestBody PageDTO<CollectDTO>  pageDTO) {
         PageDTO<CollectDTO> collectDTOPageDTO = iCollectService.getPage(pageDTO);
         return new ResultDTO(collectDTOPageDTO);
     }
 
     @ApiOperation(value = "获取病例列表")
     @PostMapping("getCasesList")
-    public ResultDTO getCasesList(PageDTO pageDTO) {
+    public ResultDTO getCasesList(@RequestBody PageDTO<CasesDTO> pageDTO) {
 
         PageDTO<CasesDTO> casesDTOPageDTO = iCaseService.getPage(pageDTO);
 
@@ -213,7 +215,7 @@ public class ApiController {
 
     @ApiOperation(value = "获取处方列表")
     @PostMapping("getPrescriptionList")
-    public ResultDTO getPrescriptionList(PageDTO pageDTO) {
+    public ResultDTO getPrescriptionList(@RequestBody PageDTO<PrescriptionDTO>  pageDTO) {
 
         PageDTO<PrescriptionDTO> prescriptionDTOPageDTO = iPrescriptionService.getPage(pageDTO);
 

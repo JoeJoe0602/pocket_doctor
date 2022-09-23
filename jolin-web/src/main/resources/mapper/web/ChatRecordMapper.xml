@@ -80,12 +80,12 @@
                 FROM
                     chat_record m
                 WHERE
-                    (
-                            m.user_id IN (  SELECT doctor_id AS chat_id FROM chat_record e WHERE e.user_id = #{chat_record.userId})
-                        )
-                   OR (
-                            m.user_id = #{chat_record.userId}
-                        AND m.doctor_id IN (  SELECT doctor_id AS chat_id FROM chat_record e WHERE e.user_id = #{chat_record.userId} ))
+                    is_delete = 0
+                  AND ((
+                               m.user_id IN ( SELECT user_id AS chat_id FROM chat_record e WHERE e.user_id = #{chat_record.userId}   )
+                           )
+                    OR ( m.user_id = #{chat_record.userId}  )
+                           AND m.user_id IN ( SELECT user_id AS chat_id FROM chat_record e WHERE e.user_id = #{chat_record.userId}  ))
                 ORDER BY
                     created_at DESC
                     LIMIT 999999
@@ -93,7 +93,6 @@
         GROUP BY
             msg.user_id + msg.doctor_id,
             ABS( msg.user_id - msg.doctor_id );
-
 
     </select>
 
