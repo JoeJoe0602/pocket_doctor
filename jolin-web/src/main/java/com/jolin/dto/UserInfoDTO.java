@@ -5,17 +5,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Range;
-
-import javax.validation.constraints.Email;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 
-/**
- * 类名称：UserInfoDTO 类描述： 用户DTO 创建人：dourl 创建时间：2018年2月5日 下午2:07:16
- */
-@ApiModel(value = "userDto对象", description = "用户对象userDto")
+
+@ApiModel(value = "userDtoObject", description = "UserObjectuserDto")
 @Data
 @NoArgsConstructor
 public class UserInfoDTO extends CommonUserDTO {
@@ -23,17 +16,17 @@ public class UserInfoDTO extends CommonUserDTO {
 
 
 
-    @ApiModelProperty(value = "登录名")
+    @ApiModelProperty(value = "loginName")
     private String loginName;
 
     private String password;
 
-    @ApiModelProperty(value = "真实姓名")
+    @ApiModelProperty(value = "nickName")
     private String nickName;
 
 
 
-    @ApiModelProperty(value = "是否启用（锁定），1是启用（不锁定），0是不启用（被锁定）", example = "1")
+    @ApiModelProperty(value = "Enabled or not (locked), 1 is enabled (not locked), 0 is not enabled (locked)）", example = "1")
     private String state;
 
 

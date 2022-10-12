@@ -2,7 +2,6 @@ package com.jolin.backend;
 
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import com.jolin.common.api.BaseController;
-import com.jolin.common.dto.PageDTO;
 import com.jolin.dto.DoctorDTO;
 import com.jolin.service.IDoctorService;
 import io.swagger.annotations.Api;

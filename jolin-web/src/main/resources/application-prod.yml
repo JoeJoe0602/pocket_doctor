@@ -1,19 +1,19 @@
 ---
-#全局datasource配置
+#Global datasource Configuration
 spring:
-  datasource: #初始化sql配置
+  datasource: # Initialize the sql configuration
     initialization-mode: AlWAYS
-    continue-on-error: true                        #在初始化数据库时，遇到错误是否继续，默认false
-    test-on-borrow: false                           #当从连接池借用连接时，是否测试该连接.
-    test-while-idle: true                           #当连接空闲时，是否执行连接测试.
-    time-between-eviction-runs-millis: 3600000    #数据库连接时间
+    continue-on-error: true                        #If an error is encountered while initializing the database, the default is false
+    test-on-borrow: false                            #Whether to test the connection when borrowing it from the connection pool.
+    test-while-idle: true                           #Whether to perform a connection test when the connection is idle.
+    time-between-eviction-runs-millis: 3600000    #Database connection time
 
 ---
-#mysql配置
+# Mysql Configuration
 spring:
   datasource:
-    driver-class-name: "com.mysql.cj.jdbc.Driver"     # mysql 8时候配置
-    url: "jdbc:mysql://81.70.204.139:3306/pocket_doctor?serverTimezone=GMT%2B8&amp&characterEncoding=utf-8&useSSL=false"  #  mysql 8时候配置
+    driver-class-name: "com.mysql.cj.jdbc.Driver"     # Mysql 8 Configuration
+    url: "jdbc:mysql://81.70.204.139:3306/pocket_doctor?serverTimezone=GMT%2B8&amp&characterEncoding=utf-8&useSSL=false"   # Mysql 8 Configuration
     username: pocket_doctor
     password: pocket_doctor
     data-username: pocket_doctor
@@ -26,11 +26,11 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://jolin.com/.well-known/jwks.json  #向OAuth2 请求密钥的接口地址
+          jwk-set-uri: http://jolin.com/.well-known/jwks.json  #The address of the interface to request the key from OAuth2
 ---
 
 ---
-# redis配置
+# Redis Configuration
 spring:
   redis:
     database: 2
@@ -39,32 +39,32 @@ spring:
     timeout: 3000
 #    password: admin
 
-# 日志配置
+# Log Configuration
 logging:
   level:
     org.springframework.web: debug
     com.jolin: debug
 
-# swagger2是否开启
+# swagger2 Whether to enable Swagger2
 knife4j:
-  # 开启增强配置
+  # Enabling Enhanced Configuration
   enable: true
-  # 部署到生产环境时，建议设置为true开启生产环境屏蔽
+  # In the production environment, you are advised to set this parameter to true to enable production environment masking
   production: false
 
 ---
-# TODO mybatis配置，如果使用jpa可以删除
+# TODO Mybatis configuration can be deleted if jpa is used
 mybatis-plus:
-  #扫描多个模块下的mapper.xml
+  #Scan mapper.xml in multiple modules
   mapper-locations: classpath*:mapper/**/*.xml
-  type-aliases-package: com.jolin.domain     #MyBaits 别名包扫描路径，通过该属性可以给包中的类注册别名，注册后在 Mapper 对应的 XML 文件中可以直接使用类名，而不用使用全限定的类名
-  #type-aliases-super-type: java.lang.Object     #该配置请和 typeAliasesPackage 一起使用，如果配置了该属性，则仅仅会扫描路径下以该类作为父类的域对象 。
+  type-aliases-package: com.jolin.domain     #MyBaits alias package scan path, which allows you to alias classes in a package. After registration, you can use the class name directly in the corresponding XML file of Mapper instead of using the fully qualified class name
+  #type-aliases-super-type: java.lang.Object     #This configuration should be used with typeAliasesPackage. If this property is configured, only domain objects with this class as their parent class in the path will be scanned.
   global-config:
     db-config:
-      logic-delete-field: is_delete        #全局逻辑删除字段值 3.3.0开始支持，详情看下面。
-      logic-delete-value: 1                # 逻辑已删除值(默认为 1)
-      logic-not-delete-value: 0            # 逻辑未删除值(默认为 0)
+      logic-delete-field: is_delete        #Global logic to delete field values 3.3.0 support, see below for details.
+      logic-delete-value: 1                # Logical deleted value (default is 1)
+      logic-not-delete-value: 0            # Logical undeleted value (default is 0)
   configuration:
-    map-underscore-to-camel-case: true     #是否开启自动驼峰命名规则（camel case）映射,如果明明规范不需要使用@TableField
+    map-underscore-to-camel-case: true      # Whether to enable automatic camel case mapping if it is clear that @TableField is not required by the specification
     cache-enabled: false
     call-setters-on-nulls: true

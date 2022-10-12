@@ -66,11 +66,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <!--maven 打包，将外部 lib 包含进来-->
+                    <!--maven packaging, including the external lib-->
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>
             </plugin>
-            <!--mvn deploy忽略此model，这是可运行jar包，不应该上传到中央仓库-->
+            <!--mvn deploy ignores this model, which is a runnable jar package and should not be uploaded to the central repository-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>

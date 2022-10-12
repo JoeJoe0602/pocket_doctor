@@ -5,18 +5,13 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author jolin
- * @version 1.0
- * @date 2021/3/25
- * @describe
- */
+
 public class BaseJwtTokenAuthenticationConverter implements Converter<String, Authentication> {
     private BaseJwtTokenConverter jwtTokenConverter = new BaseJwtTokenConverter();
 
@@ -37,14 +32,10 @@ public class BaseJwtTokenAuthenticationConverter implements Converter<String, Au
         return authenticationToken;
     }
 
-    // 取得用户的权限
+    // Obtain the permission of the user
     private Set<GrantedAuthority> obtionGrantedAuthorities(JWTClaimsSet jwtClaimsSet ) {
         Set<GrantedAuthority> authSet = new HashSet<GrantedAuthority>();
         String authorities = (String) jwtClaimsSet.getClaim("authorities");
-//        String[] split = authorities.split(",");
-//        for (String roleId : split) {
-//            authSet.add(new SimpleGrantedAuthority(roleId));
-//        }
         return authSet;
     }
 

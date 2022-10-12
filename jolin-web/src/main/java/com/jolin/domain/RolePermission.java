@@ -18,9 +18,9 @@ public class RolePermission extends BaseDomain {
     private static final long serialVersionUID = 1L;
     
 
-    @ApiModelProperty(value = "角色ID")
+    @ApiModelProperty(value = "roleId")
     private Integer roleId;
 
-    @ApiModelProperty(value = "权限ID")
+    @ApiModelProperty(value = "permissionId")
     private Integer permissionId;
 }

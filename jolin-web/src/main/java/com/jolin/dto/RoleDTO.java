@@ -13,19 +13,19 @@ import javax.validation.constraints.NotBlank;
 
 
 /**
- * 类名称：UserInfoDTO 类描述： 用户DTO 创建人：dourl 创建时间：2018年2月5日 下午2:07:16
+ * Class Name：UserInfoDTO Class Description： UserInfoDTO
  */
-@ApiModel(value = "roleId对象", description = "角色对象roleDto")
+@ApiModel(value = "roleIdObject", description = "RoleObjectroleDto")
 @Data
 @NoArgsConstructor
 public class RoleDTO extends BaseDTO {
 
 
-    @ApiModelProperty(value = "角色名称")
-    @NotBlank(message = "角色名称不能为空")
+    @ApiModelProperty(value = "RoleName")
+    @NotBlank(message = "RoleName cannot be empty")
     private String name;
 
-    @ApiModelProperty(value = "角色描述")
+    @ApiModelProperty(value = "Description")
     private String description;
 
 }

@@ -35,14 +35,14 @@ public class WebLogsRestController extends BaseController<IWebLogsService, WebLo
     @Autowired
     private WebApplicationContext applicationContext;
 
-    @ApiOperation(value = "8.获取所有的接口的元数据描述信息")
+    @ApiOperation(value = "8.Get the metadata description of all interfaces")
     @ApiOperationSupport(order = 8)
     @GetMapping(value = "/getAllURL")
     public ResultDTO getAllURL() {
         List<Map<String, String>> resultList = new ArrayList<>();
 
         RequestMappingHandlerMapping requestMappingHandlerMapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
-        // 获取url与类和方法的对应信息
+        //Gets the corresponding information of the url to the class and method
         Map<RequestMappingInfo, HandlerMethod> map = requestMappingHandlerMapping.getHandlerMethods();
 
         for (Map.Entry<RequestMappingInfo, HandlerMethod> mappingInfoHandlerMethodEntry : map.entrySet()) {
@@ -51,7 +51,7 @@ public class WebLogsRestController extends BaseController<IWebLogsService, WebLo
             RequestMappingInfo requestMappingInfo = mappingInfoHandlerMethodEntry.getKey();
             HandlerMethod handlerMethod = mappingInfoHandlerMethodEntry.getValue();
 
-            // 类名
+            // Class name
             resultMap.put("className", handlerMethod.getMethod().getDeclaringClass().getName());
             Annotation[] parentAnnotations = handlerMethod.getBeanType().getAnnotations();
             for (Annotation annotation : parentAnnotations) {
@@ -66,28 +66,28 @@ public class WebLogsRestController extends BaseController<IWebLogsService, WebLo
                     }
                 }
             }
-            // 方法名
+            // Method name
             resultMap.put("methodName", handlerMethod.getMethod().getName());
             Annotation[] annotations = handlerMethod.getMethod().getDeclaredAnnotations();
             if (annotations != null) {
-                // 处理具体的方法信息
+                //Process specific method information
                 for (Annotation annotation : annotations) {
                     if (annotation instanceof ApiOperation) {
                         ApiOperation methodDesc = (ApiOperation) annotation;
                         String desc = methodDesc.value();
-                        //接口描述
+                        // Interface description
                         resultMap.put("methodDesc", desc);
                     }
                 }
             }
             PatternsRequestCondition p = requestMappingInfo.getPatternsCondition();
             for (String url : p.getPatterns()) {
-                //请求URL
+                //Request URL
                 resultMap.put("methodURL", url);
             }
             RequestMethodsRequestCondition methodsCondition = requestMappingInfo.getMethodsCondition();
             for (RequestMethod requestMethod : methodsCondition.getMethods()) {
-                //请求方式：POST/PUT/GET/DELETE等
+                //Request Methods ：POST/PUT/GET/DELETE
                 resultMap.put("requestType", requestMethod.toString());
             }
             resultList.add(resultMap);

@@ -12,19 +12,19 @@ import java.time.LocalDateTime;
 public class WebLogsDTO extends BaseDTO {
     private static final long serialVersionUID = 8654485582322279564L;
     /**
-     * 实体类
+     * Entity
      */
     private String logClassName;
     /**
-     * 方法描述
+     * Method description
      */
     private String logInfo;
     /**
-     * 方法名
+     *  Method name
      */
     private String logMethodName;
     /**
-     * 操作方法
+     * Operational method
      */
     private String logOperationType;
     /**
@@ -32,19 +32,19 @@ public class WebLogsDTO extends BaseDTO {
      */
     private String logPrimaryKey;
     /**
-     * 日志表名称
+     * Log table name
      */
     private String logTableName;
     /**
-     *
+     * Log url
      */
     private String logUrl;
     /**
-     * 访问人
+     * Log user
      */
     private String logUserName;
     /**
-     * 模块名称
+     * Module name
      */
     private String module;
 
@@ -57,7 +57,7 @@ public class WebLogsDTO extends BaseDTO {
     private String logServerIp;
     private String logClientIp;
     /**
-     * 以下两个是预留字段
+     * The following two are reserved fields
      */
     private String info;
     private String type;

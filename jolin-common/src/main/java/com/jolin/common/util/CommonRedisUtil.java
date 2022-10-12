@@ -43,12 +43,13 @@ public class CommonRedisUtil implements ICommonCache {
     }
 
     /**
-     * 设置同时设置过期时间
+     * Set expiration time at the same time
      *
-     * @param key    键
-     * @param value  值
-     * @param expire 过期时间，单位：秒
+     * @param key    key
+     * @param value  value
+     * @param expire expiration time, in seconds
      */
+
     public void set(String key, String value, long expire) {
         logger.debug("Enter set() key={}, value={}", key, value);
         ValueOperations<String, String> ops = this.template.opsForValue();
@@ -125,7 +126,7 @@ public class CommonRedisUtil implements ICommonCache {
         if (countStr == null) {
             hashOps.put(hashname, itemkey, delta + "");
         } else {
-            //增加统计量
+            //Increase the statistic
             hashOps.increment(hashname, itemkey, delta);
         }
         return true;
@@ -150,9 +151,9 @@ public class CommonRedisUtil implements ICommonCache {
     }
 
     /**
-     * 注意，此方法时间复杂度为O(n)，慎用
+     * Note that this method is O(n) in time and should be used with caution
      *
-     * @param pattern pattern支持glob-style的通配符格式，如*表示任意一个或多个字符，?表示任意字符，[abc]表示方括号中任意一个字母
+     * @param pattern pattern The glob-style wildcard format is supported. For example, * indicates any one or more characters. Denotes any character, and [abc] denotes any letter in square brackets
      * @return
      */
     public List<String> mgetByPattern(String pattern) {
@@ -162,9 +163,10 @@ public class CommonRedisUtil implements ICommonCache {
     }
 
     /**
-     * 注意，此方法时间复杂度为O(n)，慎用
+     * Note that this method is O(n) in time and should be used with caution
      *
-     * @param pattern pattern支持glob-style的通配符格式，如*表示任意一个或多个字符，?表示任意字符，[abc]表示方括号中任意一个字母
+     * @param pattern pattern The glob-style wildcard format is supported. For example, * indicates any one or more characters. Denotes any character, and [abc] denotes any letter in square brackets
+     * @return
      */
     public void mremoveByPattern(String pattern) {
         logger.debug("Enter mgetByPattern() pattern={}", pattern);

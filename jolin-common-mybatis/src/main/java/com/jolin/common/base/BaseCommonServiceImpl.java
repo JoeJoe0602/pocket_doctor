@@ -47,7 +47,7 @@ abstract class BaseCommonServiceImpl<I extends IBaseCommonRepository<D>, D exten
             afterCreate(dto);
             return domainToDTO(t, true);
         }
-        throw new CommonException("保存失败");
+        throw new CommonException("Save failed");
     }
 
     @Override
@@ -86,6 +86,6 @@ abstract class BaseCommonServiceImpl<I extends IBaseCommonRepository<D>, D exten
         if (t instanceof BaseJoinDomain) {
             deleteCache();
         }
-        throw new CommonException("更新失败");
+        throw new CommonException("Update failed");
     }
 }

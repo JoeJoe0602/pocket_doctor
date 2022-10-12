@@ -21,7 +21,7 @@ import java.util.List;
 @Configuration
 @EnableSwagger2WebMvc
 public class Swagger2Config implements WebMvcConfigurer {
-    private final String apiKeyName = "普通登录或者OAuth2登录后获取的的Bearer Token";
+    private final String apiKeyName = "Bearer Token obtained after normal login or OAuth2 login";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -35,8 +35,8 @@ public class Swagger2Config implements WebMvcConfigurer {
     }
 
     /**
-     * 主要是这个方法，其他的方法是抽出去的
-     * 在 basePackage 里面写需要生成文档的 controller 路径
+     * That's the main method. The other methods are drawn out
+     * In basePackage, write the controller path to which the document needs to be generated
      */
     @Bean
     public Docket api() {
@@ -58,17 +58,18 @@ public class Swagger2Config implements WebMvcConfigurer {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "开发框架",
-                "获取swagger的token：" +
+                "Development framework",
+                "Get a token for swagger：" +
                         "curl -i -X POST -d \"username=admin&password=123456&grant_type=password&client_id=swagger&client_secret=swagger\" http://localhost:8769/oauth/token " +
-                        "可以使用curl命令或者postman等发起post请求，获取token,然后粘贴到swagger的Authorize中，注意前面要加上Bearer 前缀，并且用空格隔开",
+                        "You can make a post request using the curl command or something like postman to get tokens, and then paste it on the swagger Authorize with Bearer prefixes and spacing down",
                 "1.0.0",
                 "http://localhost:7779/",
                 new Contact("", "xxx", "xxx@email.com.cn"),
                 "License of API", "API license URL", Collections.emptyList());
     }
 
-    // 普通登录swagger
+
+    //Log on to swagger
     private ApiKey normalApiKey() {
         return new ApiKey(apiKeyName, "Authorization", "header");
     }

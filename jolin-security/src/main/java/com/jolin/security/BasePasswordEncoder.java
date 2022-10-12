@@ -16,7 +16,7 @@ public class BasePasswordEncoder extends BCryptPasswordEncoder {
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         if (enableSM4) {
-            //是否用国密sm4解密
+            //Whether to use Secret sm4 to decrypt
             try {
                 SymmetricCrypto sm4 = SmUtil.sm4(SM4SecretKey.getBytes());
                 rawPassword = sm4.decryptStr(rawPassword.toString(), CharsetUtil.CHARSET_UTF_8);
@@ -29,7 +29,7 @@ public class BasePasswordEncoder extends BCryptPasswordEncoder {
 
     public String decoder( CharSequence rawPassword) {
         if (enableSM4) {
-            //是否用国密sm4解密
+            //Whether to use Secret sm4 to decrypt
             SymmetricCrypto sm4 = SmUtil.sm4(SM4SecretKey.getBytes());
             rawPassword = sm4.decryptStr(rawPassword.toString(), CharsetUtil.CHARSET_UTF_8);
         }

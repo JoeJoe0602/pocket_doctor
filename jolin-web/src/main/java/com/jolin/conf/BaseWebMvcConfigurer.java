@@ -13,7 +13,8 @@ public class BaseWebMvcConfigurer implements WebMvcConfigurer {
     public static String secondLevelImgUrl = "file/img";
 
 
-    // 支持通过URL访问文件
+
+    //Files can be accessed through urls
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String mImagesPath = "/d";

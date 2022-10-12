@@ -29,8 +29,8 @@ public abstract class CommonServiceImpl<I extends ICommonDaoRepository<D>, D ext
     }
 
     /**
-     * Mybatis的默认单表分页，不做封装
-     * 需要分页的业务逻辑可以Override此方法
+     * Default single table pagination for Mybatis, no encapsulation
+     * Override this method for business logic that requires paging
      * @param pageDTO
      * @return
      */

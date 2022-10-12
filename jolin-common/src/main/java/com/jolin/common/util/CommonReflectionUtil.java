@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-//反射方法
+// The reflection method
 public class CommonReflectionUtil {
     private static final Logger logger = LoggerFactory.getLogger(CommonReflectionUtil.class);
 
@@ -16,11 +16,11 @@ public class CommonReflectionUtil {
 
     /**
      * <p>
-     * 反射对象获取泛型
+     * Reflection objects get generics
      * </p>
      *
-     * @param clazz 对象
-     * @param index 泛型所在位置
+     * @param clazz Objects
+     * @param index Location of the generics
      * @return Class
      */
     public static Class<?> getSuperClassGenericType(final Class<?> clazz, final int index) {

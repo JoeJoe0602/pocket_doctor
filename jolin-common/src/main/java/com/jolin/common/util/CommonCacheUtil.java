@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.cache.CacheType;
 
 import java.util.Set;
 
-//TODO 目前还不完善，推荐直接使用Redis缓存
+//TODO is not perfect yet, it is recommended to use Redis cache directly
 public class CommonCacheUtil implements ICommonCache {
 
     private static final Logger logger = LoggerFactory.getLogger(CommonCacheUtil.class);

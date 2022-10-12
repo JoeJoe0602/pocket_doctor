@@ -38,15 +38,15 @@ public class FormLoginFailureHandler implements AuthenticationFailureHandler {
         String username = request.getParameter("username");
         String lockedRedisKey = lockedRedisKeyPre + ":" + username;
         String time = commonCacheUtil.get(lockedRedisKey);
-        //剩余登陆次数
+        //Number of remaining landings
         int count = Integer.parseInt(time);
-        //已经登陆的次数
+        //The number of times you've logged in
         int t = retryTime-count;
-        String message = "密码错误";
+        String message = "password is incorrect";
         if (count<3) {
-            resultDTO.setMessage("您已经登陆错误"+t+"次,还剩"+count+"登陆次数");
+            resultDTO.setMessage("You have logged in incorrectly +t+ times. There are +count+login times left");
         }else{
-            resultDTO.setMessage("用户名密码错误");
+            resultDTO.setMessage("username and password are incorrect");
         }
         resultDTO.setCode(401);
         response.setStatus(HttpStatus.UNAUTHORIZED.value());

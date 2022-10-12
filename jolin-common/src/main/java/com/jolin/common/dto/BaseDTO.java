@@ -9,16 +9,16 @@ import java.time.LocalDateTime;
 public abstract class BaseDTO<T extends BaseDTO> extends BaseCommonDTO {
 
 
-    @ApiModelProperty(value = "排序，新增修改不需要传值", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Sort, insert and modify do not need to pass value", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     protected Integer sort;
 
 
-    @ApiModelProperty(value = "创建时间，新增修改不需要传值", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Create time, insert and modify do not need to pass value", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     protected LocalDateTime createdAt;
 
-    @ApiModelProperty(value = "修改时间，新增修改不需要传值", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Update time, insert and modify do not need to pass value", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     protected LocalDateTime updatedAt;
 
-    @ApiModelProperty(value = "逻辑删除标志。0是已删除，新增修改不需要传值", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "Logical deletion flag. 0 Yes It has been deleted. No value is required for insert and modify", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
     private Integer isDelete;
 }

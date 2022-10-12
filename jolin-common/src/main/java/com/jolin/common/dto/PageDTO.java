@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@ApiModel(value = "分页查询对象", description = "分页查询对象")
+@ApiModel(value = "Paging query object", description = "Paging query object")
 @Data
 @NoArgsConstructor
 public class PageDTO<DTO extends CommonDTO> extends CommonPageDTO<DTO> implements Serializable {

@@ -9,15 +9,15 @@ import java.io.Serializable;
 import java.util.List;
 
 
-@ApiModel(value = "批量保存操作DTO", description = "批量保存操作DTO")
+@ApiModel(value = "Save operation DTOs in batches", description = "Save operation DTOs in batches")
 @Data
 @NoArgsConstructor
 public class BatchSaveDTO<DTO extends CommonDTO> implements Serializable {
     private static final long serialVersionUID = 11L;
 
-    @ApiModelProperty(value = "要删除的关联关系DTO集合")
+    @ApiModelProperty(value = "The collection of association DTOs to delete")
     List<DTO> deleteDTOs;
 
-    @ApiModelProperty(value = "要新增的关联关系DTO集合")
+    @ApiModelProperty(value = "The collection of association DTOs to create")
     List<DTO> createDTOs;
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base层基础service
+ * Base layer Basic service
  */
 public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonDomain> extends ICommonService<DTO, D> {
     @Cacheable(value = CacheKey_dto, keyGenerator = "baseCacheKeyGenerator", unless = "#result==null")
@@ -26,10 +26,10 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
     @Transactional(rollbackFor = Exception.class)
     default DTO beforeCreate(DTO dto) {
         if (dto == null) {
-            throw new CommonException("参数不能为null");
+            throw new CommonException("The parameter cannot be null");
         }
         if (StrUtil.isNotBlank(dto.getId())) {
-            throw new CommonException("新增时候Id属性不能有值,此方法只能用于新增操作，更新请调用update方法");
+            throw new CommonException("This method can only be used for create. To update, call the update method");
         }
 
         return dto;
@@ -38,7 +38,7 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
     @Transactional(rollbackFor = Exception.class)
     default Boolean beforeBatchCreate(List<DTO> dtoList) {
         if (CollectionUtils.isEmpty(dtoList)) {
-            throw new CommonException("要新增的集合不能为空");
+            throw new CommonException("The collection to be added cannot be empty");
         }
 
         for (DTO dto : dtoList) {
@@ -70,7 +70,7 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
     @Transactional(rollbackFor = Exception.class)
     default Boolean beforeRemove(String id) {
         if (StrUtil.isBlank(id)) {
-            throw new CommonException("ID不能为空");
+            throw new CommonException("ID cannot be empty");
         }
 
         return true;
@@ -79,7 +79,7 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
     @Transactional(rollbackFor = Exception.class)
     default Boolean beforeBatchRemove(List<String> ids) {
         if (CollectionUtils.isEmpty(ids)) {
-            throw new CommonException("要删除的ID集合不能为空");
+            throw new CommonException("The collection to be deleted cannot be empty");
         }
         for (String id : ids) {
             beforeRemove(id);
@@ -107,7 +107,7 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
     @Transactional(rollbackFor = Exception.class)
     default Boolean batchRemove(List<DTO> dtoList) {
         if (CollectionUtils.isEmpty(dtoList)) {
-            throw new CommonException("要删除的对象集合不能为空");
+            throw new CommonException("The collection of objects to be deleted cannot be empty");
         }
 
         List<String> idList = new ArrayList<>();
@@ -131,7 +131,7 @@ public interface IBaseCommonService<DTO extends BaseCommonDTO, D extends CommonD
     @Transactional(rollbackFor = Exception.class)
     default DTO beforeUpdate(DTO dto) {
         if (dto != null && StrUtil.isBlank(dto.getId())) {
-            throw new CommonException("ID不能为空");
+            throw new CommonException("ID cannot be empty");
         }
 
         return dto;

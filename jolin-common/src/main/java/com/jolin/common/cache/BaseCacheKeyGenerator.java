@@ -9,21 +9,22 @@ import org.springframework.cache.interceptor.KeyGenerator;
 import java.lang.reflect.Method;
 
 /**
- * 框架定义的缓存Key生成器
+ * Framework-defined cache Key generator
  */
 public class BaseCacheKeyGenerator implements KeyGenerator {
     /**
-     * 生成缓存自定义key
-     * target：调用该方法的方法名
-     * method：该方法的所在类名
-     * params：传入值的参数值
+     * Generate a cache custom key
+     * target: The name of the method that calls the method
+     * method: specifies the class name of the method
+     * params: Parameter value of the passed value
      */
     @Override
     public Object generate(Object target, Method method, Object... params) {
-        //获取DTO类名
+
+        //Gets the name of the DTO class
         String dtoClassName = ((ICommonService) target).getDTOClass().getSimpleName();
         String id = "";
-        //如果参数是DTO,则获取DTO的id值作为key
+        //If the parameter is DTO, obtain the DTO id as the key
         if (params[0] instanceof BaseDTO) {
             id = ((BaseDTO) params[0]).getId();
         }

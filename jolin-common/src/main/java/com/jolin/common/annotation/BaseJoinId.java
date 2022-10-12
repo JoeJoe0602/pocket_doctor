@@ -6,12 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 关联表Id字段
+ * The table id field is associated
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface BaseJoinId {
-    // 多个主表ID字段的顺序，从0开始
+
+    //The order of multiple primary table id fields, starting from 0
     Index index() default Index.first;
 
     enum Index {

@@ -7,26 +7,25 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
-@ApiModel(value = "基础分页查询对象，不依赖Base, 原生JPA或者Mybatis可以直接使用",
-        description = "基础查询对象,不依赖Base,原生JPA或者Mybatis可以直接使用")
+@ApiModel(value = "Basic paging query object, does not depend on Base, native JPA or Mybatis can be directly used",
+        description = "Base query object, does not depend on Base, native JPA or Mybatis can be used directly")
 @Data
 @NoArgsConstructor
 public class CommonPageDTO<DTO> implements Serializable {
 
-    @Min(value = 1, message = "最少是第一页")
+    @Min(value = 1, message = "At least the first page")
     @ApiModelProperty(example = "1")
-    @NotNull(message = "页码为必要参数")
+    @NotNull(message = "Page numbers are necessary parameters")
     private Integer page;
 
-    @Min(value = 1, message = "每页最少展示1项")
-    @Max(value = 1000, message = "每页最多展示1000项")
+    @Min(value = 1, message = "Display at least 1 item per page")
+    @Max(value = 1000, message = "Display a maximum of 1000 items per page")
     @ApiModelProperty(example = "10")
-    @NotNull(message = "页大小为必要参数")
+    @NotNull(message = "Page size is a required parameter")
     private Integer pageSize;
 
     private List<SortDTO> sorts;

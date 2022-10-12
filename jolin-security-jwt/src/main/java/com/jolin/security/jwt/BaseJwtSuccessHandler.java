@@ -11,12 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @author jolin
- * @version 1.0
- * @date 2021/3/22
- * @describe
- */
+
 public class BaseJwtSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override

@@ -1,6 +1,6 @@
 package com.jolin.common.util;
 
-// 存储全局静态变量
+//Stores global static variables
 public class CommonStatic {
     public static final String ROLE_ID_KEY = "5b66ecf45d634159a08468898b1b3217";
 

@@ -23,18 +23,12 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author jolin
- * @version 1.0
- * @date 2021/3/25
- * @describe
- */
 public class BaseJwtTokenConverter {
     private String secret = "mySecret";
 
-    //RSA私钥
+    //RSA private key
     private String privateKey = "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC6vCb0jpf1cR8dNrtZP1OUf3YKG4z235E96uISS90WdoX0R63ErRSnHBGWVcFXFWSQLj2U1XINzxMnjG81RH8s5Z/nZdvOa1nxciliv/WPO0EQHnoCTJAg4Jkn3EMyHr+oVGQGe3OwNu32WU37v9Wqx5QM9SO8ZWOkkkrURApLNipBdwNvck5f+9iyshsCHKnSj7HN3Ado3+WMi4Urn0sYXtPySshrTSl3iZjmTuYEyWTRAWjlTdlylbVpUuVCCPsO/MeilK6QIBajwpbJbD6ci+D6WxvarPKm+YFvF1eLm1H3+sp9Pw5uODexpOYlu57VZZDh9p5QRz6EcIQiISuXAgMBAAECggEAf5JtNqR4Mkk/DXFH2vgFfKz7knox+rLQAjIGkqNbfq4oY7PYhkYMlwH5DfC2Lm1CD7JXheewjLiMiHdLvmN2UtDpRmfzG/mBMA9jMMCd3WWI1J9NkWaHDL8EQxQaoBIbs787uqX6akeMmMF4ImZzbcH9ZkDPUjUeNt9u2cdGFQzXuPT1G+F9zPNfHNDp7OEScTm3/kweKzTIIhIvrD/uBcoYir7spFlR0CgQHAkXegcM4c1CinOQ8INRWCCWB+SZ0g3NvrmgJvA1mluhwuXcXus3EXO8+6mxWeDdKIiAH954Whrq6ADECWDfzcWqGyYX6Y6/6BqxjWpoTm4Q/eJZ6QKBgQDpn9qGwYvxwZApNeiiQDKkYB8VcUZmUZcY3aYK3Jw6OFN8p/kOhihWexmFvQwi70EsleHba9CMBhqwUZAXDwT9trBQ1+Al+gtTItLi7tmNaslXCBzmcnR0J/XfzXl56fItDUwUToFetCe9Uc7//dU/beGpBsVP/eBiIPpLDyG29QKBgQDMnqJY6nJ7ewnQkbVBWpVUEeI1nSpm58yEWViK+SyHg5UKCfgfEZxhibB43hyKs2yb91gt2N8+tLMicHvAFFeRPeKJ2gm9aL4+3zV+FMsJ87Uuq5iHdcGjugxszwL902+Wl+fDW1ADr2a8FC56lWHCzyJIwWV/1jlt7EGj6QoI2wKBgH3uxD4FkKk1vL7qJ0dmsaW3hqnpUJiQ/JDT0dBjEPe1KxOz++XfXVkYrC5SNHuUWp5tAL1lhZolJDfND43Oc9NLqgk6BMKT4Yzj5aecNrsrR/LZFbMHGU0PyVLlkMit2fR9CXicxNHG7PD5a0rEijHRymVxl+TBpjVfL2xMcNENAoGBAMsBZ5hHoaUYgLhIl0drk1OBGqiOcQ7/UkzMR6g5ZhBcX3VCRsSsODYc4NRJqI+DS3HBh96Ul4gixsaYSm5awDX869BQXfFpBbZixTN9daM+Ard2zzE1hxPk9YbOKu2g48jIlMugwFWno4ldjG9Z3U/lKOJ93TFjXD7OcqEoByiZAoGBAMQ798x1gEKExQsxQLXg+i4tGcW+z0QQZiNQZsGG8JLS9GKgr1/LTQal8DfjGJ/IeLKbMZaYQReuwUyFx5NEw2qS5B3WwT7ftCQkgbaLWO/WCsuMisX3gcoayvXdJzz14u16/exrDnUGINtmnkSTi/PljEang6JAiH6DTf7w8IZI";
-    //RSA 公钥
+    //RSA public key
     private String publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAurwm9I6X9XEfHTa7WT9TlH92ChuM9t+RPeriEkvdFnaF9EetxK0UpxwRllXBVxVkkC49lNVyDc8TJ4xvNUR/LOWf52XbzmtZ8XIpYr/1jztBEB56AkyQIOCZJ9xDMh6/qFRkBntzsDbt9llN+7/VqseUDPUjvGVjpJJK1EQKSzYqQXcDb3JOX/vYsrIbAhyp0o+xzdwHaN/ljIuFK59LGF7T8krIa00pd4mY5k7mBMlk0QFo5U3ZcpW1aVLlQgj7DvzHopSukCAWo8KWyWw+nIvg+lsb2qzypvmBbxdXi5tR9/rKfT8Objg3saTmJbue1WWQ4faeUEc+hHCEIiErlwIDAQAB";
 
     private Long expiration = 60L;
@@ -69,9 +63,9 @@ public class BaseJwtTokenConverter {
     }
 
     /**
-     * token验签，验签成功即代表该token合法
+     *token Authentication. If the authentication succeeds, the token is valid
      *
-     * @param bearerToken 包含bearer的token
+     * @param bearerToken
      * @return
      */
     public JWTClaimsSet verifyRS256Token(String bearerToken) {
@@ -103,7 +97,7 @@ public class BaseJwtTokenConverter {
     }
 
     /**
-     * token验签，验签成功即代表该token合法
+     * token Authentication. If the authentication succeeds, the token is valid
      *
      * @param token
      * @return
@@ -124,9 +118,9 @@ public class BaseJwtTokenConverter {
     }
 
     /**
-     * 使用RSA256生成token
+     * Use RSA256 to generate a token
      *
-     * @param payload token包含的数据
+     * @param payload
      * @return token
      */
     public String doGenerateRS256Token(String payload) {
@@ -134,26 +128,24 @@ public class BaseJwtTokenConverter {
         try {
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
-            //将私钥字符串转换为PKCS8EncodedKeySpec
+            // Convert the private key string to PKCS8EncodedKeySpec
             PKCS8EncodedKeySpec privateKetSpec = new PKCS8EncodedKeySpec(new Base64URL(privateKey).decode());
 
-            //转换为PrivateKey
+            // Convert to PrivateKey
             PrivateKey privateKey = keyFactory.generatePrivate(privateKetSpec);
 
-//            //获取jwtClaimsSet的json对象
-//            String payload = jwtClaimsSet.toJSONObject().toJSONString();
 
-            //设置算法为RS256
+            // Set the algorithm to RS256
             JWSHeader header = new JWSHeader(JWSAlgorithm.RS256);
 
             JWSObject jwsObject = new JWSObject(header, new Payload(payload));
 
-            //将jwtClaimsSet的json字符串签名加密
+            // Encrypt the json string signature of jwtClaimsSet
             jwsObject.sign(new RSASSASigner(privateKey));
 
             String serialize = jwsObject.serialize();
 
-            //二次签名加密,防止破解
+            // The secondary signature is encrypted to prevent cracking
             JWSObject en = new JWSObject(header, new Payload(serialize));
 
             en.sign(new RSASSASigner(privateKey));
@@ -178,7 +170,7 @@ public class BaseJwtTokenConverter {
             if (refreshDate.after(new Date())) {
                 JSONObject jsonObject = jwtClaimsSet.toJSONObject();
 
-                //如果没有超过当前时间,基于当前时间续约
+                // If the current time is not exceeded, renew the contract based on the current time
                 jsonObject.put("refreshDate", new Date().getTime() + refresh * 1000);
 
                 refreshToken = doGenerateRS256Token(jsonObject.toString());

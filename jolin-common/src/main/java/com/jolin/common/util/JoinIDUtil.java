@@ -18,8 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-//关联表的ID相关的工具类
-//TODO zhaozhao关联表优化
+
+// The ID of the associated table is associated with the tool class
 public class JoinIDUtil {
     private static final Logger logger = LoggerFactory.getLogger(JoinIDUtil.class);
 
@@ -28,7 +28,7 @@ public class JoinIDUtil {
     }
 
     /**
-     * 调用domain的id属性对应的getXXId方法
+     * Call the getXXId method corresponding to the id property of the domain
      */
     public static <D extends CommonDomain> String callIdFieldGetMethod(D domain, Map<String, Method> methodMap, String idFieldName) {
         try {
@@ -43,7 +43,7 @@ public class JoinIDUtil {
     }
 
     /**
-     * 生成关联表名称
+     * Generate the associated table name
      */
     public static <DTO extends BaseJoinDTO, D extends CommonDomain> String generateJoinId(D domain, Map<String, Method> methodMap) {
         Class domainClass = domain.getClass();
@@ -55,14 +55,14 @@ public class JoinIDUtil {
             if (isStatic) {
                 continue;
             }
-            //获取字段上的 @BaseJoinId 注解
+            //Gets the @BaseJoinId annotation on the field
             BaseJoinId qw = field.getAnnotation(BaseJoinId.class);
             if (qw == null) {
                 continue;
             }
             if (qw.index().ordinal() >= CommonStatic.MAX_JOIN_TABLE_NUM) {
-                throw new CommonException("BaseJoinId的index属性大于等于{}关联表不支持{}以上表关联，建议您重新设计Domain。同时注意BaseJoinId的" +
-                        "index属性是否从0开始，依次累加", CommonStatic.MAX_JOIN_TABLE_NUM, CommonStatic.MAX_JOIN_TABLE_NUM);
+                throw new CommonException("The index attribute of BaseJoinId is greater than or equal to {}. Associated tables cannot be associated with {} tables. You are advised to reset the Domain. Note also whether the"  +
+                        "index attribute of BaseJoinId starts from 0 and accumulates in sequence", CommonStatic.MAX_JOIN_TABLE_NUM, CommonStatic.MAX_JOIN_TABLE_NUM);
             }
             String value = callIdFieldGetMethod(domain, methodMap, field.getName());
             indexIds.set(qw.index().ordinal(), value);
@@ -81,9 +81,9 @@ public class JoinIDUtil {
 
 
     /**
-     * 获取id属性对应的getXXId方法
+     * Gets the getXXId method corresponding to the id attribute
      *
-     * @param idFieldName 字段名称
+     * @param idFieldName idFieldName
      * @return
      */
     public static <D extends CommonDomain> Method getIdFieldGetMethod(String idFieldName, Map<String, Method> methodMap, Class<D> domainClass) {
@@ -102,7 +102,7 @@ public class JoinIDUtil {
     }
 
     /**
-     * 根据BaseJoinId注解获取对应顺序的名称
+     * Get the names of the corresponding order from the BaseJoinId annotation
      *
      * @param index
      * @return
@@ -113,7 +113,7 @@ public class JoinIDUtil {
         if (StrUtil.isBlank(idFieldName)) {
             List<Field> fields = Arrays.asList(ReflectUtil.getFields(domainClass));
             for (Field field : fields) {
-                //获取字段上的 @BaseJoinId 注解
+                //Gets the @BaseJoinId annotation on the field
                 BaseJoinId qw = field.getAnnotation(BaseJoinId.class);
                 if (qw == null) {
                     continue;
@@ -125,7 +125,7 @@ public class JoinIDUtil {
             }
         }
 
-        //对应的index没有找到属性名
+        //The corresponding index did not find the attribute name
         return idFieldName;
     }
 

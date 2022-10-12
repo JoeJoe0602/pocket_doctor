@@ -14,7 +14,7 @@ import java.util.List;
 
 public abstract class BaseTreeController<S extends IBaseTreeService, DTO extends BaseTreeDTO> extends BaseController<S, DTO> {
 
-    @ApiOperation(value = "1.根据 parentId 查找所有 children 如果传空就查所有一级")
+    @ApiOperation(value = "1.Find all children by parentId and all levels if empty")
     @ApiOperationSupport(order = 1)
     @GetMapping("/find-by-pid")
     public ResultDTO<List<DTO>> findByParentId(@Valid String parentId) throws BaseException {
@@ -22,7 +22,7 @@ public abstract class BaseTreeController<S extends IBaseTreeService, DTO extends
         return new ResultDTO(children);
     }
 
-    @ApiOperation(value = "2.根据 子id 查 parent")
+    @ApiOperation(value = "2.Check parent by child id")
     @ApiOperationSupport(order = 2)
     @GetMapping("/find-parent-by-id")
     public ResultDTO<DTO> findParentById(@Valid String id) throws BaseException {
@@ -32,7 +32,7 @@ public abstract class BaseTreeController<S extends IBaseTreeService, DTO extends
     }
 
     @GetMapping("/move")
-    @ApiOperation(value = "10.节点移动接口")
+    @ApiOperation(value = "10.Node mobility interface")
     @ApiOperationSupport(order = 10)
     public ResultDTO<Boolean> move(@RequestParam String currentParentId, @RequestParam String targetParentId, @RequestParam String currentId) {
         Boolean move = iBaseService.move(currentParentId, targetParentId, currentId);
@@ -40,7 +40,7 @@ public abstract class BaseTreeController<S extends IBaseTreeService, DTO extends
     }
 
     @GetMapping("/find-children-by-pid")
-    @ApiOperation(value = "11.根据parentId查询整个树")
+    @ApiOperation(value = "11.Query the whole tree according to parentId")
     @ApiOperationSupport(order = 11)
     public ResultDTO<List<DTO>> findChildrenByPath(@RequestParam String parentId) {
         List childrenByPath = iBaseService.findChildrenByParentId(parentId);

@@ -5,12 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
-/**
- * @author jolin
- * @version 1.0
- * @date 2021/3/16
- * @describe 用于扩展登陆方式中, 通用构造Authentication对象
- */
+
 public class BaseAuthenticationToken extends AbstractAuthenticationToken {
 
     private final Object principal ;

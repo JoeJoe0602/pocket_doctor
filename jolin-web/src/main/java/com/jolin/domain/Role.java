@@ -18,9 +18,9 @@ public class Role extends BaseDomain {
     private static final long serialVersionUID = 1L;
     
 
-    @ApiModelProperty(value = "角色名称")
+    @ApiModelProperty(value = "roleName")
     private String name;
 
-    @ApiModelProperty(value = "角色描述")
+    @ApiModelProperty(value = "roleDescription")
     private String description;
 }

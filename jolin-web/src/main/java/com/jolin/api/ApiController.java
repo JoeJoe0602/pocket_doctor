@@ -58,7 +58,7 @@ public class ApiController {
     private IPrescriptionService iPrescriptionService;
 
 
-    @ApiOperation(value = "在首页搜索文章")
+    @ApiOperation(value = "Search the articles on the home page")
     @PostMapping("searchArticle")
     public ResultDTO searchArticle(@RequestBody PageDTO<ArticleDTO> pageDTO) {
         PageDTO<ArticleDTO> articleDTOPageDTO = iArticleService.getPage(pageDTO);
@@ -69,7 +69,7 @@ public class ApiController {
 
 
 
-    @ApiOperation(value = " 根据经纬度，查询医生列表")
+    @ApiOperation(value = " Find the list of doctor according to latitude and longitude")
     @PostMapping("findDoctor")
     public ResultDTO findDoctor(@RequestBody PageDTO<DoctorDTO> pageDTO) {
         PageDTO<DoctorDTO> doctorDTOPageDTO = iDoctorService.getPageDistance(pageDTO);
@@ -78,7 +78,7 @@ public class ApiController {
     }
 
 
-    @ApiOperation(value = "医生详情")
+    @ApiOperation(value = "The detailed information of doctors")
     @GetMapping("getDoctorInfo")
     public ResultDTO getDoctorInfo(String id) {
 
@@ -86,7 +86,7 @@ public class ApiController {
     }
 
 
-    @ApiOperation(value = "查询诊所")
+    @ApiOperation(value = "Find clinic")
     @PostMapping("findClinic")
     public ResultDTO<PageDTO<ClinicDTO>> findClinic(@RequestBody  PageDTO<ClinicDTO> pageDTO) {
         System.out.println(pageDTO.getPage());
@@ -95,7 +95,7 @@ public class ApiController {
         return new ResultDTO(clinicDTOPageDTO);
     }
 
-    @ApiOperation(value = "诊所详情")
+    @ApiOperation(value = "The detailed information of clinics")
     @GetMapping("getClinicInfo")
     public ResultDTO getClinicInfo(String id) {
 
@@ -103,7 +103,7 @@ public class ApiController {
     }
 
 
-    @ApiOperation(value = "获取用户的预约记录")
+    @ApiOperation(value = "Obtain the appointment record of user")
     @PostMapping("getAppointmentList")
     public ResultDTO getAppointmentList(@RequestBody PageDTO<AppointmentDTO> pageDTO) {
         PageDTO<AppointmentDTO> appointmentDTOPageDTO = iAppointmentService.getPage(pageDTO);
@@ -120,13 +120,13 @@ public class ApiController {
         return new ResultDTO(appointmentDTOPageDTO);
     }
 
-    @ApiOperation(value = "预约")
+    @ApiOperation(value = "Make appointments")
     @PostMapping("appointment")
     public ResultDTO appointment(@RequestBody AppointmentDTO appointmentDTO) {
         return new ResultDTO(iAppointmentService.create(appointmentDTO));
     }
 
-    @ApiOperation(value = "获取文章分类")
+    @ApiOperation(value = "Obtain the category of the articles")
     @PostMapping("getCategory")
     public ResultDTO getCategory(@RequestBody PageDTO<CategoryDTO> pageDTO) {
         PageDTO<CategoryDTO> categoryDTOPageDTO = iCategoryService.getPage(pageDTO);
@@ -135,7 +135,7 @@ public class ApiController {
     }
 
 
-    @ApiOperation(value = "获取文章列表")
+    @ApiOperation(value = "Obtain the list of the articles")
     @PostMapping("getArticleList")
     public ResultDTO getArticleList(@RequestBody PageDTO<ArticleDTO> pageDTO) {
         PageDTO<ArticleDTO> articleDTOPageDTO = iArticleService.getPage(pageDTO);
@@ -144,7 +144,7 @@ public class ApiController {
     }
 
 
-    @ApiOperation(value = "获取文章内容")
+    @ApiOperation(value = "Obtain the content of the articles")
     @PostMapping("getArticleContent")
     public ResultDTO getArticleContent(String id) {
 
@@ -152,7 +152,7 @@ public class ApiController {
     }
 
 
-    @ApiOperation(value = "获取轮播图列表")
+    @ApiOperation(value = "Obtain the list of the carousel")
     @PostMapping("getCarouselList")
     public ResultDTO getCarouselList(@RequestBody PageDTO<CarouselDTO>  pageDTO) {
         PageDTO<CarouselDTO> carouselDTOPageDTO = iCarouselService.getPage(pageDTO);
@@ -160,7 +160,7 @@ public class ApiController {
         return new ResultDTO(carouselDTOPageDTO);
     }
 
-    @ApiOperation(value = "获取通知")
+    @ApiOperation(value = "Obtain the notifications")
     @GetMapping("getNotification")
     public ResultDTO getNotification(String userId) {
         Notification notification = new Notification();
@@ -168,13 +168,13 @@ public class ApiController {
         return new ResultDTO(iNotificationService.getNotification(notification));
     }
 
-    @ApiOperation(value = "新增聊天记录")
+    @ApiOperation(value = "Add the single chat record")
     @PostMapping("addSingleChatRecord")
     public ResultDTO addSingleChatRecord(@RequestBody ChatRecordDTO chatRecordDTO) {
         return new ResultDTO(iChatRecordService.create(chatRecordDTO));
     }
 
-    @ApiOperation(value = "获取聊天记录")
+    @ApiOperation(value = "Obtain the chat record")
     @PostMapping("getChatRecord")
     public ResultDTO getChatRecord(String userId, String doctorId) {
         ChatRecord chatRecord = new ChatRecord();
@@ -183,7 +183,7 @@ public class ApiController {
         return new ResultDTO(iChatRecordService.getChatRecord(chatRecord));
     }
 
-    @ApiOperation(value = "获取聊天记录列表")
+    @ApiOperation(value = "Obtain the list of the chat record")
     @PostMapping("getChatRecordList")
     public ResultDTO getChatRecordList(String userId) {
         ChatRecord chatRecord = new ChatRecord();
@@ -191,20 +191,20 @@ public class ApiController {
         return new ResultDTO(iChatRecordService.getChatRecordList(chatRecord));
     }
 
-    @ApiOperation(value = "添加收藏")
+    @ApiOperation(value = "Add collect")
     @PostMapping("addCollect")
     public ResultDTO addCollect(@RequestBody CollectDTO collectDTO) {
         return new ResultDTO(iCollectService.create(collectDTO));
     }
 
-    @ApiOperation(value = "获取收藏列表")
+    @ApiOperation(value = "Obtain the list of the collect")
     @PostMapping("getCollectList")
     public ResultDTO getCollectList(@RequestBody PageDTO<CollectDTO>  pageDTO) {
         PageDTO<CollectDTO> collectDTOPageDTO = iCollectService.getPage(pageDTO);
         return new ResultDTO(collectDTOPageDTO);
     }
 
-    @ApiOperation(value = "获取病例列表")
+    @ApiOperation(value = "Obtain the list of the case")
     @PostMapping("getCasesList")
     public ResultDTO getCasesList(@RequestBody PageDTO<CasesDTO> pageDTO) {
 
@@ -213,7 +213,7 @@ public class ApiController {
         return new ResultDTO(casesDTOPageDTO);
     }
 
-    @ApiOperation(value = "获取处方列表")
+    @ApiOperation(value = "Obtain the list of the prescription")
     @PostMapping("getPrescriptionList")
     public ResultDTO getPrescriptionList(@RequestBody PageDTO<PrescriptionDTO>  pageDTO) {
 
@@ -223,7 +223,7 @@ public class ApiController {
 
     }
 
-    @ApiOperation(value = "获取用户健康记录列表")
+    @ApiOperation(value = "Obtain the list of the health record of user")
     @PostMapping("getHealthRecord")
     public ResultDTO getHealthRecordList(String userId) {
         HealthRecord healthRecord=new HealthRecord();

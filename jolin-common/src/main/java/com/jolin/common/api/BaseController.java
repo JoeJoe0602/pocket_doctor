@@ -15,7 +15,7 @@ import java.util.List;
 
 public abstract class BaseController<S extends IBaseService, DTO extends BaseDTO> extends CommonController<S, DTO> {
 
-    @ApiOperation(value = "1.新增")
+    @ApiOperation(value = "1.Insert")
     @ApiOperationSupport(order = 1)
     @PostMapping
     public ResultDTO<DTO> create(@RequestBody @Valid DTO dto) throws BaseException {
@@ -23,7 +23,7 @@ public abstract class BaseController<S extends IBaseService, DTO extends BaseDTO
         return new ResultDTO(resultDTO);
     }
 
-    @ApiOperation(value = "2.批量新增")
+    @ApiOperation(value = "2.Batch insert")
     @ApiOperationSupport(order = 2)
     @PostMapping("/batchCreate")
     public ResultDTO batchCreate(@RequestBody @Valid List<DTO> dtos) throws BaseException {
@@ -31,7 +31,7 @@ public abstract class BaseController<S extends IBaseService, DTO extends BaseDTO
         return new ResultDTO();
     }
 
-    @ApiOperation(value = "3.修改")
+    @ApiOperation(value = "3.Modify")
     @ApiOperationSupport(order = 3)
     @PutMapping
     public ResultDTO<String> update(@RequestBody @Valid DTO dto) throws BaseException {
@@ -39,7 +39,7 @@ public abstract class BaseController<S extends IBaseService, DTO extends BaseDTO
         return new ResultDTO(resultDTO);
     }
 
-    @ApiOperation(value = "4.根据id删除")
+    @ApiOperation(value = "4.Delete by id")
     @ApiOperationSupport(order = 4)
     @DeleteMapping("/{id}")
     public ResultDTO<Boolean> deleteById(@PathVariable("id") @NotBlank String id) throws BaseException {
@@ -47,7 +47,7 @@ public abstract class BaseController<S extends IBaseService, DTO extends BaseDTO
         return new ResultDTO<>(isSuccess);
     }
 
-    @ApiOperation(value = "5.根据多个id批量删除")
+    @ApiOperation(value = "5.Batch delete based on multiple ids")
     @ApiOperationSupport(order = 5)
     @DeleteMapping("/deleteByIds")
     public ResultDTO<Boolean> deleteByIds(@RequestBody List<String> ids) throws BaseException {
@@ -55,7 +55,7 @@ public abstract class BaseController<S extends IBaseService, DTO extends BaseDTO
         return new ResultDTO<>(isSuccess);
     }
 
-    @ApiOperation(value = "6.根据id查询")
+    @ApiOperation(value = "6.Query by id")
     @ApiOperationSupport(order = 6)
     @GetMapping("/{id}")
     public ResultDTO<DTO> selectById(@PathVariable("id") String id) throws BaseException {

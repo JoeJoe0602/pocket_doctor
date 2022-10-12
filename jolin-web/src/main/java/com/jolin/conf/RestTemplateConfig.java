@@ -21,14 +21,5 @@ public class RestTemplateConfig {
         factory.setConnectTimeout(15000);// ms
         return factory;
     }
-    
-   /* @Bean
-    public HttpsValidationDisable getHttpsURLConnection() throws Exception
-    {
-    HttpsValidationDisable httpDisable = new HttpsValidationDisable();
-	HttpsValidationDisable.trustAllHttpsCertificates();  
-	HttpsURLConnection.setDefaultHostnameVerifier(httpDisable.hv);  
-    return httpDisable;
-    }*/
 
 }

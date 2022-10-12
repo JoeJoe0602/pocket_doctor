@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jolin.mapper.DictionaryTypeMapper">
 
-    <!-- 通用查询映射结果 -->
+    <!-- Mapping results of a general query -->
     <resultMap id="BaseResultMap" type="com.jolin.domain.DictionaryType">
         <result column="id" property="id"/>
         <result column="sort" property="sort"/>
@@ -14,7 +14,7 @@
         <result column="key" property="key"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
+    <!-- Generic query result column -->
     <sql id="Base_Column_List">
         id,
         sort,

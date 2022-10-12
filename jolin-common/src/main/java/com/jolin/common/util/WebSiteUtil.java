@@ -11,12 +11,12 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 
 /**
- * 获取对象的IP地址等信息
+ * Obtain information such as the IP address of the object
  */
 public class WebSiteUtil {
     private static final Logger logger = LoggerFactory.getLogger(WebSiteUtil.class);
     /**
-     * 判断请求来源
+     * Determining the Source of the Request
      * @param request
      * @return
      */
@@ -29,7 +29,7 @@ public class WebSiteUtil {
     }
 
     /**
-     * 获取用户真实IP地址
+     * Obtain the real IP address of the user
      * @param request
      * @return
      */
@@ -54,7 +54,7 @@ public class WebSiteUtil {
     }
 
     /**
-     * 获取本地IP地址
+     * Obtain the local IP address
      * @return
      * @throws UnknownHostException
      * @throws SocketException
@@ -68,7 +68,8 @@ public class WebSiteUtil {
     }
 
     /**
-     * 判断操作系统是否是Windows
+     *
+     * Check whether the operating system is Windows
      * @return
      */
     public static boolean isWindowsOS() {
@@ -81,7 +82,7 @@ public class WebSiteUtil {
     }
 
     /**
-     * 获取本地Host名称
+     * Gets the name of the local Host
      * @return
      * @throws UnknownHostException
      */
@@ -90,7 +91,7 @@ public class WebSiteUtil {
     }
 
     /**
-     * 获取Linux下的IP地址
+     * Obtain the IP address in Linux
      * @return
      * @throws SocketException
      */
@@ -113,7 +114,7 @@ public class WebSiteUtil {
                 }
             }
         } catch (SocketException ex) {
-            logger.error("获取ip地址异常");
+            logger.error("Description Failed to obtain the ip address");
             ip = "127.0.0.1";
             ex.printStackTrace();
         }

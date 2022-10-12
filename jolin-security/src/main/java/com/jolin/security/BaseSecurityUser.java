@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
 /**
- * 登录成功后缓存起来的用户对象，扩展增加了UserDto，方便后续获取当前登录用户
+ * The user object is cached after a successful login. UserDto is added to facilitate obtaining the current login user
  */
 public class BaseSecurityUser extends User {
     private CommonUserDTO userInfoDto;

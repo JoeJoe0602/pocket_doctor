@@ -18,17 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 生成和校验验证码的Filter
+ * Generates and verifies the Filter for the verification code
  */
 public class BaseCaptchaFilter extends OncePerRequestFilter {
 
-    //验证码处理器
+    //Verification code processor
     private BaseCaptchaHandler baseCaptchaHandler;
 
-    //生成验证码matcher
+    //Generate the verification code matcher
     private RequestMatcher createCaptchaRequestMatcher;
 
-    //检验验证码matcher
+    //Verify the verification code matcher
     private BaseOrRequestMatcher checkOrCaptchaRequestMatcher;
 
     private ResponseHandler responseHandle;
@@ -57,7 +57,7 @@ public class BaseCaptchaFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         if (requiresCreateCaptcha(request, response)) {
-            //返回验证码
+            //Return verification code
             String ip = WebSiteUtil.getIpAddress(request);
             response.setHeader("Content-Type", "application/json;charset=UTF-8");
             try {

@@ -52,7 +52,8 @@ public class CommonMybatisPageUtil {
             }
             page.setOrders(orderItems);
         } else {
-            //排序字段为空，使用乱序，因为id本身时无序随机uuid
+
+            //The sort field is empty, and out-of-order is used because the id itself is an unordered random uuid
             OrderItem asc = OrderItem.asc(defaultSortField);
             orderItems.add(asc);
             page.setOrders(orderItems);
@@ -79,7 +80,7 @@ public class CommonMybatisPageUtil {
     }
 
     /**
-     * mybatis的IPage对象转化为PageDTO
+     * The IPage object of mybatis is converted to PageDTO
      *
      * @param iPage
      * @param dtoClass
@@ -88,20 +89,20 @@ public class CommonMybatisPageUtil {
      * @throws BaseException
      */
     public CommonPageDTO iPageToCommonPageDTO(IPage iPage, Class dtoClass, CommonPageDTO originPageDTO) throws BaseException {
-        //转换
+        //Conversion
         originPageDTO.setPage((int) iPage.getCurrent());
         originPageDTO.setTotal(iPage.getTotal());
         originPageDTO.setPageSize((int) iPage.getSize());
         originPageDTO.setList(iPage.getRecords());
 
-        // record数据格式或者类型转换
+        //record Data format or type conversion
         if (CollectionUtil.isNotEmpty(originPageDTO.getList())) {
             List dtoList;
             if (originPageDTO.getList().get(0) instanceof Map) {
-                //如果返回是Map类型
+                //If the return is of type Map
                 dtoList = mapListToDTOList(originPageDTO.getList(), dtoClass);
             } else {
-                //如果是Domain子类
+                //If it's a Domain subclass
                 dtoList = new ArrayList();
                 for (Object domain : originPageDTO.getList()) {
                     Object dto = null;
@@ -125,14 +126,15 @@ public class CommonMybatisPageUtil {
     }
 
     /**
-     * mybatis的IPage对象转化为PageDTO
+     * The IPage object of mybatis is converted to PageDTO
      */
     public <DTO extends CommonDTO> PageDTO<DTO> iPageToPageDTO(IPage iPage, Class<DTO> dtoClass, CommonPageDTO<DTO> originPageDTO) throws BaseException {
         return (PageDTO<DTO>) iPageToCommonPageDTO(iPage, dtoClass, originPageDTO);
     }
 
-    //mybatis的IPage对象转化为PageDTO
-    //高版本会删除此方法或者改为私有private类型，请使用iPageToPageDTO代替
+    //The IPage object of mybatis is converted to PageDTO
+
+    //Later versions will remove this method or change it to private. Use iPageToPageDTO instead
     @Deprecated
     public <DTO extends CommonDTO> PageDTO<DTO> iPageToPageDTO(IPage iPage, Class<DTO> dtoClass) throws BaseException {
         return (PageDTO<DTO>) iPageToCommonPageDTO(iPage, dtoClass, new PageDTO());

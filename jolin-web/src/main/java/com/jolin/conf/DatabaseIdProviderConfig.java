@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Properties;
 
 /**
- * 该类用于动态识别数据源,解决sql差异化的问题
+ * This class is used to dynamically identify data sources and solve the problem of sql differentiation
  */
 
 @Configuration
@@ -19,9 +19,6 @@ public class DatabaseIdProviderConfig {
         DatabaseIdProvider databaseIdProvider = new VendorDatabaseIdProvider();
         Properties p = new Properties();
         p.setProperty("MySQL", "mysql");
-//        p.setProperty("PostgreSQL", "postgresql");
-//        p.setProperty("DB2", "db2");
-//        p.setProperty("SQL Server", "sqlserver");
         databaseIdProvider.setProperties(p);
         return databaseIdProvider;
     }

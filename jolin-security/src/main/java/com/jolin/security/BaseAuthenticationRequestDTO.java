@@ -25,18 +25,18 @@ public class BaseAuthenticationRequestDTO implements Serializable {
     private String captchaCode;
 
     /**
-     * 从request中构造
+     * Construct from the request
      *
-     * @param request           http请求
-     * @param usernameParameter 表示用户名的字段名称
-     * @param passwordParameter 表示密码的字段名称
+     * @param request           http request
+     * @param usernameParameter
+     * @param passwordParameter
      */
     public BaseAuthenticationRequestDTO(HttpServletRequest request, String usernameParameter, String passwordParameter) {
-        //TODO 校验验证码逻辑 从请求中获取验证码参数
-        //优先从parameter获取
+        // The TODO verification code logic obtains the verification code parameters from the request
+        //Obtain from parameter preferentially
         String username = request.getParameter(usernameParameter);
         if (StringUtils.isEmpty(username)) {
-            //如果拿不到，以Json格式从body中获取
+            //If not, get it in Json format from the body
             String json = getPostData(request);
 
             Map<String, String> map = JSONUtil.toBean(json, Map.class);

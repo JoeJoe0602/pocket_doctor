@@ -16,25 +16,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-/**
- * Base一些安全防护功能Filter
- * 1. 认证接口登录限制
- * 1. 其他
- */
 public class BaseProtectionLimitFilter extends OncePerRequestFilter {
 
     private CommonCacheUtil commonCacheUtil;
 
     private static final String lockedRedisKeyPre = "base:locked";
 
-    //允许登录错误次数，对登录错误一定次数的用户进行封锁账号以及 IP 等措施
+    //Allows the number of login errors, and blocks accounts and IP addresses of users who log in incorrectly for a certain number of times
     private Integer retryTime;
-    //被锁定，不允许登录后恢复时间间隔
+    //Is locked and cannot restore the interval after login
 
     private long lockedRecoverSecond;
 
-    //检验验证码matcher
+    //Verify the verification code matcher
     private BaseOrRequestMatcher limitRequestMatcher;
 
     private ResponseHandler responseHandle;
@@ -57,7 +51,7 @@ public class BaseProtectionLimitFilter extends OncePerRequestFilter {
             lockedRedisKey = lockedRedisKeyPre + ":" + loginName;
             String time = commonCacheUtil.get(lockedRedisKey);
             if (StrUtil.isBlank(time)) {
-                //没有记录，说明之前没有错误认证
+                //No record, which means no previous false authentication
                 time = retryTime + "";
                 commonCacheUtil.set(lockedRedisKey, time);
             }
@@ -68,31 +62,31 @@ public class BaseProtectionLimitFilter extends OncePerRequestFilter {
             }
             if (t <= 0) {
 
-                String errorMsg = "密码错误,已达到最大重试次数,账户锁定";
+                String errorMsg = "The password is incorrect. The account is locked because the maximum number of retries has been reached";
                 long hour =  lockedRecoverSecond%3600;
                 long minute =  lockedRecoverSecond%60;
                 if (hour == 0) {
                     long hours =  lockedRecoverSecond/3600;
-                    errorMsg = errorMsg.concat(String.valueOf(hours)).concat("小时");
+                    errorMsg = errorMsg.concat(String.valueOf(hours)).concat("hours");
                 }else if (minute==0){
                     long minutes =  lockedRecoverSecond/60;
-                    errorMsg = errorMsg.concat(String.valueOf(minutes)).concat("分钟");
+                    errorMsg = errorMsg.concat(String.valueOf(minutes)).concat("minutes");
                 }else{
-                    errorMsg = errorMsg.concat(String.valueOf(lockedRecoverSecond)).concat("秒");
+                    errorMsg = errorMsg.concat(String.valueOf(lockedRecoverSecond)).concat("seconds");
                 }
                 BaseSecurityException baseSecurityException = new BaseSecurityException(401,errorMsg);
                 responseHandle.fail(request,response, baseSecurityException );
                 return;
             }
-            //不管登陆成功或失败都进行减一操作
+            //Regardless of the login success or failure to carry out the minus one operation
             commonCacheUtil.increment(lockedRedisKey, -1);
         }
 
         chain.doFilter(request, response);
-        //没此操作
+        //Not this operation
         if (isRequiresLimit&&SecurityContextHolder.getContext().getAuthentication()!=null) {
             if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
-                //判断是否已经登录，如果已经登录，那么限制取消
+                //Determines if you are logged in, and if so, the restriction is lifted
                 commonCacheUtil.remove(lockedRedisKey);
             }
         }

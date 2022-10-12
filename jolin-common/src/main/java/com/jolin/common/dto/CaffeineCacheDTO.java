@@ -12,10 +12,11 @@ import java.io.Serializable;
 public final class CaffeineCacheDTO implements Serializable {
     private static final long serialVersionUID = 11L;
 
-    //缓存过期时间，单位秒
+
+    //Cache expiration time, in seconds
     private Long expireSecond;
 
-    //缓存数据
+    //Cache data
     private String value;
 
 }

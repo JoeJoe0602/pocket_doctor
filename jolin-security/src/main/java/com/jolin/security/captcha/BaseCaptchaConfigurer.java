@@ -17,18 +17,18 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 /**
- * 配置Captcha相关逻辑
+ * Configure Captcha logic
  */
 public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends AbstractHttpConfigurer<BaseCaptchaConfigurer<H>, H> {
     private String captchUrl = "/captcha";
 
-    //是否启用验证码逻辑
+    //Whether to enable verification code logic
     private String captchaEnable = "on";
 
-    //验证码有效期，单位：秒
+    //Validity period of the verification code, expressed in seconds
     private Long captchaMaxWaitSecond = 600L;
 
-    //同一个IP地址，每分钟限制请求多少次验证码
+    //Limit the number of verification code requests per minute for the same IP address
     private Long captchaSameIpLimitPerMinutes = 60L;
 
     private RequestMatcher createCaptchaRequestMatcher;
@@ -42,7 +42,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
     private final ApplicationContext context;
 
     /**
-     * 这种扩展写法参考了CsrfConfigurer，通过构造函数注入上下文
+     * This extension is written in reference to CsrfConfigurer to inject context through the constructor
      *
      * @see HttpSecurity#csrf()
      */
@@ -57,9 +57,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
         getCreateCaptchaRequestMatcher();
         getBaseCaptchaHandler();
         getResponseHandle();
-        //设置内置的匹配路径，包括formLogin默认的/login等登录端口
-//        addCheckPointRequestMatcher(new AntPathRequestMatcher("/smsSendCode"));
-//        addCheckPointRequestMatcher(new AntPathRequestMatcher("/smsLogin"));
+        // Set the built-in matching path, including formLogin default login port, such as /login
         addCheckPointRequestMatcher(new AntPathRequestMatcher("/login"));
     }
 
@@ -69,7 +67,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
         captchaFilter.setBaseCaptchaHandler(this.baseCaptchaHandler);
         captchaFilter.setCreateCaptchaRequestMatcher(this.createCaptchaRequestMatcher);
         captchaFilter.setHandle(this.responseHandle);
-        //设置默认的校验验证码Filter
+        // Set the default verification code Filter
         captchaFilter.setCheckOrCaptchaRequestMatcher(this.checkOrCaptchaRequestMatcher);
 
         captchaFilter = postProcess(captchaFilter);
@@ -77,7 +75,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
         http.addFilterBefore(captchaFilter, LogoutFilter.class);
     }
     /**
-     * 开启和关闭数字验证码
+     * Enable and disable the digital verification code
      * @param captchaEnable
      * @return
      */
@@ -87,7 +85,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
     }
 
     /**
-     * 自定义验证码逻辑实现,配置之后请勿再使用其他方法配置,全部自定义实现即可
+     * The user-defined verification code is implemented logically. After the configuration, do not use other methods
      * @param baseCaptchaHandler
      * @return
      */
@@ -97,7 +95,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
     }
 
     /**
-     * 验证码有效期
+     * Validity period of verification code
      * @param captchaMaxWaitSecond
      * @return
      */
@@ -107,7 +105,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
     }
 
     /**
-     * 设置成功或失败的策略接口
+     * Setting the policy interface succeeds or fails
      */
     public BaseCaptchaConfigurer<H> responseHandle(ResponseHandler handle) {
         Assert.notNull(handle, "ResponseHandle cannot be null");
@@ -116,7 +114,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
     }
 
     /**
-     * 每分钟获取验证码的次数
+     * Number of times a verification code is obtained per minute
      * @param captchaSameIpLimitPerMinutes
      * @return
      */
@@ -126,8 +124,8 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
     }
 
     /**
-     * 用户自定义RequestMatcher扩展点。
-     * 哪些接口需要走验证码校验，是具体项目自己来定义
+     * User-defined RequestMatcher extension points
+     * The interface that needs verification code verification is defined by the specific project
      */
     public BaseCaptchaConfigurer<H> addCheckPointRequestMatcher(RequestMatcher requestMatcher) {
         if (requestMatcher != null) {
@@ -145,7 +143,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
         return this;
     }
 
-    //配置生成token的Matcher
+    //Configure the Matcher that generates the token
     private RequestMatcher getCreateCaptchaRequestMatcher() {
         if (this.createCaptchaRequestMatcher != null) {
             return this.createCaptchaRequestMatcher;
@@ -154,7 +152,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
         return this.createCaptchaRequestMatcher;
     }
 
-    //配置校验token的Matcher
+    // Configure the Matcher for verifying tokens
     private RequestMatcher getCheckCaptchaRequestMatcher() {
         if (this.checkOrCaptchaRequestMatcher != null) {
             return this.checkOrCaptchaRequestMatcher;
@@ -163,7 +161,7 @@ public class BaseCaptchaConfigurer<H extends HttpSecurityBuilder<H>> extends Abs
         return this.checkOrCaptchaRequestMatcher;
     }
 
-    //配置处理器
+    // Configure the processor
     private BaseCaptchaHandler getBaseCaptchaHandler() {
         if (this.baseCaptchaHandler != null) {
             return this.baseCaptchaHandler;

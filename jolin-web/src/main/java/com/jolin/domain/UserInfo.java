@@ -10,7 +10,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 
 
 @Data
@@ -23,18 +22,18 @@ public class UserInfo extends BaseDomain {
     private static final long serialVersionUID=1L;
 
 
-    @ApiModelProperty(value = "登录名")
+    @ApiModelProperty(value = "loginName")
     private String loginName;
 
     private String password;
 
-    @ApiModelProperty(value = "真实姓名")
+    @ApiModelProperty(value = "nickName")
     @TableField(value = "nickname", fill = FieldFill.INSERT)
     private String nickName;
 
 
 
-    @ApiModelProperty(value = "是否启用（锁定），1是启用（不锁定），0是不启用（被锁定）", example = "1")
+    @ApiModelProperty(value = "Enabled or not (locked), 1 is enabled (not locked), 0 is not enabled (locked)", example = "1")
     private String state;
 
     private Integer roleId;

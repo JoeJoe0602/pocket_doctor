@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.util.Assert;
 
 /**
- * 统一处理token的刷新和校验 配置
+ * Refresh and verify token configurations in a unified manner
  */
 public class BaseJwtTokenAuthenticationConfigurer<H extends HttpSecurityBuilder<H>> extends AbstractHttpConfigurer<BaseJwtTokenAuthenticationConfigurer<H>, H> {
 

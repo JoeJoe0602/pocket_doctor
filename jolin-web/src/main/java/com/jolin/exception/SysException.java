@@ -6,14 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 业务异常类
+ *
+ * Service Exception Class
  */
 @Data
 @NoArgsConstructor
 public class SysException extends BaseException {
     private static final Long serialVersionUID = 1L;
-    // code为异常状态码，用户需要注意状态码的分配不重复（重复后容易产生混淆）
-    // 建议使用http状态码后面补充两位数字的格式进行定义
+
+    // code is the abnormal status code. Users should pay attention to the fact that the status code is not assigned repeatedly (confusion may occur after repetition).
+    // You are advised to use the two-digit format after the http status code for definition
     private static final Integer code = 40001;
 
     public SysException(String template, Object... params) {

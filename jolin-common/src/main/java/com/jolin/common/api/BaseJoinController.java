@@ -19,7 +19,7 @@ import java.util.List;
 
 public abstract class BaseJoinController<S extends IBaseJoinService, DTO extends BaseJoinDTO> extends CommonController<S, DTO> {
 
-    @ApiOperation(value = "1.新增")
+    @ApiOperation(value = "1.Insert")
     @ApiOperationSupport(order = 1)
     @PostMapping
     public ResultDTO<DTO> create(@RequestBody @Valid DTO dto) throws BaseException {
@@ -27,7 +27,7 @@ public abstract class BaseJoinController<S extends IBaseJoinService, DTO extends
         return new ResultDTO(resultDTO);
     }
 
-    @ApiOperation(value = "2.批量新增")
+    @ApiOperation(value = "2.Batch insert")
     @ApiOperationSupport(order = 2)
     @PostMapping("/batchCreate")
     public ResultDTO<Boolean> batchCreate(@RequestBody @Valid List<DTO> dtos) throws BaseException {
@@ -35,7 +35,7 @@ public abstract class BaseJoinController<S extends IBaseJoinService, DTO extends
         return new ResultDTO<>(isSuccess);
     }
 
-    @ApiOperation(value = "3.根据DTO删除")
+    @ApiOperation(value = "3.Delete by DTO")
     @ApiOperationSupport(order = 3)
     @DeleteMapping("/delete")
     public ResultDTO<Boolean> delete(@RequestBody DTO dto) throws BaseException {
@@ -43,7 +43,7 @@ public abstract class BaseJoinController<S extends IBaseJoinService, DTO extends
         return new ResultDTO<>(isSuccess);
     }
 
-    @ApiOperation(value = "4.根据多个DTO批量删除")
+    @ApiOperation(value = "4.Batch delete based on multiple DTO")
     @ApiOperationSupport(order = 4)
     @DeleteMapping("/batch-delete")
     public ResultDTO<Boolean> batchDelete(@RequestBody List<DTO> dtos) throws BaseException {
@@ -51,7 +51,7 @@ public abstract class BaseJoinController<S extends IBaseJoinService, DTO extends
         return new ResultDTO<>(isSuccess);
     }
 
-    @ApiOperation(value = "5.同时删除和新增", notes = "不用传递id属性")
+    @ApiOperation(value = "5.Delete and insert simultaneously", notes = "Don't pass the id attribute")
     @ApiOperationSupport(order = 5)
     @PostMapping("/batch-save")
     @Transactional
@@ -68,7 +68,7 @@ public abstract class BaseJoinController<S extends IBaseJoinService, DTO extends
         return new ResultDTO<>(isDeleteSuccess && isCreateSuccess);
     }
 
-    @ApiOperation(value = "6.修改")
+    @ApiOperation(value = "6.Modify")
     @ApiOperationSupport(order = 6)
     @PutMapping
     public ResultDTO<DTO> update(@RequestBody @Valid DTO dto) throws BaseException {

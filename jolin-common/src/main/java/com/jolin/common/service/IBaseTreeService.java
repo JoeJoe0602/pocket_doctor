@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 树型业务表基础service
+ * Basic service of a tree service table
  */
 public interface IBaseTreeService<DTO extends BaseTreeDTO, D extends CommonDomain> extends IBaseService<DTO, D> {
 
@@ -18,22 +18,22 @@ public interface IBaseTreeService<DTO extends BaseTreeDTO, D extends CommonDomai
     Boolean move(String currentParentId,String targetParentId,String currentId);
 
     /**
-     * 根据父节点id查找所有childrent 如果传空就查所有一级,儿子只能查询一级
+     * Find all children nodes based on the parent node id. If a null pass is passed, all levels are queried. Sons can only query one level
      * @param parentId
      * @return
      */
     List<DTO> findByParentId(String parentId);
 
     /**
-     * 根据父节点id查询所有儿子
-     * @param parentId 父节点id
+     * Query all child nodes based on the parent node id
+     * @param parentId parentId
      * @return
      */
     List<DTO> findChildrenByParentId(String parentId);
 
     /**
-     * 根据id，parentId将list结构转为tree结构
-     * @param list 列表
+     * parentId converts the list structure to a tree structure based on the id
+     * @param list List
      * @param rootNodeParentId 如果parentId为rootNodeParentId，那么把这个节点作为根节点
      * @param <T>
      * @return
@@ -41,7 +41,7 @@ public interface IBaseTreeService<DTO extends BaseTreeDTO, D extends CommonDomai
     default <T extends BaseTreeDTO> List<T> listToTree(Collection<T> list, String rootNodeParentId) {
         List<T> treeList = new ArrayList();
         for (T node : list) {
-            // parentID可能为null
+            // parentID can be null
             if (StrUtil.isBlank(rootNodeParentId) && StrUtil.isBlank(node.getParentId())) {
                 treeList.add((findChildren(node, list)));
             } else if (node.getParentId().equals(rootNodeParentId)) {

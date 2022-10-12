@@ -5,12 +5,7 @@ import com.jolin.common.dto.ResultDTO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @author jolin
- * @version 1.0
- * @date 2021/4/2
- * @describe
- */
+
 public interface ResponseHandler {
 
     public void fail(HttpServletRequest request, HttpServletResponse response, Exception e);

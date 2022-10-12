@@ -29,14 +29,14 @@ public abstract class BaseTreeServiceImpl<M extends IBaseTreeMapper<D>, D extend
         String key = "findByParentId:" + domainClass.getName() + ":" + parentId;
         String cacheStr = commonCacheUtil.get(key);
         if (StrUtil.isNotBlank(cacheStr)) {
-            //有缓存，直接返回
+            //It has a cache, it returns directly
             List<DTO> dtos = JSONUtil.toList(JSONUtil.parseArray(cacheStr), dtoClass);
             return dtos;
         } else {
             List<D> parents = iBaseRepository.selectList(ew);
             List<DTO> dtos = this.domainListToDTOList(parents);
             cacheStr = JSONUtil.toJsonStr(dtos);
-            //单位秒
+            //Unit s
             commonCacheUtil.set(key, cacheStr, 120L);
             return dtos;
         }
@@ -45,17 +45,17 @@ public abstract class BaseTreeServiceImpl<M extends IBaseTreeMapper<D>, D extend
     @Override
     public List<DTO> findChildrenByParentId(String parentId) {
         if (StrUtil.isBlank(parentId)) {
-            throw new CommonException("parentId不能为空");
+            throw new CommonException("parentId cannot be empty");
         }
         DTO byId = findById(parentId);
         if (byId == null) {
-            throw new CommonException("根据parentId查询不到");
+            throw new CommonException("Failed obtain according to parentId");
         }
         String path = byId.getPath();
         QueryWrapper<D> ew = new QueryWrapper<>();
         ew.orderByAsc("order_index");
         if (StrUtil.isBlank(path)) {
-            throw new CommonException("path属性不能为空");
+            throw new CommonException("The path attribute cannot be empty");
         } else {
             ew.likeRight("path", path + "%");
         }
@@ -68,18 +68,18 @@ public abstract class BaseTreeServiceImpl<M extends IBaseTreeMapper<D>, D extend
     public Boolean move(String currentParentId, String targetParentId, String currentId) {
         DTO currentParient = findById(currentParentId);
         if (currentParient == null) {
-            throw new CommonException("当前父节点已被删除");
+            throw new CommonException("The current parent node has been deleted");
         }
         DTO targetParient = findById(targetParentId);
         if (targetParient == null) {
-            throw new CommonException("目标节点已被删除");
+            throw new CommonException("The target node has been deleted");
         }
         DTO currentNode = findById(currentId);
         if (currentNode == null) {
-            throw new CommonException("当前节点已被删除");
+            throw new CommonException("The current node has been deleted");
         }
         if (!currentNode.getParentId().equals(currentParentId)) {
-            throw new CommonException("当前节点已经被移动到其他节点");
+            throw new CommonException("The current node has been moved to another node");
         }
         List<DTO> childrenByPath = findChildrenByParentId(currentId);
         List<DTO> dtos = listToTree(childrenByPath, currentNode.getParentId());

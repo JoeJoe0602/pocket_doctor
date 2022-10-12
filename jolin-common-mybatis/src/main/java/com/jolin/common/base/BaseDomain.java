@@ -15,20 +15,20 @@ public class BaseDomain extends BaseCommonDomain {
     private Integer sort;
 
     /**
-     * 删除标记
+     * Delete
      */
     @TableField(value = "is_delete", fill = FieldFill.INSERT)
     @TableLogic
     private Integer isDelete;
 
     /**
-     * 创建时间
+     * Create time
      */
     @TableField(value = "created_at", fill = FieldFill.INSERT)
     private LocalDateTime createdAt;
 
     /**
-     * 修改时间
+     * Update time
      */
     @TableField(value = "updated_at", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updatedAt;

@@ -14,45 +14,45 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 该类的主要作用是为Spring Security提供一个经过用户认证后的UserDetails。
- * 该UserDetails包括用户名、密码、是否可用、是否过期等信息。
+ * The main purpose of this class is to provide Spring Security with a user authenticated UserDetails.
+ * The UserDetails include the user name, password, availability, expiration, and other information.
  */
 public abstract class BaseUserDetailServiceImpl implements UserDetailsService {
     public abstract CommonUserDTO findCommonUserDTOByLoginName(String loginName);
 
     public abstract List<String> findRoleIdsByLoginName(String loginName);
 
-    // 登录验证
+    // Login authentication
     @Override
     public UserDetails loadUserByUsername(String loginName)
             throws UsernameNotFoundException {
-        /** 连接数据库根据登陆？？用户名称获得用户信息 */
+        /** Connect database according to login?? User Name Obtain user information */
         CommonUserDTO user = findCommonUserDTOByLoginName(loginName);
         if (user == null) {
             throw new UsernameNotFoundException(loginName);
         }
         if (!"1".equals(user.getState())) {
-            throw new UsernameNotFoundException("该用户处于锁定状态");
+            throw new UsernameNotFoundException("The user is locked");
         }
 
         Collection<GrantedAuthority> grantedAuths = obtionGrantedAuthorities(loginName);
 
-        boolean enables = true; // 是否可用
-        boolean accountNonExpired = true; // 是否过期
+        boolean enables = true; // Whether the available
+        boolean accountNonExpired = true; // Whether the out of date
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
 
-        // 封装成spring security的user
+        // Encapsulated into spring security的user
         com.jolin.security.BaseSecurityUser userdetail = new com.jolin.security.BaseSecurityUser(user, user.getLoginName(), user.getPassword(),
                 enables, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, grantedAuths);
         return userdetail;
     }
 
-    // 取得用户的权限
+    // Obtain the user's permission
     private Set<GrantedAuthority> obtionGrantedAuthorities(String loginName) {
         Set<GrantedAuthority> authSet = new HashSet<GrantedAuthority>();
-        // 获取用户角色
+        // Obtain the role of the user
         List<String> roleIds = findRoleIdsByLoginName(loginName);
         if (CollectionUtil.isNotEmpty(roleIds)) {
             roleIds.forEach(roleId -> {

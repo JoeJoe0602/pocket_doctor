@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import java.io.Serializable;
 
 /**
- * 统一接口返回对象
+ * The unified interface returns an object
  */
 @Data
 @NoArgsConstructor

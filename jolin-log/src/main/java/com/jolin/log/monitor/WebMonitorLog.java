@@ -19,8 +19,7 @@ import java.time.LocalDateTime;
 public class WebMonitorLog {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    //TODO zhaozhao这样定义变量不支持多线程，需要用Local符号修饰
-    private LocalDateTime startTime; // 开始时间
+    private LocalDateTime startTime;
 
     @Autowired
     private IWebLogsService iWebLogsService;
@@ -29,7 +28,7 @@ public class WebMonitorLog {
     public String loglock;
 
     /**
-     * 前置通知，在目标方法完成之后调用通知，此时不会关 心方法的输出是什么 方法调用前触发 -记录开始时间
+     * Pre-notification, which is called after the target method has completed, regardless of what the output of the method is. Pre-call trigger - Record start time
      */
 //    @Before("bean(*Controller)")
     @Before("within(com.jolin.common.api.BaseController+)")
@@ -39,7 +38,7 @@ public class WebMonitorLog {
     }
 
     /**
-     * 后置通知，在目标方法完成之后调用通知，此时不会关 心方法的输出是什么
+     * Post-notification, which is called after the target method is done, doesn't care what the output of the method is
      */
     @After("within(com.jolin.common.api.BaseController+)")
 //    @After("within(com.jolin.*.web..*) || within(com.jolin.*.api..*)")
@@ -51,27 +50,22 @@ public class WebMonitorLog {
     }
 
     /**
-     * 返回通知，在目标方法成功执行之后调用，可以获得目标方法的返回值，但不能修改（修改也不影响方法的返回值）
+     * Return notification, called after successful execution of the target method, to obtain the return value of the target method, but not to modify it (modification does not affect the return value of the method）
      *
-     * @param jp               接口，可以获得连接点的一些信息
-     * @param retVal           目标方法返回值，和jp一样会由spring自动传入
+     * @param jp               Interface to get some information about the join point
+     * @param retVal           The target method returns a value that, like jp, is automatically passed in by spring
      * @param operationLogAnno
      */
     @AfterReturning(returning = "retVal", pointcut = "@annotation(operationLogAnno)")
     public void afterReturningAdvice(JoinPoint jp, Object retVal, OperationLogAnno operationLogAnno) {
-        // retVal = retVal + " (@AfterReturning 这个返回值只能读,但是不能改变这个值!)";
-        // retVal = retVal + " (@AfterReturning)";
-        // logger.info("AfterReturning--通知方法会在目标方法返回后调用; retVal = " + retVal);
-        // logger.info(jp.toLongString());
-        logger.info("-------执行" + operationLogAnno.desc() + "结束-------");
+        logger.info("-------execute" + operationLogAnno.desc() + "finish-------");
     }
 
     /**
-     * 异常通知，在目标方法抛出异常后调用通知
+     * Exception notification, invoked after the target method throws an exception
      */
     @AfterThrowing(throwing = "ex", pointcut = "@annotation(operationLogAnno)")
     public void afterThrowingAdvice(JoinPoint joinPoint, OperationLogAnno operationLogAnno, Exception ex) {
-        // logger.info("AfterThrowing--通知方法会在目标方法抛出异常后调用");
-        logger.error("执行" + operationLogAnno.desc() + "异常", ex);
+        logger.error("execute" + operationLogAnno.desc() + "exception", ex);
     }
 }

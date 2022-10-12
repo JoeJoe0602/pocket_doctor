@@ -9,33 +9,27 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
-/**
- * @author jolin
- * @version 1.0
- * @date 2021/8/25
- * @describe
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class RetrievePasswordDTO {
 
-    @NotBlank(message = "用户名不能为空")
-    @ApiModelProperty(value = "用户名")
+    @NotBlank(message = "The username cannot be empty")
+    @ApiModelProperty(value = "username")
     private String loginName;
 
-    @NotBlank(message = "密码不能为空")
-    @ApiModelProperty(value = "密码")
+    @NotBlank(message = "The password cannot be empty")
+    @ApiModelProperty(value = "password")
     private String password;
 
 
 
-    @NotBlank(message = "确认密码不能为空")
-    @ApiModelProperty(value = "确认密码")
+    @NotBlank(message = "The confirm password cannot be empty")
+    @ApiModelProperty(value = "confirm password")
     private String confirm;
 
-    @NotBlank(message = "旧密码不能为空")
-    @ApiModelProperty(value = "旧密码")
+    @NotBlank(message = "The old password cannot be empty")
+    @ApiModelProperty(value = "old password")
     private String oldPassword;
 
 

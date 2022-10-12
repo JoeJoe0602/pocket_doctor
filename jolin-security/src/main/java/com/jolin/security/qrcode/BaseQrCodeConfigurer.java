@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.util.Assert;
 
 /**
- * 移动端扫描验证码登录配置
+ * Configure mobile terminal scanning verification code login
  */
 public class BaseQrCodeConfigurer<H extends HttpSecurityBuilder<H>> extends AbstractHttpConfigurer<BaseQrCodeConfigurer<H>, H> {
 
@@ -22,7 +22,7 @@ public class BaseQrCodeConfigurer<H extends HttpSecurityBuilder<H>> extends Abst
     private ResponseHandler responseHandle;
 
     /**
-     * 这种扩展写法参考了CsrfConfigurer，通过构造函数注入上下文
+     * This extension is written in reference to CsrfConfigurer to inject context through the constructor
      *
      * @see HttpSecurity#csrf()
      */
@@ -55,7 +55,7 @@ public class BaseQrCodeConfigurer<H extends HttpSecurityBuilder<H>> extends Abst
     }
 
     /**
-     * 设置成功或失败的策略接口
+     * Setting the policy interface succeeds or fails
      *
      * @param handle
      */

@@ -24,11 +24,13 @@ public interface IWebLogsService<D extends CommonDomain> extends IBaseService<We
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
-            //controller中可能有其他非接口类型方法，这些方法不应该被记录日志
+
+            // There may be other non-interface type methods in controller that should not be logged
             return null;
         }
         HttpServletRequest request = attributes.getRequest();
-        // 远程客户ip地址
+
+        // The ip address of the remote client
         String remoteClientIp = WebSiteUtil.getIpAddress(request);
 
         String targetName = joinPoint.getTarget().getClass().getName();
@@ -56,7 +58,7 @@ public interface IWebLogsService<D extends CommonDomain> extends IBaseService<We
                         webLogsDTO.setLogOperationType(method.getAnnotation(OperationLogAnno.class).logOperationType());
                     } else {
                         webLogsDTO.setModule(targetName);
-                        webLogsDTO.setLogInfo("执行了" + targetName + "的'" + methodName + "'操作");
+                        webLogsDTO.setLogInfo("executed" + targetName + methodName + "'operation");
                         webLogsDTO.setLogClassName(targetName);
                         if (methodName.toLowerCase().contains("list")
                                 || methodName.toLowerCase().contains("page")

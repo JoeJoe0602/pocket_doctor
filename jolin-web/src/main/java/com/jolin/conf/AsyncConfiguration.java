@@ -15,17 +15,17 @@ public class AsyncConfiguration {
     @Bean("baseExecutor")
     public Executor baseExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        // 核心线程数：线程池创建时候初始化的线程数
+        //Core thread count: the number of threads initialized when the thread pool is created
         executor.setCorePoolSize(10);
-        // 最大线程数：线程池最大的线程数，只有在缓冲队列满了之后才会申请超过核心线程数的线程
+        //Maximum number of threads: The maximum number of threads in the thread pool. Threads exceeding the core number are requested only after the buffer queue is full
         executor.setMaxPoolSize(20);
-        // 缓冲队列：用来缓冲执行任务的队列
+        //Buffer queue: The queue used to buffer the execution of a task
         executor.setQueueCapacity(500);
-        // 允许线程的空闲时间60秒：当超过了核心线程之外的线程在空闲时间到达之后会被销毁
+        //Allow thread idle time of 60 seconds: threads outside the core thread will be destroyed when the idle time is reached
         executor.setKeepAliveSeconds(60);
-        // 线程池名的前缀：设置好了之后可以方便我们定位处理任务所在的线程池
+        //The prefix of the thread pool name: When this is set, it is easy to locate the thread pool where the processing task is located
         executor.setThreadNamePrefix("base-");
-        // 缓冲队列满了之后的拒绝策略：由调用线程处理（一般是主线程）
+        // Rejection strategy when the buffer queue is full: handled by the calling thread (usually the main thread)
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
         executor.initialize();
         return executor;

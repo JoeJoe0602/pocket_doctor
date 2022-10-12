@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jolin.mapper.UserInfoMapper">
 
-    <!-- 通用查询映射结果 -->
+    <!-- Mapping results of a general query -->
     <resultMap id="BaseResultMap" type="com.jolin.domain.UserInfo">
         <result column="id" property="id"/>
         <result column="role_id" property="roleId"/>
@@ -17,7 +17,7 @@
         <result column="updated_at" property="updatedAt"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
+    <!-- Generic query result column -->
     <sql id="Base_Column_List">
         id,
         role_id,

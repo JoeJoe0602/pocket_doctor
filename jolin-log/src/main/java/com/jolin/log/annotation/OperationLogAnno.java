@@ -7,13 +7,13 @@ import java.lang.annotation.*;
 @Documented
 public @interface OperationLogAnno {
 
-	String module() default ""; // 模块名称
+	String module() default ""; // module name
 
-	String logInfo() default ""; // 方法描述
+	String logInfo() default ""; // method description
 
-	String logClassName() default "";// 用于判断操作哪个实体类
+	String logClassName() default "";//Used to determine which entity class to operate on
 
-	String  logOperationType() default "";// 1 添加 2 修改 3 删除 ,4查询,5登录，6登出
+	String  logOperationType() default "";// 1 Create  2 Modify 3 Delete ,4 Query,5 Login in，6 Login out
 
-	String desc() default "";// 切面中要用到方法的描述信息
+	String desc() default "";// The method description is used in the section
 }

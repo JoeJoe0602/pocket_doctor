@@ -3,12 +3,6 @@ package com.jolin.security.complexity;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author jolin
- * @version 1.0
- * @date 2021/5/11
- * @describe
- */
 public class BasePasswordComplexity {
 
     private String name="easy";
@@ -19,10 +13,10 @@ public class BasePasswordComplexity {
     public BasePasswordComplexity() {
         BasePasswordPattern medium = new BasePasswordPattern();
         medium.setPattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,15}$");
-        medium.setMessage("只能包含大小写字母,数字且长度在6-15位");
+        medium.setMessage("It can contain only uppercase and lowercase letters, digits, and 6 to 15 characters");
         BasePasswordPattern easy = new BasePasswordPattern();
         easy.setPattern("(?=.*[0-9])");
-        easy.setMessage("只能包含数字");
+        easy.setMessage("Can only contain numbers");
         patterns = new HashMap<>();
         patterns.put("easy",easy);
         patterns.put("medium",medium);

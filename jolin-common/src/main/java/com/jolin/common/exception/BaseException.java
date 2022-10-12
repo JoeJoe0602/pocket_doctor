@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * 基础异常类
+ *
+ * Basic exception class
  */
 @Data
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public abstract class BaseException extends RuntimeException {
     }
 
     /**
-     * 异常状态码，需要子类进行定义，并且子类间状态码不重复
+     * Abnormal status code, which needs to be defined by subclasses, and the status code between subclasses is not repeated
      * @return
      */
     public abstract Integer getCode();

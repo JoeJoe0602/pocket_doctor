@@ -31,7 +31,8 @@ public abstract class BaseServiceImpl<I extends IBaseMapper<D>, D extends BaseDo
         ids.forEach(id ->
                 cacheKeys.add(CacheKey_dto + "::" + CommonCacheUtil.getCacheKey(getDTOClass().getSimpleName(), id))
         );
-        //删除对应的缓存
+
+        // Delete the corresponding cache
         commonCacheUtil.mremove(cacheKeys);
         iBaseRepository.deleteBatchIds(ids);
 

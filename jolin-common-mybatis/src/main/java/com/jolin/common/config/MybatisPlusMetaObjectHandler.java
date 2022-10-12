@@ -1,7 +1,6 @@
 package com.jolin.common.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.jolin.common.service.CommonSecurityService;
 import org.apache.ibatis.reflection.MetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +13,7 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MybatisPlusMetaObjectHandler.class);
 
-    // 新增时自动填充
+    // Automatically fill in when created
     @Override
     public void insertFill(MetaObject metaObject) {
         LOGGER.info("start insert fill ....");
@@ -24,7 +23,7 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
         this.setFieldValByName("updatedAt", LocalDateTime.now(), metaObject);
     }
 
-    // 更新时自动填充
+    // Automatically fill in when updated
     @Override
     public void updateFill(MetaObject metaObject) {
         this.setFieldValByName("updatedAt", LocalDateTime.now(), metaObject);

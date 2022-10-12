@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 关联表基础service
+ * Association table base service
  */
 public interface IBaseJoinService<DTO extends BaseJoinDTO, D extends CommonDomain> extends IBaseCommonService<DTO, D> {
 
@@ -23,12 +23,16 @@ public interface IBaseJoinService<DTO extends BaseJoinDTO, D extends CommonDomai
     }
 
     /**
-     * domain中表示Id的属性,按照BaseJoinId顺序排列, 为了提升查询性能，不用每次都通过反射来获取
+     *
+     *
+     * In the domain, the attributes that represent ids are arranged in the order of BaseJoinId. To improve query performance, you do not need to obtain the attributes by reflection every time
      */
     List<String> getDomainIdFieldNames();
 
     /**
-     * domain中表示Id的属性相应的getXXId方法，为了提升查询性能，不用每次都通过反射来获取
+     *
+     *
+     * The corresponding getXXId method for the attribute representing the Id in the domain is used to improve the query performance. It does not need to be obtained by reflection every time
      */
     Map<String, Method> getDomainIdMethodGetMap();
 

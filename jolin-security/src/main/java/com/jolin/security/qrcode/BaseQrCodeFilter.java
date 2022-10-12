@@ -20,18 +20,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 移动端扫描二维码登录
+ * Scan the QR code on the mobile terminal to log in
  */
 public class BaseQrCodeFilter extends OncePerRequestFilter {
     private final static Logger logger = LoggerFactory.getLogger(BaseQrCodeFilter.class);
 
-    //TODO 完善同一个IP接口调用限制策略，类似Catcha的限制，如5分钟内同一个Ip只能调用5次
+    //TODO improves the restriction policy of calling interfaces from the same IP address, similar to the restriction of Catcha. For example, the same Ip address can only be invoked five times within five minutes
 
-    //生成登录的二维码,前端可以根据qrcodeId使用js动态生成二维码图片
+    // Generate the QR code for login. The front-end can dynamically generate the QR code picture using js according to the qrcodeId
     private RequestMatcher idRequestMatcher = new AntPathRequestMatcher("/qrcodeId");
-    //移动端扫描二维码后调用此接口，告知服务端允许PC登录登录
+    // The mobile terminal calls this interface after scanning the two-dimensional code, and tells the server to allow the PC to log in
     private RequestMatcher authRequestMatcher = new AntPathRequestMatcher("/qrcodeAuth");
-    //PC端轮询调用，检测手机端是否已经允许登录
+    // The PC makes a polling call to check whether the login is allowed on the mobile phone
     private RequestMatcher tryRequestMatcher = new AntPathRequestMatcher("/qrcodeTryAuth");
 
     private CommonCacheUtil commonCacheUtil;
@@ -50,35 +50,32 @@ public class BaseQrCodeFilter extends OncePerRequestFilter {
         } else if (authRequestMatcher.matches(request)) {
             String qrcodeId = request.getParameter("qrcodeId");
             if (StrUtil.isBlank(qrcodeId)) {
-                responseHandle.fail(request, response, new BaseSecurityException(401, "qrcodeId不能空"));
+                responseHandle.fail(request, response, new BaseSecurityException(401, "qrcodeId cannot be null"));
             }
             String token = request.getHeader(HttpHeaders.AUTHORIZATION);
             System.out.println(token);
             commonCacheUtil.set(getQRCodeRedisKey(qrcodeId), token, expiration);
-            responseHandle.success(request, response, new ResultDTO<>("扫描成功，允许登录"));
+            responseHandle.success(request, response, new ResultDTO<>("The scan succeeds and the login is allowed"));
             return;
         } else if (tryRequestMatcher.matches(request)) {
             String qrcodeId = request.getParameter("qrcodeId");
             if (StrUtil.isBlank(qrcodeId)) {
-                responseHandle.fail(request, response, new BaseSecurityException(401, "qrcodeId不能空"));
+                responseHandle.fail(request, response, new BaseSecurityException(401, "qrcodeId cannot be null"));
             }
 
             String cache = commonCacheUtil.get(getQRCodeRedisKey(qrcodeId));
             if (StrUtil.isBlank(cache)) {
-                responseHandle.success(request, response, new ResultDTO<>("0:二维码已经过期"));
+                responseHandle.success(request, response, new ResultDTO<>("0:Qr code has expired"));
                 return;
             } else if ("false".equals(cache)) {
-                responseHandle.success(request, response, new ResultDTO<>("1:手机端未允许登录，请等待手机端确认或者刷新二维码"));
+                responseHandle.success(request, response, new ResultDTO<>("1: The login is not allowed on the mobile terminal. Please wait for the confirmation of the mobile terminal or refresh the two-dimensional code"));
                 return;
             }
 
-            //TODO 暂时将手机端的同一用户的token颁发给web端，后续改为生成新的token
+            //TODO temporarily issues the token of the same user on the mobile terminal to the web terminal, and then generates a new token
 
             String token = request.getParameter("token");
-//            commonCacheUtil.set(getQRCodeRedisKey("token123"),"1");
-//            token = commonCacheUtil.get(getQRCodeRedisKey("token123"));
             if (StrUtil.isBlank(token)) {
-                //如果parameter中没有，再从header中取
                 token = request.getHeader(HttpHeaders.AUTHORIZATION);
             }
 
@@ -113,7 +110,7 @@ public class BaseQrCodeFilter extends OncePerRequestFilter {
     }
 
     /**
-     * 登录二维码key
+     * Login QR code key
      */
     private String getQRCodeRedisKey(String qrcodeId) {
         return "qrcode::" + qrcodeId;

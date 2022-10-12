@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 public interface WebLogsMapper extends IBaseMapper<WebLogs> {
 
     /**
-     *  分页
+     *  Page
      */
     IPage<WebLogs> getPage(@Param("page") Page page, @Param("webLogs") WebLogs webLogs);
 

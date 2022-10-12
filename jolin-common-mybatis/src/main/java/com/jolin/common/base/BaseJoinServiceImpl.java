@@ -16,11 +16,11 @@ import java.util.*;
 public abstract class BaseJoinServiceImpl<I extends IBaseJoinMapper<D>, D extends BaseJoinDomain, DTO extends BaseJoinDTO>
         extends BaseCommonServiceImpl<I, D, DTO> implements IBaseJoinService<DTO, D> {
     /**
-     * domain中表示Id的属性,按照BaseJoinId顺序排列, 为了提升查询性能，不用每次都通过反射来获取
+     * In the domain, the attributes that represent ids are arranged in the order of BaseJoinId. To improve query performance, you do not need to obtain the attributes by reflection every time
      */
     List<String> domainIdFieldNames = Arrays.asList("", "", "", "", "");
     /**
-     * domain中表示Id的属性相应的getXXId方法，为了提升查询性能，不用每次都通过反射来获取
+     * The corresponding getXXId method for the attribute representing the Id in the domain is used to improve the query performance. It does not need to be obtained by reflection every time
      */
     Map<String, Method> domainIdMethodGetMap = new HashMap<>();
 

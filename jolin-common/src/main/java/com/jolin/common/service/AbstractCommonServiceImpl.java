@@ -15,7 +15,7 @@ import org.springframework.context.MessageSource;
 import java.util.List;
 
 /**
- * 内部使用不对外暴露的基础ICommonService实现
+ * Internal use of a base ICommonService implementation that is not exposed to the outside world
  */
 public abstract class AbstractCommonServiceImpl<I extends ICommonRepository<D>, D extends CommonDomain, DTO extends CommonDTO> implements ICommonService<DTO, D> {
     protected Logger log = LoggerFactory.getLogger(getClass());
@@ -59,7 +59,7 @@ public abstract class AbstractCommonServiceImpl<I extends ICommonRepository<D>, 
     }
 
     /**
-     * 获取PageDTO中过滤器条件转化为Domain
+     * Gets the filter condition in PageDTO converted to Domain
      */
     protected D getDomainFilterFromPageDTO(final PageDTO pageDTO) {
         if (pageDTO.getFilters() == null) {
@@ -75,7 +75,8 @@ public abstract class AbstractCommonServiceImpl<I extends ICommonRepository<D>, 
     }
 
     protected final void deleteCache() {
-        //有删除操作，则直接删除所有 findIdsByMenuUrl 缓存
+
+        //If there is a delete operation, all findIdsByMenuUrl caches are directly deleted
         commonCacheUtil.removeByPattern(CacheKey_dto + "::" + getDTOClass().getSimpleName() + "*");
     }
 }

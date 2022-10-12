@@ -6,7 +6,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * 框架自己使用的异常处理类
+ * Exception handling classes used by the framework itself
  */
 @RestControllerAdvice(basePackages = {"com.jolin"})
 @ConditionalOnClass(javax.servlet.Servlet.class)

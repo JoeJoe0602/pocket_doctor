@@ -37,8 +37,9 @@ import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-// 缓存配置
-// Redis配置、Redis缓存配置、其他缓存配置
+
+// Cache configuration
+// Redis configuration, Redis cache configuration, and other cache configuration
 @Configuration
 @EnableCaching
 public class CacheConfig extends CachingConfigurerSupport {
@@ -84,7 +85,8 @@ public class CacheConfig extends CachingConfigurerSupport {
     }
 
     @Bean
-    // 在配置文件中查找 spring.cache.type 的值，如果能找到并且值等于redis就注入
+
+    // Look for the value of spring.cache.type in the configuration file. If it can be found and the value is equal to redis, inject it
     @ConditionalOnProperty(prefix = "spring.cache", name = "type", havingValue = "redis")
     public RedisCacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
         ObjectMapper om = new ObjectMapper();
@@ -116,7 +118,8 @@ public class CacheConfig extends CachingConfigurerSupport {
         return container;
     }
 
-    //监听Redis事件
+
+    //Listen for Redis events
     @Bean
     MessageListenerAdapter listenerAdapter() {
         return new MessageListenerAdapter(new Receiver(new CountDownLatch(1)), "receiveMessage");

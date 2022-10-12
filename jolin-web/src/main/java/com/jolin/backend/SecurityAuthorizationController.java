@@ -24,7 +24,7 @@ import javax.validation.Valid;
  * @version 1.0
  * @date 2021/4/15
  * @describe
- * 该类只为在swagger中展示登陆相关文档,实际上在swagger中发起请求时走的是security的自定义filter
+ * This class only shows login-related documents in swagger. In fact, when you make a request in swagger, you use security's custom filter
  */
 @RestController
 @Api(tags = {"01.auth"})

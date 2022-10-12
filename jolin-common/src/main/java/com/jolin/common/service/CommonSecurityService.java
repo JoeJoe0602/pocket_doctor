@@ -3,7 +3,7 @@ package com.jolin.common.service;
 import java.util.Set;
 
 /**
- * spring security工具类，获取当前登录用户等等
+ * spring security utility classes to get the current logged-in user, etc
  */
 public abstract class CommonSecurityService {
     public static CommonSecurityService instance;
@@ -13,41 +13,23 @@ public abstract class CommonSecurityService {
     }
 
     /**
-     * 获取当前登录用户的LoginName
+     * Obtain the LoginName of the current login user
      */
     public abstract String getCurrentLoginName();
 
     /**
-     * 获取当前登录用户的权限集合
+     * Gets the permission collection of the currently logged in user
      */
     public abstract Set<String> getCurrentAuthorities();
 
     /**
-     * 加密密码
+     *Encrypted password
      *
-     * @param rawPassword 未加密原始密码
-     * @return 加密后字符串
+     * @param rawPassword The original password is not encrypted
+     * @return Encrypted string
      */
     public abstract String encodePassword(String rawPassword);
     public abstract Boolean match(String rawPassword,String password);
 
-//    /**
-//     *是否是登录用户
-//     */
-//    boolean isAuthenticated();
 
-//    /**
-//     * 检查token是否是base的
-//     * @param token
-//     * @return
-//     */
-//    Boolean isBaseJWTToken(String token);
-
-//    /**
-//     * token提取
-//     * @param request
-//     * @return
-//     */
-//
-//    String extractToken(HttpServletRequest request);
 }

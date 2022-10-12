@@ -1,12 +1,12 @@
 package com.jolin.security;
 
 public interface BaseConstants {
-    //手机验证码登陆功能使用
+    //Mobile phone verification code login function
     public static final String PHONENUM = "phoneNum";
     public static final String PHONECODE = "phoneCode";
     public static final String PHONECODE_KEY = "phoneCodeKey";
 
-    //开关
+    //Switch
     public static final String ENABLE = "on";
 
     public static final String OFF = "off";

@@ -28,14 +28,14 @@ public class CommonBeanUtil {
     }
 
     /**
-     * source中的非空属性复制到target中
+     * The non-null attribute in source is copied to target
      */
     public static <T> void beanCopyWithoutNull(T source, T target) {
         BeanUtils.copyProperties(source, target, getNullPropertyNames(source));
     }
 
     /**
-     * source中的非空属性复制到target中，但是忽略指定的属性，也就是说有些属性是不可修改的（个人业务需要）
+     * Non-null attributes in source are copied to target, but the specified attributes are ignored, meaning that some attributes are not modifiable (personal business needs).
      */
     public static <T> void beanCopyWithIngore(T source, T target, String... ignoreProperties) {
         String[] pns = getNullAndIgnorePropertyNames(source, ignoreProperties);
@@ -69,49 +69,7 @@ public class CommonBeanUtil {
         return emptyNames;
     }
 
-//
-//    // 根据id，parentId将list结构转为tree结构
-//    public <T extends BaseTreeDTO> List<T> listToTree(Collection<T> list, String rootId) {
-//        List<T> treeList = new ArrayList();
-//        for (T node : list) {
-//            // parentID可能为null
-//            if (StrUtil.isBlank(rootId) && StrUtil.isBlank(node.getParentId())) {
-//                treeList.add((findChildren(node, list)));
-//            } else if (node.getParentId().equals(rootId)) {
-//                treeList.add((findChildren(node, list)));
-//            }
-//        }
-//        return treeList;
-//    }
 
-//    public static Map<String, Object> beanTomap(Object bean) throws Exception {
-//        Map<String, Object> map = new HashMap();
-//        BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass(), Object.class);
-//        PropertyDescriptor[] list = beanInfo.getPropertyDescriptors();
-//        PropertyDescriptor[] var4 = list;
-//        int var5 = list.length;
-//
-//        for (int var6 = 0; var6 < var5; ++var6) {
-//            PropertyDescriptor pd = var4[var6];
-//            String key = pd.getName();
-//            Object value = pd.getReadMethod().invoke(bean);
-//            map.put(key, value);
-//        }
-//
-//        return map;
-//    }
-
-//    private <T extends BaseTreeDTO> T findChildren(T tree, Collection<T> list) {
-//        for (T node : list) {
-//            if (tree.getId().equals(node.getParentId())) {
-//                if (tree.getChildren() == null) {
-//                    tree.setChildren(new ArrayList());
-//                }
-//                tree.getChildren().add(findChildren(node, list));
-//            }
-//        }
-//        return tree;
-//    }
 
     private static class CommonBeanUtilHolder {
         private static CommonBeanUtil instance = new CommonBeanUtil();

@@ -77,7 +77,7 @@ public class CommonCaffeineUtil implements ICommonCache {
     public void removeByPattern(String patternKey) {
         logger.debug("Enter remove() key={}", patternKey);
         if (!patternKey.contains("*")) {
-            throw new CommonException("Caffenion目前不支持此patter匹配");
+            throw new CommonException("This patter matching is not currently supported by Caffenion");
         }
         Set<String> keySet = caffeineCache.asMap().keySet();
         Set<String> needRemoveKeys = new HashSet<>();

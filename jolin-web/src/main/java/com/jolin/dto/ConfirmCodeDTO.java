@@ -9,25 +9,20 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
-/**
- * @author jolin
- * @version 1.0
- * @date 2021/8/25
- * @describe
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConfirmCodeDTO {
-    @NotBlank(message = "验证码不能为空")
-    @ApiModelProperty(value = "验证码")
+    @NotBlank(message = "The verification code cannot be empty")
+    @ApiModelProperty(value = "verification code ")
     private String code;
-    @ApiModelProperty(value = "邮箱")
+    @ApiModelProperty(value = "email")
     private String email;
-    @ApiModelProperty(value = "手机号")
+    @ApiModelProperty(value = "phone")
     private String phoneNum;
-    @ApiModelProperty(value = "0 手机验证码 1 邮箱 2 邮箱注册验证码 3 手机注册验证码")
-    @Max(value=3,message = "type只能为0-3")
-    @Min(value=0,message = "type只能为0-3")
+    @ApiModelProperty(value = "0 verification code 1 email 2 email registration verification code  3 phone registration verification code")
+    @Max(value=3,message = "The value of type can be 0-3")
+    @Min(value=0,message = "The value of type can be 0-3")
     private Integer type;
 }

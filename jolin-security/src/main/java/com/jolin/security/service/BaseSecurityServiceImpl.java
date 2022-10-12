@@ -38,7 +38,7 @@ public class BaseSecurityServiceImpl extends CommonSecurityService {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
         String loginName = null;
-        //TODO 暂时先这么写,在新增用户和角色接口中获取当前用户空指针,跟AnonymousAuthenticationFilter定义的没有登陆用户保持一致
+        // TODO in new users and roles in the interface for the current user null Pointers, AnonymousAuthenticationFilter consistent definition not login user
         if (authentication == null) {
             logger.debug("anonymousUser");
             return "anonymousUser";
@@ -55,7 +55,7 @@ public class BaseSecurityServiceImpl extends CommonSecurityService {
         } else if (authentication instanceof BaseAuthenticationToken) {
             logger.debug("authentication is BaseAuthenticationToken");
             loginName = (String) authentication.getPrincipal();
-            //该实现类不能判断是否属于JwtAuthenticationToken 因为没有引入相关包
+            // The implementation class cannot determine whether it is a JwtAuthenticationToken because no package is imported
         } else {
             loginName = authentication.getName();
         }

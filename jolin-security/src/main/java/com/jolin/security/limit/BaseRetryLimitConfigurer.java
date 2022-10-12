@@ -14,13 +14,13 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 
 /**
- * 配置认证接口限制相关逻辑
+ * The logic related to authentication interface restrictions was configured
  */
 public class BaseRetryLimitConfigurer<H extends HttpSecurityBuilder<H>> extends AbstractHttpConfigurer<BaseRetryLimitConfigurer<H>, H> {
-    //允许登录错误次数，对登录错误一定次数的用户进行封锁账号以及 IP 等措施
+    // Allow the number of login errors, and block accounts and IP addresses for users who log in incorrectly for a certain number of times
     private Integer retryTime = 5;
 
-    //被锁定，不允许登录后恢复时间间隔
+    //Is locked and cannot restore the interval after login
     private Long lockedRecoverSecond = 43200L;
 
     private final ApplicationContext context;
@@ -30,7 +30,7 @@ public class BaseRetryLimitConfigurer<H extends HttpSecurityBuilder<H>> extends 
     private ResponseHandler responseHandle;
 
     /**
-     * 这种扩展写法参考了CsrfConfigurer，通过构造函数注入上下文
+     * This extension is written in reference to CsrfConfigurer to inject context through the constructor
      *
      * @see HttpSecurity#csrf()
      */
@@ -43,8 +43,7 @@ public class BaseRetryLimitConfigurer<H extends HttpSecurityBuilder<H>> extends 
         super.init(builder);
         getLimitRequestMatcher();
         getResponseHandle();
-        //设置内置的匹配路径，包括formLogin默认的/login等登录端口
-//        addRetryLimitRequestMatcher(new AntPathRequestMatcher("/smsLogin"));
+        //Set the built-in matching path, including the default login port for formLogin, such as /login
         addRetryLimitRequestMatcher(new AntPathRequestMatcher("/login", "POST"));
     }
 
@@ -74,7 +73,7 @@ public class BaseRetryLimitConfigurer<H extends HttpSecurityBuilder<H>> extends 
     }
 
     /**
-     * 设置成功或失败的策略接口
+     * Setting the policy interface succeeds or fails
      *
      * @param handle
      */
@@ -85,8 +84,8 @@ public class BaseRetryLimitConfigurer<H extends HttpSecurityBuilder<H>> extends 
     }
 
     /**
-     * 用户自定义RequestMatcher扩展点。
-     * 哪些接口走最大调用次数限制
+     * User-defined RequestMatcher extension points.
+     * Specifies the interface that is invoked for the maximum number of times
      */
     public BaseRetryLimitConfigurer<H> addRetryLimitRequestMatcher(RequestMatcher requestMatcher) {
         if (requestMatcher != null) {

@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
 import java.util.Map;
 
 public interface UserInfoMapper extends IBaseMapper<UserInfo> {
@@ -15,7 +14,7 @@ public interface UserInfoMapper extends IBaseMapper<UserInfo> {
     IPage<Map> getUserOnlyByRoleIdOrDeptIdPage(@Param("page") Page page, @Param("userInfo") UserInfoDTO userInfo);
 
     /**
-     * 分页
+     * Page
      */
     IPage<UserInfo> selectPage(@Param("page") Page page, @Param("userInfo") UserInfo userInfo);
 

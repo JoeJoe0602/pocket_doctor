@@ -25,16 +25,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +39,7 @@ import java.util.*;
 @EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //TODO 这些配置要封装到 security内部
+    //TODO These configurations are encapsulated inside security
     @Value("${base.security.jwt.secret:mySecret}")
     private String secret;
 
@@ -52,38 +47,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private String jwkSetUri;
 
     @Value("${base.security.jwt.expiration:60}")
-    // 冒号：默认值语法
-    //单位：秒，默认配置1星期：3600*24*7=604800
+    // Colon: Default syntax
+    // Unit: second. Default value 1 week: 3600 x 24 x 7=604800
     private Long expiration;
 
     @Value("${base.security.jwt.refresh:1800}")
-    //冒号：默认值语法
-    //单位：秒，默认配置1星期：60*30
+    // Colon: Default syntax
+    // Unit: second. The default value is 1 week: 60 x 30
     private Long refresh;
 
-    //是否启用验证码逻辑
+    // Whether to enable verification code logic
     @Value("${base.security.captcha-enable:on}")
     private String captchaEnable;
 
-    //验证码有效期，单位：秒
+    //Validity period of the verification code, expressed in seconds
     @Value("${base.security.captcha-max-wait-second:600}")
     private long captchaMaxWaitSecond;
 
-    //同一个IP地址，每分钟限制请求多少次验证码
+    //Limit the number of verification code requests per minute for the same IP address
     @Value("${base.security.captcha-same-ip-limit-per-minutes:60}")
     private long captchaSameIpLimitPerMinutes;
 
     @Value("${base.security.login.retry-time:5}")
     private Integer retryTime = 5;
 
-    //被锁定，不允许登录后恢复时间间隔
+    // is locked and cannot restore the interval after login
     @Value("${base.security.login.locked-recover-second:43200}")
     private long lockedRecoverSecond = 43200;
 
     @Value("${base.security.login.qrcode.expiration:120}")
     private Long qrCodeExpiration;
 
-    //获取当前用户的工具类
+    //Gets the utility class for the current user
     @Bean
     public CommonSecurityService baseSecurityService() {
         return new BaseSecurityServiceImpl(passwordEncoder(), basePasswordComplexity());
@@ -91,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 过滤器的安全拦截器的每一次的要求
+        //Filter the security interceptor every time it is required
         http.authorizeRequests().filterSecurityInterceptorOncePerRequest(true)
                 .antMatchers("/error").permitAll()
                 .antMatchers("/sys/user/send-email-code").permitAll()
@@ -101,47 +96,46 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/sys/user/email-register").permitAll()
                 .antMatchers("/sys/user/confirm-code").permitAll()
                 .antMatchers("/phoneCodeAuth", "/sendSmsCode").permitAll()
-                //通过Oauth2登录时绑定用户接口，暂时开启，否则与JwtAuthorizationTokenFilter逻辑冲突（本系统还没有用户所以查不出来）
+                //Through Oauth2 login binding user interface, temporarily open, otherwise conflict with JwtAuthorizationTokenFilter logic (in this system is not so look not to come out)
                 .antMatchers("/bindOAuth2User").permitAll()
                 .antMatchers("/file/**").permitAll()
-                // 支持跨域
+                // Support cross-domain
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest().access("@baseDynamicAccess.dynamicAccess(request,authentication)");
         http.exceptionHandling().accessDeniedHandler(baseJwtAccessDeniedHandler())
                 .authenticationEntryPoint(baseJwtAuthenticationEntryPoint());
-        //开启oauth登陆
+        // Enable oauth login
         http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-        // 支持Form表单登录
+        // Support Form login
         http.formLogin()
                 .successHandler(baseJwtSuccessHandler())
                 .failureHandler(new FormLoginFailureHandler(getApplicationContext(), retryTime));
 
-        // 支持前后端分离刷新和校验token
+        // Supports separate refresh and token verification at the front and back ends
         http.apply(new BaseJwtTokenAuthenticationConfigurer<>());
 
-        //支持生成校验验证码
+        //  Supports generation of verification codes
         http.apply(new BaseCaptchaConfigurer<>(getApplicationContext()))
                 .addCheckPointRequestMatcher(new AntPathRequestMatcher("/ccc")) // 自定义执行验证码校验的url路径
                 .captchaEnable(captchaEnable)
                 .captchaMaxWaitSecond(captchaMaxWaitSecond)
                 .captchaSameIpLimitPerMinutes(captchaSameIpLimitPerMinutes);
 
-        //认证接口限制相关逻辑
+        // The authentication interface restricts the related logic
         http.apply(new BaseRetryLimitConfigurer<>(getApplicationContext()))
                 .retryTime(retryTime)
                 .lockedRecoverSecond(lockedRecoverSecond);
 
-
-        //JWT没有csrf问题，需要禁用
+        //JWT does not have csrf problems and needs to be disabled
         http.csrf().disable();
-        //JWT不使用session
+        //JWT does not use sessions
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
-        //前后端分离，开启cors
+        // Separate the front and back ends to enable cors
         http.cors();
         http.oauth2ResourceServer();
-        // security 添加安全响应头
+        //security Adds a security response header
         http.headers(headers -> headers
                         //X-Frame-Options
                         .frameOptions(frameOptions -> frameOptions.sameOrigin())
@@ -162,10 +156,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        // 解决静态资源被拦截的问题
+        //Resolve static resource interception problem
         web.ignoring().antMatchers("/images/**", "/css/**", "/js/**", "/favicon.ico", "/index.html", "/login.html");
 
-        // TODO 此处忽略的URL过多，可能不太安全,建议根据需求情况适当开启
+        //TODO Too many urls are ignored here, which may be insecure. You are advised to enable this function based on requirements
         web.ignoring().antMatchers("/**/*.js", "/lang/*.json", "/**/*.css", "/**/*.js", "/**/*.map", "/**/*.html", "/**/*.png"
                 , "/**/*.ttf", "/**/*.svg", "/**/*.woff");
 
@@ -219,7 +213,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BaseJwtAccessDeniedHandler();
     }
 
-    //解决spring security 5.x无法注入AuthenticationManager的问题
+    //Resolve the issue of AuthenticationManager being unable to be injected by spring security 5.x
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -227,7 +221,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationManager;
     }
 
-    //TODO 以下代码要换一种写法
+    //TODO The following code should be written differently
     @Autowired
     private IUserInfoService iUserService;
 
@@ -236,21 +230,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BaseDynamicAuthorization() {
             @Override
             protected Set<String> getRequiredAuthoritySet(HttpServletRequest request) {
-                // TODO 每次请求都要调用此方法，因此一定要加缓存，使用的是Spring Cache
-                // TODO 现在是绝对匹配，不支持模糊匹配，用户可以在此自定义扩展其他资源与角色的匹配逻辑，如支持 /** 这种模糊匹配
-                // TODO menuUrl与requestUrl没有任何关系,所以TaijiAccessDecisionManager的逻辑一直没有生效
+
+                // TODO calls this method on every request, so it must be cached, using Spring Cache
+                // TODO is now absolute matching, does not support fuzzy matching, users can customize the extension of other resources and role matching logic, such as support /** fuzzy matching
+                // TODO menuUrl and requestUrl has nothing to do, so has not been in effect TaijiAccessDecisionManager logic
                 String requestUrl = request.getRequestURI();
                 if (requestUrl.startsWith("/")) {
                     requestUrl = requestUrl.substring(1);
                 }
                 List<String> menuIds= new ArrayList<>();
                 return new HashSet<>();
-//                List<String> menuIds = iMenuService.findIdsByMenuUrl(requestUrl);
-//                if (CollectionUtils.isEmpty(menuIds)) {
-//                    return new HashSet<>();
-//                } else {
-//                    return new HashSet<>(iRoleMenuService.findRoleIdsByMenuIds(menuIds));
-//                }
             }
         };
     }

@@ -19,43 +19,44 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 框架统一异常
+ * Framework unity exception
  * <p>
- * servlet中的错误状态
- * javax.servlet.error.status_code             类型为Integer        错误状态代码
- * javax.servlet.error.exception_type          类型为Class          异常的类型
- * javax.servlet.error.message                 类型为String         异常的信息
- * javax.servlet.error.exception               类型为Throwable      异常类
- * javax.servlet.error.request_uri             类型为String         异常出现的页面
- * javax.servlet.error.servlet_name            类型为String         异常出现的servlet名
+ * Error status in the servlet
+ * javax.servlet.error.status_code             Type is Integer        Error status code
+ * javax.servlet.error.exception_type          Type is Class          Type of exception
+ * javax.servlet.error.message                 Type is String         Information of exception
+ * javax.servlet.error.exception               Type is Throwable      Exception class
+ * javax.servlet.error.request_uri             Type is String         Page where an exception occurs
+ * javax.servlet.error.servlet_name            Type is String         The name of servlet where an exception occurs
  * <p>
  */
 public abstract class BaseExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(BaseExceptionHandler.class);
 
     private static final String ERROR_MES_SEPARATOR = "####";
-    private final String message = "服务器开小差了";
+    private final String message = "The server is out of order";
 
 
     /**
-     * 基础异常，如果实际项目没有覆盖，则会被此handler捕捉处理
+     * Base exceptions, which are caught and handled by this handler if the actual item is not overridden
      */
     @ExceptionHandler(BaseException.class)
     @ResponseBody
     public ResponseEntity<ResultDTO> baseExceptionHandler(HttpServletRequest request, BaseException ex) {
-        // 框架自定义异常属于业务异常，统一返回200状态
+
+        // Framework custom exceptions are service exceptions and return status 200
         logger.error(ex.getMessage(), ex);
         return new ResponseEntity<>(new ResultDTO<>(ex.getCode(), ex.getMessage(), ""), HttpStatus.OK);
     }
 
     /**
-     * 唯一索引异常捕获
+     * Unique index exception catching
      * @param ex
      * @return
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ResultDTO> dataIntegrityViolationExceptionExceptionHandler(DataIntegrityViolationException  ex) {
-        // 框架自定义异常属于业务异常，统一返回200状态
+        // Framework custom exceptions are service exceptions and return status 200
         logger.error(ex.getMessage(),ex);
         Throwable cause = ex.getCause();
         String errorMessage = "";
@@ -65,19 +66,20 @@ public abstract class BaseExceptionHandler {
         if (!(cause instanceof SQLIntegrityConstraintViolationException)) {
             errorMessage = cause.getCause().getMessage();
         }
-        //匹配汉字正则
+
+        // Match the Chinese character re
         String reg = "[u4E00-u9FA5]";
-        //匹配英文字母和单引号正则
+        // Matches letters and single quotes re
         String rega = "[a-zA-Z_\']";
 
         Pattern compile = Pattern.compile(reg);
         Matcher matcher = compile.matcher(errorMessage);
         String msg = "";
-        //如果包含中文
+        // If Chinese is included
         if (matcher.find()) {
             msg = errorMessage;
-            //将非中文字符替换为空
-            msg = msg.replaceAll(rega,"").trim()+"重复";
+            // Replace non-Chinese characters with empty ones
+            msg = msg.replaceAll(rega,"").trim()+ "repeat";
             return new ResponseEntity<>(new ResultDTO<>(40001,msg , ""), HttpStatus.OK);
         }else {
             return new ResponseEntity<>(new ResultDTO<>(40001,message , ""), HttpStatus.OK);
@@ -85,7 +87,7 @@ public abstract class BaseExceptionHandler {
     }
 
     /**
-     * 通用方法参数校验异常捕获
+     * General method parameter check exception catch
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResultDTO> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -95,13 +97,13 @@ public abstract class BaseExceptionHandler {
     }
 
     /**
-     * 通用方法参数校验异常捕获
+     * General method parameter check exception catch
      */
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ResultDTO> handleValidationExceptions(ValidationException ex) {
         logger.error(ex.getMessage(), ex);
         String message = ex.getMessage();
-        //匹配汉字正则
+        //Matching Chinese character Re
         String reg = "[u4E00-u9FA5]";
 
 
@@ -117,7 +119,7 @@ public abstract class BaseExceptionHandler {
     }
 
     /**
-     * 最基础异常封装，起"保底"作用
+     * The most basic abnormal encapsulation, play the role of "bottom"
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
@@ -126,7 +128,8 @@ public abstract class BaseExceptionHandler {
         String messageDetail = ex.getMessage();
 
         String msg = message;
-        //TODO 判断是否包含友好的描述信息。判断是否包含中文，如果包含中文，则拼接到message中
+
+        //TODO determines whether a friendly description is included. Check whether it contains Chinese, and if it does, concatenate it into message
         Matcher m = Pattern.compile("[\u4e00-\u9fa5]").matcher(messageDetail);
         if (m.find()) {
             msg = messageDetail;
